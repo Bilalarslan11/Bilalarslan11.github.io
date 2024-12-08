@@ -2,7 +2,7 @@
   "name": "civi",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://bilalarslan11.github.io/bilalarslan11.github.io",
+  "homepage": "https://bilalarslan11.github.io",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
