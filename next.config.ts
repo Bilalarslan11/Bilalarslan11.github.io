@@ -2,11 +2,13 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  basePath: '/bilalarslan11.github.io',
+  output: 'export',
   trailingSlash: true,
   images: {
-    unoptimized: true,
+    unoptimized: true, // Disables the Image Optimization API for static export
   },
+  //assetPrefix: '/Bilalarslan11.github.io/', // Use the full GitHub Pages URL
+  //basePath: '/Bilalarslan11.github.io',
 };
 
 export default nextConfig;

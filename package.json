@@ -7,14 +7,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "lint": "next lint",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d out"
+    "deploy": "touch ./out/.nojekyll && gh-pages -d out -t true"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
-    "next": "^15.0.4",
-    "react": "19.0.0-rc-66855b96-20241106",
-    "react-dom": "19.0.0-rc-66855b96-20241106",
+    "next": "^15.1.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "react-tsparticles": "^2.12.2",
     "react-type-animation": "^3.2.0",
     "tsparticles-engine": "^2.12.0",
