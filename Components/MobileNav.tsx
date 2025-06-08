@@ -12,19 +12,55 @@ const MobileNav = ({ nav, closeNav }: Props) => {
     return (
         <div
             className={`fixed ${navAnimation} transform transition-all duration-300 top-0 left-0 right-0 bottom-0
-             z-[1000000] bg-[#09101a]`}
+             z-[1000000] bg-theme-primary`}
         >
             <div className="w-[100vw] h-[100vh] flex flex-col items-center justify-center">
-                <div className="nav-link-mobile">HOME</div>
-                <div className="nav-link-mobile">SERVICES</div>
-                <div className="nav-link-mobile">ABOUT</div>
-                <div className="nav-link-mobile">PROJECT</div>
-                <div className="nav-link-mobile">BLOG</div>
-                <div className="nav-link-mobile">CONTACT</div>
+                <div
+                    className="relative mb-[2rem] font-semibold text-theme-text cursor-pointer text-[27px] w-fit block after:block after:content-[''] 
+                after:absolute after:h-[3px] after:bg-theme-secondary after:w-full after:scale-x-0 after:hover:scale-x-100 
+                after:transition after:duration-300 after:origin-center"
+                >
+                    HOME
+                </div>
+                <div
+                    className="relative mb-[2rem] font-semibold text-theme-text cursor-pointer text-[27px] w-fit block after:block after:content-[''] 
+                after:absolute after:h-[3px] after:bg-theme-secondary after:w-full after:scale-x-0 after:hover:scale-x-100 
+                after:transition after:duration-300 after:origin-center"
+                >
+                    SERVICES
+                </div>
+                <div
+                    className="relative mb-[2rem] font-semibold text-theme-text cursor-pointer text-[27px] w-fit block after:block after:content-[''] 
+                after:absolute after:h-[3px] after:bg-theme-secondary after:w-full after:scale-x-0 after:hover:scale-x-100 
+                after:transition after:duration-300 after:origin-center"
+                >
+                    ABOUT
+                </div>
+                <div
+                    className="relative mb-[2rem] font-semibold text-theme-text cursor-pointer text-[27px] w-fit block after:block after:content-[''] 
+                after:absolute after:h-[3px] after:bg-theme-secondary after:w-full after:scale-x-0 after:hover:scale-x-100 
+                after:transition after:duration-300 after:origin-center"
+                >
+                    PROJECT
+                </div>
+                <div
+                    className="relative mb-[2rem] font-semibold text-theme-text cursor-pointer text-[27px] w-fit block after:block after:content-[''] 
+                after:absolute after:h-[3px] after:bg-theme-secondary after:w-full after:scale-x-0 after:hover:scale-x-100 
+                after:transition after:duration-300 after:origin-center"
+                >
+                    BLOG
+                </div>
+                <div
+                    className="relative mb-[2rem] font-semibold text-theme-text cursor-pointer text-[27px] w-fit block after:block after:content-[''] 
+                after:absolute after:h-[3px] after:bg-theme-secondary after:w-full after:scale-x-0 after:hover:scale-x-100 
+                after:transition after:duration-300 after:origin-center"
+                >
+                    CONTACT
+                </div>
             </div>
             <div
                 onClick={closeNav}
-                className="absolute z-[10000000] cursor-pointer top-[2rem] right-[2rem] w-[2rem] h-[2rem] text-yellow-400"
+                className="absolute z-[10000000] cursor-pointer top-[2rem] right-[2rem] w-[2rem] h-[2rem] text-theme-secondary"
             >
                 <XMarkIcon />
             </div>

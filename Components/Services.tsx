@@ -7,19 +7,18 @@ import React from "react";
 
 const Services = () => {
     return (
-        <div className="bg-[#121212] pt-[4rem] md:pt-[8rem] pb-[5rem]">
+        <div className="bg-theme-primary pt-[4rem] md:pt-[8rem] pb-[5rem]">
             <p className="heading">
-                My <span className="text-yellow-400">Services</span>
+                My <span className="text-theme-secondary">Services</span>
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-[80%] mx-auto items-center gap-[3rem] mt-[4rem] text-white">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-[80%] mx-auto items-center gap-[3rem] mt-[4rem] text-theme-text">
                 <div>
-                    <div className="bg-red-700 hover:scale-110 transform transition-all duration-300 
-                                    hover:-rotate-6 uppercase font-semibold text-center p-[2rem]">
-                        <PaintBrushIcon className="w-[6rem] h-[6rem] mx-auto text-[#d3fae8]" />
+                    <div className="bg-theme-darker card-service hover:-rotate-6">
+                        <PaintBrushIcon className="w-[6rem] h-[6rem] mx-auto text-theme-text" />
                         <h1 className="text-[20px] md:text-[30px] mt-[1.5rem] mb-[1.5rem]">
                             Frontend
                         </h1>
-                        <p className="text-[15px] text-[#d3fae8] font-normal">
+                        <p className="text-[15px] text-theme-text-muted font-normal">
                             Lorem ipsum dolor sit amet consectetur adipisicing
                             elit. Nam magnam ullam amet ex quam repudiandae
                             velit laudantium eaque voluptas ad eius ut,
@@ -29,13 +28,12 @@ const Services = () => {
                     </div>
                 </div>
                 <div>
-                    <div className="bg-orange-700 hover:scale-110 transform transition-all duration-300 
-                                    hover:rotate uppercase font-semibold text-center p-[2rem]">
-                        <RocketLaunchIcon className="w-[6rem] h-[6rem] mx-auto text-[#d3fae8]" />
+                    <div className="bg-theme-dark card-service">
+                        <RocketLaunchIcon className="w-[6rem] h-[6rem] mx-auto text-theme-text" />
                         <h1 className="text-[20px] md:text-[30px] mt-[1.5rem] mb-[1.5rem]">
                             Backend
                         </h1>
-                        <p className="text-[15px] text-[#d3fae8] font-normal">
+                        <p className="text-[15px] text-theme-text-muted font-normal">
                             Lorem ipsum dolor sit amet consectetur adipisicing
                             elit. Nam magnam ullam amet ex quam repudiandae
                             velit laudantium eaque voluptas ad eius ut,
@@ -45,13 +43,12 @@ const Services = () => {
                     </div>
                 </div>
                 <div>
-                    <div className="bg-blue-700 hover:scale-110 transform transition-all duration-300 
-                                    hover:rotate-6 uppercase font-semibold text-center p-[2rem]">
-                        <CommandLineIcon className="w-[6rem] h-[6rem] mx-auto text-[#d3fae8]" />
+                    <div className="bg-theme-accent card-service hover:rotate-6">
+                        <CommandLineIcon className="w-[6rem] h-[6rem] mx-auto text-theme-text" />
                         <h1 className="text-[20px] md:text-[30px] mt-[1.5rem] mb-[1.5rem]">
                             Fullstack
                         </h1>
-                        <p className="text-[15px] text-[#d3fae8] font-normal">
+                        <p className="text-[15px] text-theme-text-muted font-normal">
                             Lorem ipsum dolor sit amet consectetur adipisicing
                             elit. Nam magnam ullam amet ex quam repudiandae
                             velit laudantium eaque voluptas ad eius ut,

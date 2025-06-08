@@ -6,16 +6,22 @@
 
 @layer components {
     .nav-link {
-        @apply relative font-semibold text-white cursor-pointer text-[17px] w-fit md:block after:block after:content-[''] 
-        after:absolute after:h-[3px] after:bg-yellow-400 after:w-full after:scale-x-0 after:hover:scale-x-100 
+        @apply relative font-semibold text-theme-text cursor-pointer text-[17px] w-fit md:block after:block after:content-[''] 
+        after:absolute after:h-[3px] after:bg-theme-secondary after:w-full after:scale-x-0 after:hover:scale-x-100 
         after:transition after:duration-300 after:origin-center hidden
     }
     .nav-link-mobile {
-        @apply relative mb-[2rem] font-semibold text-white cursor-pointer text-[27px] w-fit md:block after:block after:content-[''] 
-        after:absolute after:h-[3px] after:bg-yellow-400 after:w-full after:scale-x-0 after:hover:scale-x-100 
+        @apply relative mb-[2rem] font-semibold text-theme-text cursor-pointer text-[27px] w-fit md:block after:block after:content-[''] 
+        after:absolute after:h-[3px] after:bg-theme-secondary after:w-full after:scale-x-0 after:hover:scale-x-100 
         after:transition after:duration-300 after:origin-center hidden
     }
     .heading {
-        @apply text-center text-white text-[20px] sm:text-[33px] md:text-[45px] font-bold uppercase
+        @apply text-center text-theme-text text-[20px] sm:text-[33px] md:text-[45px] font-bold uppercase
+    }
+    .btn-primary {
+        @apply px-[2rem] hover:bg-theme-accent transition-all duration-200 py-[1rem] text-[18px] font-extrabold uppercase bg-theme-secondary text-theme-text
+    }
+    .card-service {
+        @apply hover:scale-110 transform transition-all duration-300 uppercase font-semibold text-center p-[2rem]
     }
 }
