@@ -25,3 +25,13 @@
         @apply hover:scale-110 transform transition-all duration-300 uppercase font-semibold text-center p-[2rem]
     }
 }
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 12vh; /* Matches your navbar height */
+}
+
+/* Or target sections specifically */
+section {
+    scroll-margin-top: 12vh;
+}

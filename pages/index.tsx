@@ -11,20 +11,58 @@ const HomePage = () => {
     const openNav = () => setNav(true);
     const closeNav = () => setNav(false);
 
+    const scrollToSection = (sectionId: string) => {
+        // Close mobile nav first if it's open
+        if (nav) {
+            closeNav();
+        }
+
+        // Add small delay to ensure mobile nav is closed before scrolling
+        setTimeout(() => {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                const headerHeight =
+                    document.querySelector("nav")?.offsetHeight || 0;
+                const elementPosition =
+                    element.getBoundingClientRect().top + window.pageYOffset;
+                const offsetPosition = elementPosition - headerHeight - 20; // Extra 20px padding
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth",
+                });
+            }
+        }, 50); // Wait for mobile nav animation to complete
+    };
+
     return (
         <div className="overflow-x-hidden">
             <div>
                 <MobileNav
                     nav={nav}
                     closeNav={closeNav}
+                    scrollToSection={scrollToSection}
                 />
-                <Nav openNav={openNav} />
-                <Hero />
+                <Nav
+                    openNav={openNav}
+                    scrollToSection={scrollToSection}
+                />
+                <section id="home">
+                    <Hero />
+                </section>
                 <div className="relative z-[30]">
-                    <About />
-                    <Services />
-                    <Skills />
-                    {/* <Projects /> */}
+                    <section id="about">
+                        <About />
+                    </section>
+                    <section id="focus">
+                        <Services />
+                    </section>
+                    <section id="xp">
+                        <Skills />
+                    </section>
+                    {/* <section id="contact">
+                        <Projects />
+                    </section> */}
                 </div>
             </div>
         </div>

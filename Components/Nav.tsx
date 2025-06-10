@@ -3,9 +3,10 @@ import React from "react";
 
 interface Props {
     openNav: () => void;
+    scrollToSection: (sectionId: string) => void;
 }
 
-const Nav = ({ openNav }: Props) => {
+const Nav = ({ openNav, scrollToSection }: Props) => {
     return (
         <div className="w-[100%] fixed z-[10000] top-0 h-[12vh] bg-theme-primary shadow-md">
             <div className="flex items-center justify-between w-[80%] mx-auto h-[100%]">
@@ -13,11 +14,36 @@ const Nav = ({ openNav }: Props) => {
                     ZE
                     <span className="text-theme-secondary">HAI</span>
                 </h1>
-                <div className="nav-link">HOME</div>
-                <div className="nav-link">ABOUT</div>
-                <div className="nav-link">FOCUS</div>
-                <div className="nav-link">XP</div>
-                <div className="nav-link">CONTACT</div>
+                <div
+                    className="nav-link"
+                    onClick={() => scrollToSection("home")}
+                >
+                    HOME
+                </div>
+                <div
+                    className="nav-link"
+                    onClick={() => scrollToSection("about")}
+                >
+                    ABOUT
+                </div>
+                <div
+                    className="nav-link"
+                    onClick={() => scrollToSection("focus")}
+                >
+                    FOCUS
+                </div>
+                <div
+                    className="nav-link"
+                    onClick={() => scrollToSection("xp")}
+                >
+                    XP
+                </div>
+                <div
+                    className="nav-link"
+                    onClick={() => scrollToSection("contact")}
+                >
+                    CONTACT
+                </div>
                 <div onClick={openNav}>
                     <Bars3Icon className="w-[2rem] md:hidden h-[2rem] cursor-pointer text-theme-secondary" />
                 </div>

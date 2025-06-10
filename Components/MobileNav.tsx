@@ -4,9 +4,10 @@ import React from "react";
 interface Props {
     nav: boolean;
     closeNav: () => void;
+    scrollToSection: (sectionId: string) => void;
 }
 
-const MobileNav = ({ nav, closeNav }: Props) => {
+const MobileNav = ({ nav, closeNav, scrollToSection }: Props) => {
     const navAnimation = nav ? "translate-x-0" : "translate-x-[-100%]";
 
     return (
@@ -19,6 +20,7 @@ const MobileNav = ({ nav, closeNav }: Props) => {
                     className="relative mb-[2rem] font-semibold text-theme-text cursor-pointer text-[27px] w-fit block after:block after:content-[''] 
                 after:absolute after:h-[3px] after:bg-theme-secondary after:w-full after:scale-x-0 after:hover:scale-x-100 
                 after:transition after:duration-300 after:origin-center"
+                    onClick={() => scrollToSection("home")}
                 >
                     HOME
                 </div>
@@ -26,13 +28,7 @@ const MobileNav = ({ nav, closeNav }: Props) => {
                     className="relative mb-[2rem] font-semibold text-theme-text cursor-pointer text-[27px] w-fit block after:block after:content-[''] 
                 after:absolute after:h-[3px] after:bg-theme-secondary after:w-full after:scale-x-0 after:hover:scale-x-100 
                 after:transition after:duration-300 after:origin-center"
-                >
-                    SERVICES
-                </div>
-                <div
-                    className="relative mb-[2rem] font-semibold text-theme-text cursor-pointer text-[27px] w-fit block after:block after:content-[''] 
-                after:absolute after:h-[3px] after:bg-theme-secondary after:w-full after:scale-x-0 after:hover:scale-x-100 
-                after:transition after:duration-300 after:origin-center"
+                    onClick={() => scrollToSection("about")}
                 >
                     ABOUT
                 </div>
@@ -40,20 +36,23 @@ const MobileNav = ({ nav, closeNav }: Props) => {
                     className="relative mb-[2rem] font-semibold text-theme-text cursor-pointer text-[27px] w-fit block after:block after:content-[''] 
                 after:absolute after:h-[3px] after:bg-theme-secondary after:w-full after:scale-x-0 after:hover:scale-x-100 
                 after:transition after:duration-300 after:origin-center"
+                    onClick={() => scrollToSection("focus")}
                 >
-                    PROJECT
+                    FOCUS
                 </div>
                 <div
                     className="relative mb-[2rem] font-semibold text-theme-text cursor-pointer text-[27px] w-fit block after:block after:content-[''] 
                 after:absolute after:h-[3px] after:bg-theme-secondary after:w-full after:scale-x-0 after:hover:scale-x-100 
                 after:transition after:duration-300 after:origin-center"
+                    onClick={() => scrollToSection("xp")}
                 >
-                    BLOG
+                    XP
                 </div>
                 <div
                     className="relative mb-[2rem] font-semibold text-theme-text cursor-pointer text-[27px] w-fit block after:block after:content-[''] 
                 after:absolute after:h-[3px] after:bg-theme-secondary after:w-full after:scale-x-0 after:hover:scale-x-100 
                 after:transition after:duration-300 after:origin-center"
+                    onClick={() => scrollToSection("contact")}
                 >
                     CONTACT
                 </div>
@@ -67,4 +66,5 @@ const MobileNav = ({ nav, closeNav }: Props) => {
         </div>
     );
 };
+
 export default MobileNav;
