@@ -9,7 +9,7 @@ const Services = () => {
     return (
         <div className="bg-theme-primary pt-[4rem] md:pt-[8rem] pb-[5rem]">
             <p className="heading">
-                My <span className="text-theme-secondary">Services</span>
+                Focus <span className="text-theme-secondary">areas</span>
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-[80%] mx-auto items-center gap-[3rem] mt-[4rem] text-theme-text">
                 <div>
@@ -19,11 +19,9 @@ const Services = () => {
                             Frontend
                         </h1>
                         <p className="text-[15px] text-theme-text-muted font-normal">
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Nam magnam ullam amet ex quam repudiandae
-                            velit laudantium eaque voluptas ad eius ut,
-                            assumenda consequatur ipsa et dignissimos explicabo
-                            provident sed.
+                            I focus on building clean, responsive interfaces
+                            with attention to detail in design and user
+                            experience.
                         </p>
                     </div>
                 </div>
@@ -34,11 +32,9 @@ const Services = () => {
                             Backend
                         </h1>
                         <p className="text-[15px] text-theme-text-muted font-normal">
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Nam magnam ullam amet ex quam repudiandae
-                            velit laudantium eaque voluptas ad eius ut,
-                            assumenda consequatur ipsa et dignissimos explicabo
-                            provident sed.
+                            I develop scalable, maintainable systems with a
+                            strong emphasis on performance, security, and clear
+                            architecture.
                         </p>
                     </div>
                 </div>
@@ -49,11 +45,9 @@ const Services = () => {
                             Fullstack
                         </h1>
                         <p className="text-[15px] text-theme-text-muted font-normal">
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Nam magnam ullam amet ex quam repudiandae
-                            velit laudantium eaque voluptas ad eius ut,
-                            assumenda consequatur ipsa et dignissimos explicabo
-                            provident sed.
+                            I enjoy bridging frontend and backend to deliver
+                            complete, cohesive solutions that work seamlessly
+                            end to end.
                         </p>
                     </div>
                 </div>

@@ -8,7 +8,7 @@ const TextEffect = () => {
                 1000,
                 "Frontend Lead",
                 1000,
-                "Fullstack Engineer",
+                "Fullstack Developer",
                 1000,
                 "Software Engineer",
                 1000,
@@ -17,7 +17,7 @@ const TextEffect = () => {
             ]}
             wrapper="span"
             speed={50}
-            className="text-[2rem] md:text-[3rem] text-theme-accent font-bold uppercase"
+            className="text-[1.5rem] md:text-[2rem] text-theme-accent font-bold uppercase"
             repeat={Infinity}
         />
     );

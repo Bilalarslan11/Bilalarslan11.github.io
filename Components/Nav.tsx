@@ -13,11 +13,10 @@ const Nav = ({ openNav }: Props) => {
                     ZE
                     <span className="text-theme-secondary">HAI</span>
                 </h1>
-                <div className="nav-link">Home</div>
-                <div className="nav-link">SERVICES</div>
+                <div className="nav-link">HOME</div>
                 <div className="nav-link">ABOUT</div>
-                <div className="nav-link">PROJECT</div>
-                <div className="nav-link">BLOG</div>
+                <div className="nav-link">FOCUS</div>
+                <div className="nav-link">XP</div>
                 <div className="nav-link">CONTACT</div>
                 <div onClick={openNav}>
                     <Bars3Icon className="w-[2rem] md:hidden h-[2rem] cursor-pointer text-theme-secondary" />

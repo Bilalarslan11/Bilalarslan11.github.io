@@ -1,8 +1,7 @@
-import React from "react";
+import { ArrowDownTrayIcon } from "@heroicons/react/20/solid";
+import Image from "next/image";
 import Particle from "./Particle";
 import TextEffect from "./TextEffect";
-import Image from "next/image";
-import { ArrowDownTrayIcon, PlayCircleIcon } from "@heroicons/react/20/solid";
 
 const Hero = () => {
     return (
@@ -16,33 +15,35 @@ const Hero = () => {
                     </h1>
                     <TextEffect />
                     <p className="mt-[2rem] text-[20px] text-theme-text-secondary">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing
-                        elit. Nisi eveniet harum ullam tempora cum quos rerum,
-                        voluptatum pariatur, nam nostrum similique repellendus
-                        eos consequatur eaque voluptas magni quae doloribus
-                        quam.
+                        Experienced Software Engineer based in Copenhagen with
+                        many years at the same company, blending strong
+                        technical skills with a passion for design and
+                        usability. Former professional gamer with a competitive
+                        edge and a problem-solving mindset.
                     </p>
                     <div className="mt-[2rem] flex-col space-y-6 sm:space-y-0 sm:flex sm:flex-row items-center sm:space-x-6">
                         <button className="btn-primary flex items-center space-x-2">
                             <p>Download CV</p>
                             <ArrowDownTrayIcon className="w-[1.6rem] h-[1.7rem] text-theme-text" />
                         </button>
-                        <button className="flex items-center space-x-2">
+                        {/* <button className="flex items-center space-x-2">
                             <PlayCircleIcon className="w-[4rem] h-[4rem] hover:text-theme-accent transition-all duration-200 text-theme-secondary" />
-                            <p className="text-[20px] font-semibold text-theme-text">
-                                Watch the video
+                            <p className="text-[20px] italic font-semibold text-theme-text">
+                                Coming soon
                             </p>
-                        </button>
+                        </button> */}
                     </div>
                 </div>
 
-                <div className="w-[300px] hidden bg-theme-dark relative lg:flex items-center rounded-full h-[300px]">
-                    <Image
-                        src="/images/u1.png"
-                        alt="user"
-                        layout="fill"
-                        className="object-cover rounded-full"
-                    />
+                <div className="hidden lg:flex justify-center items-center w-full h-full">
+                    <div className="w-[300px] h-[300px] xl:w-[400px] xl:h-[400px] bg-theme-dark relative rounded-full flex items-center justify-center">
+                        <Image
+                            src="/images/u1.png"
+                            alt="user"
+                            layout="fill"
+                            className="object-cover rounded-full"
+                        />
+                    </div>
                 </div>
             </div>
         </div>
