@@ -22,10 +22,14 @@ const Hero = () => {
                         edge and a problem-solving mindset.
                     </p>
                     <div className="mt-[2rem] flex-col space-y-6 sm:space-y-0 sm:flex sm:flex-row items-center sm:space-x-6">
-                        <button className="btn-primary flex items-center space-x-2">
+                        <a
+                            href="/Profile.pdf"
+                            download="Profile.pdf"
+                            className="btn-primary flex items-center space-x-2"
+                        >
                             <p>Download CV</p>
                             <ArrowDownTrayIcon className="w-[1.6rem] h-[1.7rem] text-theme-text" />
-                        </button>
+                        </a>
                         {/* <button className="flex items-center space-x-2">
                             <PlayCircleIcon className="w-[4rem] h-[4rem] hover:text-theme-accent transition-all duration-200 text-theme-secondary" />
                             <p className="text-[20px] italic font-semibold text-theme-text">
