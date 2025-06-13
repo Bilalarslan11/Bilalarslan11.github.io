@@ -1,4 +1,5 @@
 import About from "@/Components/About";
+import Contact from "@/Components/Contact";
 import Hero from "@/Components/Hero";
 import MobileNav from "@/Components/MobileNav";
 import Nav from "@/Components/Nav";
@@ -60,9 +61,9 @@ const HomePage = () => {
                     <section id="xp">
                         <Skills />
                     </section>
-                    {/* <section id="contact">
-                        <Projects />
-                    </section> */}
+                    <section id="contact">
+                        <Contact />
+                    </section>
                 </div>
             </div>
         </div>
