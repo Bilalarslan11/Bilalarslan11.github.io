@@ -16,7 +16,7 @@ const Hero = () => {
                     <TextEffect />
                     <p className="mt-[2rem] text-[20px] text-theme-text-secondary">
                         Experienced Software Engineer based in Copenhagen with
-                        many years at the same company, blending strong
+                        over 10 years at the same company, blending strong
                         technical skills with a passion for design and
                         usability. Former professional gamer with a competitive
                         edge and a problem-solving mindset.

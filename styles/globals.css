@@ -4,6 +4,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    html, body {
+        @apply bg-theme-primary;
+        margin: 0;
+        padding: 0;
+    }
+}
+
 @layer components {
     .nav-link {
         @apply relative font-semibold text-theme-text cursor-pointer text-[17px] w-fit md:block after:block after:content-[''] 
@@ -28,10 +36,9 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 12vh; /* Matches your navbar height */
+    scroll-padding-top: 12vh;
 }
 
-/* Or target sections specifically */
 section {
     scroll-margin-top: 12vh;
 }

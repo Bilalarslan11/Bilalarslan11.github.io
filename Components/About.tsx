@@ -9,7 +9,7 @@ const About = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 w-[80%] mx-auto gap-[3rem] items-center mt-[4rem]">
                 <div>
                     <h2 className="text-[25px] md:text-[35px] lg:text-[45px] md:leading-[3rem] leading-[2rem] capitalize mb-[3rem] font-bold text-theme-text">
-                        Transforming{" "}
+                        Engineering{" "}
                         <span className="text-theme-secondary">Visions</span>
                     </h2>
                     <div className="mb-[3rem] flex items-center md:space-x-10">
@@ -38,13 +38,13 @@ const About = () => {
                 <div className="hidden md:flex justify-center items-center w-full h-full">
                     <div className="w-[250px] h-[250px] lg:w-[350px] lg:h-[350px] xl:w-[400px] xl:h-[400px] relative">
                         <Image
-                            src="/images/about.png"
+                            src="/images/about.jpg"
                             alt="user"
                             layout="fill"
                             objectFit="contain"
                             className="relative z-[11] w-[100%] h-[100%] object-contain"
                         />
-                        <div className="absolute w-[100%] h-[100%] z-[10] bg-theme-accent top-[-2rem] right-[-2rem]"></div>
+                        <div className="absolute w-[75%] h-[100%] z-[10] bg-theme-accent top-[-1rem] right-[1rem]"></div>
                     </div>
                 </div>
             </div>

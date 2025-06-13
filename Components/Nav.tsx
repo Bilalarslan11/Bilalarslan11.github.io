@@ -36,7 +36,7 @@ const Nav = ({ openNav, scrollToSection }: Props) => {
                     className="nav-link"
                     onClick={() => scrollToSection("xp")}
                 >
-                    XP
+                    SKILLS
                 </div>
                 <div
                     className="nav-link"
