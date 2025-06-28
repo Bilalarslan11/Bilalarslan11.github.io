@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Nav from "@/Components/Nav";
 import MobileNav from "@/Components/MobileNav";
+import Box from "@mui/material/Box";
 
 const Gaming = () => {
     const [nav, setNav] = useState(false);
@@ -23,11 +24,7 @@ const Gaming = () => {
                 scrollToSection={scrollToSection}
             />
 
-            <div className="h-screen flex items-center justify-center mt-[12vh]">
-                <h1 className="text-[50px] font-bold text-theme-text">
-                    GAMING <span className="text-theme-secondary">PAGE</span>
-                </h1>
-            </div>
+            <Box></Box>
         </div>
     );
 };

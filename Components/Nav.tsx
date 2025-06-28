@@ -1,6 +1,8 @@
 import React from "react";
 import Image from "next/legacy/image";
 import { Bars3Icon } from "@heroicons/react/16/solid";
+import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
+import { useRouter } from "next/router";
 
 interface Props {
     openNav: () => void;
@@ -8,6 +10,8 @@ interface Props {
 }
 
 const Nav = ({ openNav, scrollToSection }: Props) => {
+    const router = useRouter();
+
     return (
         <div className="w-[100%] fixed z-[10000] top-0 h-[12vh] bg-theme-primary shadow-md">
             <div className="flex items-center justify-between w-[80%] mx-auto h-[100%]">
@@ -18,47 +22,68 @@ const Nav = ({ openNav, scrollToSection }: Props) => {
                         width={51}
                         height={51}
                         className="object-contain"
+                        onClick={() => router.push("/")}
                     />
                 </div>
-                <h1 className="flex-[0.6] cursor-pointer text-[25px] text-theme-text font-bold">
+
+                <h1 className="cursor-pointer text-[25px] text-theme-text font-bold flex-[0.6] pl-4">
                     ZE<span className="text-theme-secondary">HAI</span>
                 </h1>
-                <button
-                    className="nav-link"
-                    onClick={() => scrollToSection("home")}
-                >
-                    HOME
-                </button>
-                <button
-                    className="nav-link"
-                    onClick={() => scrollToSection("about")}
-                >
-                    ABOUT
-                </button>
-                <button
-                    className="nav-link"
-                    onClick={() => scrollToSection("focus")}
-                >
-                    FOCUS
-                </button>
-                <button
-                    className="nav-link"
-                    onClick={() => scrollToSection("xp")}
-                >
-                    SKILLS
-                </button>
-                <button
-                    className="nav-link"
-                    onClick={() => scrollToSection("contact")}
-                >
-                    CONTACT
-                </button>
-                <button
-                    onClick={openNav}
-                    className="md:hidden"
-                >
-                    <Bars3Icon className="w-[2rem] h-[2rem] cursor-pointer text-theme-secondary" />
-                </button>
+
+                <div className="flex items-center space-x-6 flex-1 justify-end mr-8">
+                    {router.pathname !== "/gaming" && (
+                        <>
+                            <button
+                                className="nav-link"
+                                onClick={() => scrollToSection("home")}
+                            >
+                                HOME
+                            </button>
+                            <button
+                                className="nav-link"
+                                onClick={() => scrollToSection("about")}
+                            >
+                                ABOUT
+                            </button>
+                            <button
+                                className="nav-link"
+                                onClick={() => scrollToSection("focus")}
+                            >
+                                FOCUS
+                            </button>
+                            <button
+                                className="nav-link"
+                                onClick={() => scrollToSection("xp")}
+                            >
+                                SKILLS
+                            </button>
+                            <button
+                                className="nav-link"
+                                onClick={() => scrollToSection("contact")}
+                            >
+                                CONTACT
+                            </button>
+                        </>
+                    )}
+                </div>
+
+                <div className="flex items-center space-x-4">
+                    {router.pathname !== "/gaming" && (
+                        <button onClick={() => router.push("/gaming")}>
+                            <SportsEsportsIcon
+                                className="cursor-pointer text-theme-secondary"
+                                style={{ fontSize: "2.5rem" }}
+                            />
+                        </button>
+                    )}
+
+                    <button
+                        onClick={openNav}
+                        className="md:hidden"
+                    >
+                        <Bars3Icon className="w-[2rem] h-[2rem] cursor-pointer text-theme-secondary" />
+                    </button>
+                </div>
             </div>
         </div>
     );
