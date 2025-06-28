@@ -1,5 +1,5 @@
 import { ArrowDownTrayIcon } from "@heroicons/react/20/solid";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Particle from "./Particle";
 import TextEffect from "./TextEffect";
 

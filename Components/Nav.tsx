@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { Bars3Icon } from "@heroicons/react/16/solid";
 
 interface Props {
@@ -53,9 +53,12 @@ const Nav = ({ openNav, scrollToSection }: Props) => {
                 >
                     CONTACT
                 </button>
-                <div onClick={openNav}>
-                    <Bars3Icon className="w-[2rem] md:hidden h-[2rem] cursor-pointer text-theme-secondary" />
-                </div>
+                <button
+                    onClick={openNav}
+                    className="md:hidden"
+                >
+                    <Bars3Icon className="w-[2rem] h-[2rem] cursor-pointer text-theme-secondary" />
+                </button>
             </div>
         </div>
     );
