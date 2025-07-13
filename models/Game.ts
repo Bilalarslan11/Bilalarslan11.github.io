@@ -1,9 +1,9 @@
 export interface Game {
     id: number;
-    image: string;
-    title: string;
-    producer: string;
     rank: number;
+    title: string;
+    producer: string; // Maps to "Company" from CSV
+    hours: number; // Maps to "Jul/24" from CSV
+    image: string;
     rating: number;
-    hours?: number; // Optional since not all games may have hours tracked
 }

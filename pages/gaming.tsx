@@ -26,24 +26,32 @@ const Gaming = () => {
                 Papa.parse(csvData, {
                     header: true,
                     skipEmptyLines: true,
-                    complete: (results: Papa.ParseResult<any>) => {
+                    complete: (
+                        results: Papa.ParseResult<Record<string, string>>
+                    ) => {
                         const parsedGames: Game[] = results.data
-                            .map((row: any, index: number) => ({
-                                id: index + 1,
-                                title: row["Game:"] || "",
-                                producer: row["Company"] || "",
-                                hours: parseInt(row["Jul/24"] || "0", 10),
-                                rank: parseInt(
-                                    (row["Rank"] || "0").replace(/\D/g, ""),
-                                    10
-                                ),
-                                image:
-                                    "https://picsum.photos/400/400?random=" +
-                                    index,
-                                rating:
-                                    Math.round((Math.random() * 2 + 8) * 10) /
-                                    10, // Random rating 8.0-10.0
-                            }))
+                            .map(
+                                (
+                                    row: Record<string, string>,
+                                    index: number
+                                ) => ({
+                                    id: index + 1,
+                                    title: row["Game:"] || "",
+                                    producer: row["Company"] || "",
+                                    hours: parseInt(row["Jul/24"] || "0", 10),
+                                    rank: parseInt(
+                                        (row["Rank"] || "0").replace(/\D/g, ""),
+                                        10
+                                    ),
+                                    image:
+                                        "https://picsum.photos/400/400?random=" +
+                                        index,
+                                    rating:
+                                        Math.round(
+                                            (Math.random() * 2 + 8) * 10
+                                        ) / 10, // Random rating 8.0-10.0
+                                })
+                            )
                             .filter((game) => game.title && game.rank); // Filter out invalid entries
 
                         parsedGames.sort((a, b) => a.rank - b.rank);
@@ -56,36 +64,10 @@ const Gaming = () => {
             });
     }, []);
 
-    const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (!file) return;
-
-        Papa.parse(file, {
-            header: true,
-            skipEmptyLines: true,
-            complete: (results: Papa.ParseResult<any>) => {
-                const parsedGames: Game[] = results.data
-                    .map((row: any, index: number) => ({
-                        id: index + 1,
-                        title: row["Game:"] || "",
-                        producer: row["Company"] || "",
-                        hours: parseInt(row["Jul/24"] || "0", 10),
-                        rank: parseInt(
-                            (row["Rank"] || "0").replace(/\D/g, ""),
-                            10
-                        ),
-                        image: "https://picsum.photos/400/400?random=" + index,
-                        rating: Math.round((Math.random() * 2 + 8) * 10) / 10, // Random rating 8.0-10.0
-                    }))
-                    .filter((game) => game.title && game.rank); // Filter out invalid entries
-
-                parsedGames.sort((a, b) => a.rank - b.rank);
-                setGamesFromCSV(parsedGames);
-            },
-        });
-    };
-
-    const games: Game[] = gamesFromCSV.length > 0 ? gamesFromCSV : gamesData;
+    const games: Game[] =
+        gamesFromCSV.length > 0
+            ? gamesFromCSV
+            : gamesData.map((game) => ({ ...game, hours: 0 }));
 
     return (
         <div className="overflow-x-hidden bg-theme-primary min-h-screen">
