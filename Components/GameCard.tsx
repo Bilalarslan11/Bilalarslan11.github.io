@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Game } from "@/models/Game";
 
 interface Props {
@@ -34,52 +35,57 @@ const GameCard = ({ game }: Props) => {
     };
 
     return (
-        <div className="game-card">
-            <div className="game-image">
-                <Image
-                    src={game.image}
-                    alt={game.title}
-                    fill
-                    className="image"
-                />
-            </div>
-
-            <div className="game-info-box">
-                {game.rank <= 3 ? (
-                    <div className="rank-star-image">
-                        <Image
-                            src="/images/star.png"
-                            alt="Star"
-                            width={70}
-                            height={70}
-                            style={{
-                                filter: getStarColorFilter(game.rank),
-                            }}
-                        />
-                        <span className="rank-number">{game.rank}</span>
-                    </div>
-                ) : (
-                    <div
-                        className={`rank-circle ${getRankColorClass(
-                            game.rank
-                        )}`}
-                    >
-                        {game.rank}
-                    </div>
-                )}
-
-                <div className="game-info">
-                    <h3>{game.title}</h3>
-                    <p>{game.producer}</p>
+        <Link
+            href={`/gaming/${game.id}`}
+            className="block"
+        >
+            <div className="game-card cursor-pointer">
+                <div className="game-image">
+                    <Image
+                        src={game.image}
+                        alt={game.title}
+                        fill
+                        className="image"
+                    />
                 </div>
 
-                <div className="game-rating">
-                    <span className="star">★</span>
-                    <span className="score">{game.rating}</span>
-                    <span className="total">/10</span>
+                <div className="game-info-box">
+                    {game.rank <= 3 ? (
+                        <div className="rank-star-image">
+                            <Image
+                                src="/images/star.png"
+                                alt="Star"
+                                width={70}
+                                height={70}
+                                style={{
+                                    filter: getStarColorFilter(game.rank),
+                                }}
+                            />
+                            <span className="rank-number">{game.rank}</span>
+                        </div>
+                    ) : (
+                        <div
+                            className={`rank-circle ${getRankColorClass(
+                                game.rank
+                            )}`}
+                        >
+                            {game.rank}
+                        </div>
+                    )}
+
+                    <div className="game-info">
+                        <h3>{game.title}</h3>
+                        <p>{game.producer}</p>
+                    </div>
+
+                    <div className="game-rating">
+                        <span className="star">★</span>
+                        <span className="score">{game.rating}</span>
+                        <span className="total">/10</span>
+                    </div>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 };
 

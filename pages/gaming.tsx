@@ -1,7 +1,6 @@
 import GameCard from "@/Components/GameCard";
 import MobileNav from "@/Components/MobileNav";
 import Nav from "@/Components/Nav";
-import gamesData from "@/data/games.json";
 import { Game } from "@/models/Game";
 import Box from "@mui/material/Box";
 import Papa from "papaparse";
@@ -64,10 +63,7 @@ const Gaming = () => {
             });
     }, []);
 
-    const games: Game[] =
-        gamesFromCSV.length > 0
-            ? gamesFromCSV
-            : gamesData.map((game) => ({ ...game, hours: 0 }));
+    const games: Game[] = gamesFromCSV;
 
     return (
         <div className="overflow-x-hidden bg-theme-primary min-h-screen">
