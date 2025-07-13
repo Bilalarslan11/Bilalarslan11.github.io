@@ -19,6 +19,10 @@ module.exports = {
                     text: "#ffffff", // White
                     "text-secondary": "#ffffff92", // White with opacity
                     "text-muted": "#d1d5db", // Gray-300
+                    // Medal colors for rankings
+                    gold: "#ffd700", // Gold
+                    silver: "#c0c0c0", // Silver
+                    bronze: "#cd7f32", // Bronze
                 },
             },
             backgroundImage: {
