@@ -5,4 +5,5 @@ export interface Game {
     producer: string;
     rank: number;
     rating: number;
+    hours?: number; // Optional since not all games may have hours tracked
 }

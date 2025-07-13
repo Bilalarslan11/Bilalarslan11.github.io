@@ -1,10 +1,11 @@
-import React, { useState } from "react";
-import Nav from "@/Components/Nav";
-import MobileNav from "@/Components/MobileNav";
 import GameCard from "@/Components/GameCard";
-import { Game } from "@/models/Game";
+import MobileNav from "@/Components/MobileNav";
+import Nav from "@/Components/Nav";
 import gamesData from "@/data/games.json";
+import { Game } from "@/models/Game";
 import Box from "@mui/material/Box";
+import Papa from "papaparse";
+import React, { useEffect, useState } from "react";
 
 const Gaming = () => {
     const [nav, setNav] = useState(false);
@@ -15,7 +16,76 @@ const Gaming = () => {
         closeNav();
     };
 
-    const games: Game[] = gamesData;
+    const [gamesFromCSV, setGamesFromCSV] = useState<Game[]>([]);
+
+    useEffect(() => {
+        // Fetch CSV from public folder
+        fetch("/salihgames.csv")
+            .then((response) => response.text())
+            .then((csvData) => {
+                Papa.parse(csvData, {
+                    header: true,
+                    skipEmptyLines: true,
+                    complete: (results: Papa.ParseResult<any>) => {
+                        const parsedGames: Game[] = results.data
+                            .map((row: any, index: number) => ({
+                                id: index + 1,
+                                title: row["Game:"] || "",
+                                producer: row["Company"] || "",
+                                hours: parseInt(row["Jul/24"] || "0", 10),
+                                rank: parseInt(
+                                    (row["Rank"] || "0").replace(/\D/g, ""),
+                                    10
+                                ),
+                                image:
+                                    "https://picsum.photos/400/400?random=" +
+                                    index,
+                                rating:
+                                    Math.round((Math.random() * 2 + 8) * 10) /
+                                    10, // Random rating 8.0-10.0
+                            }))
+                            .filter((game) => game.title && game.rank); // Filter out invalid entries
+
+                        parsedGames.sort((a, b) => a.rank - b.rank);
+                        setGamesFromCSV(parsedGames);
+                    },
+                });
+            })
+            .catch((error) => {
+                console.error("Error loading CSV:", error);
+            });
+    }, []);
+
+    const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        Papa.parse(file, {
+            header: true,
+            skipEmptyLines: true,
+            complete: (results: Papa.ParseResult<any>) => {
+                const parsedGames: Game[] = results.data
+                    .map((row: any, index: number) => ({
+                        id: index + 1,
+                        title: row["Game:"] || "",
+                        producer: row["Company"] || "",
+                        hours: parseInt(row["Jul/24"] || "0", 10),
+                        rank: parseInt(
+                            (row["Rank"] || "0").replace(/\D/g, ""),
+                            10
+                        ),
+                        image: "https://picsum.photos/400/400?random=" + index,
+                        rating: Math.round((Math.random() * 2 + 8) * 10) / 10, // Random rating 8.0-10.0
+                    }))
+                    .filter((game) => game.title && game.rank); // Filter out invalid entries
+
+                parsedGames.sort((a, b) => a.rank - b.rank);
+                setGamesFromCSV(parsedGames);
+            },
+        });
+    };
+
+    const games: Game[] = gamesFromCSV.length > 0 ? gamesFromCSV : gamesData;
 
     return (
         <div className="overflow-x-hidden bg-theme-primary min-h-screen">
@@ -55,7 +125,6 @@ const Gaming = () => {
                     </p>
                 </div>
             </div>
-
             <div
                 style={{
                     width: "90%",
