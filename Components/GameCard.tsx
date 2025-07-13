@@ -20,9 +20,16 @@ const GameCard = ({ game }: Props) => {
 
             <div className="game-info-box">
                 <div className="rank-circle">{game.rank}</div>
+
                 <div className="game-info">
                     <h3>{game.title}</h3>
                     <p>{game.producer}</p>
+                </div>
+
+                <div className="game-rating">
+                    <span className="star">★</span>
+                    <span className="score">{game.rating}</span>
+                    <span className="total">/10</span>
                 </div>
             </div>
         </div>

@@ -22,7 +22,7 @@
 }
 
 /* --------------------------------------
-   Components Layer
+   Components Layer - Navigation
 -------------------------------------- */
 @layer components {
     .nav-link {
@@ -30,17 +30,26 @@
         after:absolute after:h-[3px] after:bg-theme-secondary after:w-full after:scale-x-0 after:hover:scale-x-100 
         after:transition after:duration-300 after:origin-center hidden;
     }
+    
     .nav-link-mobile {
         @apply relative mb-[2rem] font-semibold text-theme-text cursor-pointer text-[27px] w-fit md:block after:block after:content-[''] 
         after:absolute after:h-[3px] after:bg-theme-secondary after:w-full after:scale-x-0 after:hover:scale-x-100 
         after:transition after:duration-300 after:origin-center hidden;
     }
+}
+
+/* --------------------------------------
+   Components Layer - General UI
+-------------------------------------- */
+@layer components {
     .heading {
         @apply text-center text-theme-text text-[20px] sm:text-[33px] md:text-[45px] font-bold uppercase;
     }
+    
     .btn-primary {
         @apply px-[2rem] hover:bg-theme-accent transition-all duration-200 py-[1rem] text-[18px] font-extrabold uppercase bg-theme-secondary text-theme-text;
     }
+    
     .card-service {
         @apply hover:scale-110 transform transition-all duration-300 uppercase font-semibold text-center p-[2rem];
     }
@@ -59,7 +68,7 @@ section {
 }
 
 /* --------------------------------------
-   Game Card Styles
+   Game Card Components
 -------------------------------------- */
 .game-card {
     position: relative;
@@ -71,6 +80,9 @@ section {
     transform: scale(1.05);
 }
 
+/* --------------------------------------
+   Game Image Section
+-------------------------------------- */
 .game-image {
     position: relative;
     aspect-ratio: 1;
@@ -90,14 +102,40 @@ section {
     transform: scale(1.1);
 }
 
+/* --------------------------------------
+   Game Info Section
+-------------------------------------- */
 .game-info-box {
     position: relative;
     background: #111111;
     border-radius: 0.5rem;
     padding: 1rem;
-    padding-left: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
 }
 
+.game-info h3 {
+    color: white;
+    font-weight: bold;
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+    line-height: 1.2;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.game-info p {
+    color: #d1d5db;
+    font-size: 0.75rem;
+    margin: 0;
+}
+
+/* --------------------------------------
+   Game Interactive Elements
+-------------------------------------- */
 .add-button {
     position: absolute;
     bottom: 0.5rem;
@@ -122,7 +160,7 @@ section {
 
 .rank-circle {
     position: absolute;
-    top: -0.75rem;
+    top: -2.5rem;
     left: -0.75rem;
     width: 3rem;
     height: 3rem;
@@ -138,31 +176,34 @@ section {
     z-index: 20;
 }
 
-.game-info h3 {
-    color: white;
+.game-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: #fbbf24;
     font-weight: bold;
     font-size: 0.875rem;
-    margin-bottom: 0.25rem;
-    line-height: 1.2;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
 }
 
-.game-info p {
-    color: #d1d5db;
-    font-size: 0.75rem;
-    margin: 0;
+.game-rating .star {
+    color: #fbbf24;
+}
+
+.game-rating .score {
+    color: white;
+}
+
+.game-rating .total {
+    color: #9ca3af;
 }
 
 /* --------------------------------------
-   Games Grid
+   Game Grid Layout
 -------------------------------------- */
 .games-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 3rem;
 }
 
 @media (min-width: 640px) {
@@ -181,4 +222,14 @@ section {
     .games-grid {
         grid-template-columns: repeat(5, 1fr);
     }
+}
+
+/* --------------------------------------
+   Utility Classes
+-------------------------------------- */
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }

@@ -4,4 +4,5 @@ export interface Game {
     title: string;
     producer: string;
     rank: number;
+    rating: number;
 }
