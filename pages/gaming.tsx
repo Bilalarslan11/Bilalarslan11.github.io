@@ -19,7 +19,7 @@ const Gaming = () => {
 
     useEffect(() => {
         // Fetch CSV from public folder
-        fetch("/salihgames.csv")
+        fetch("/salihgames2.csv")
             .then((response) => response.text())
             .then((csvData) => {
                 Papa.parse(csvData, {
@@ -35,16 +35,15 @@ const Gaming = () => {
                                     index: number
                                 ) => ({
                                     id: index + 1,
-                                    title: row["Game:"] || "",
+                                    title: row["Name"] || "",
                                     producer: row["Company"] || "",
-                                    hours: parseInt(row["Jul/24"] || "0", 10),
+                                    hours: parseInt(row["Hours"] || "0", 10),
                                     rank: parseInt(
                                         (row["Rank"] || "0").replace(/\D/g, ""),
                                         10
                                     ),
                                     image:
-                                        "https://picsum.photos/400/400?random=" +
-                                        index,
+                                        "/gamepictures/" + row["ID"] + ".png",
                                     rating:
                                         Math.round(
                                             (Math.random() * 2 + 8) * 10
