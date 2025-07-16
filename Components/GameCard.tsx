@@ -21,17 +21,50 @@ const GameCard = ({ game }: Props) => {
         }
     };
 
-    const getStarColorFilter = (rank: number) => {
-        switch (rank) {
-            case 1:
-                return "brightness(1.3) saturate(2) hue-rotate(-10deg) contrast(1.1)"; // Gold
-            case 2:
-                return "brightness(1.4) saturate(0) contrast(1.2)"; // Silver
-            case 3:
-                return "brightness(0.9) saturate(1.8) hue-rotate(-30deg) contrast(1.2)"; // Bronze
-            default:
-                return "brightness(1)";
-        }
+    const CrownIcon = ({ rank }: { rank: number }) => {
+        const getNumberColor = (rank: number) => {
+            switch (rank) {
+                case 1:
+                    return "#B8860B"; // Dark gold
+                case 2:
+                    return "#696969"; // Dark gray/silver
+                case 3:
+                    return "#8B4513"; // Dark bronze/brown
+                default:
+                    return "#000";
+            }
+        };
+
+        return (
+            <div
+                style={{ position: "relative", width: "70px", height: "70px" }}
+            >
+                <Image
+                    src={`/images/crown${
+                        rank === 1 ? "gold" : rank === 2 ? "silver" : "bronze"
+                    }.png`}
+                    alt={`Crown rank ${rank}`}
+                    width={70}
+                    height={70}
+                    style={{ position: "absolute", top: 0, left: 0 }}
+                />
+                <span
+                    style={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
+                        fontSize: "20px",
+                        fontWeight: "bold",
+                        color: getNumberColor(rank),
+                        textShadow: "1px 1px 2px rgba(255,255,255,0.9)",
+                        zIndex: 10,
+                    }}
+                >
+                    {rank}
+                </span>
+            </div>
+        );
     };
 
     return (
@@ -52,16 +85,7 @@ const GameCard = ({ game }: Props) => {
                 <div className="game-info-box">
                     {game.rank <= 3 ? (
                         <div className="rank-star-image">
-                            <Image
-                                src="/images/star.png"
-                                alt="Star"
-                                width={70}
-                                height={70}
-                                style={{
-                                    filter: getStarColorFilter(game.rank),
-                                }}
-                            />
-                            <span className="rank-number">{game.rank}</span>
+                            <CrownIcon rank={game.rank} />
                         </div>
                     ) : (
                         <div
