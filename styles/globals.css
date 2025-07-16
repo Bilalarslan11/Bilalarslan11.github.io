@@ -189,11 +189,26 @@ section {
 }
 
 .game-rating .score {
-    color: white;
+    color: bg-theme-secondary;
 }
 
 .game-rating .total {
-    color: #9ca3af;
+    color: lightyellow;
+}
+
+.game-rating span {
+  display: block;
+}
+
+.game-rating {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.game-rating span {
+  margin: 0;
+  padding: 0;
 }
 
 /* --------------------------------------

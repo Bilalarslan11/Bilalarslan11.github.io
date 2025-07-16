@@ -103,9 +103,8 @@ const GameCard = ({ game }: Props) => {
                     </div>
 
                     <div className="game-rating">
-                        <span className="star">★</span>
-                        <span className="score">{game.rating}</span>
-                        <span className="total">/10</span>
+                        <span className="score">{game.hours}</span>
+                        <span className="total">hours</span>
                     </div>
                 </div>
             </div>
