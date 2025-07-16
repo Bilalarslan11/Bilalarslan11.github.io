@@ -2,8 +2,8 @@ import GameCard from "@/Components/GameCard";
 import MobileNav from "@/Components/MobileNav";
 import Nav from "@/Components/Nav";
 import { Game } from "@/models/Game";
+import { loadGameData } from "@/utils/gameDataParser";
 import Box from "@mui/material/Box";
-import Papa from "papaparse";
 import React, { useEffect, useState } from "react";
 
 const Gaming = () => {
@@ -18,54 +18,21 @@ const Gaming = () => {
     const [gamesFromCSV, setGamesFromCSV] = useState<Game[]>([]);
 
     useEffect(() => {
-        // Fetch CSV from public folder
-        fetch("/salihgames2.csv")
-            .then((response) => response.text())
-            .then((csvData) => {
-                Papa.parse(csvData, {
-                    header: true,
-                    skipEmptyLines: true,
-                    complete: (
-                        results: Papa.ParseResult<Record<string, string>>
-                    ) => {
-                        const parsedGames: Game[] = results.data
-                            .map(
-                                (
-                                    row: Record<string, string>,
-                                    index: number
-                                ) => ({
-                                    id: index + 1,
-                                    title: row["Name"] || "",
-                                    producer: row["Company"] || "",
-                                    hours: parseInt(row["Hours"] || "0", 10),
-                                    rank: parseInt(
-                                        (row["Rank"] || "0").replace(/\D/g, ""),
-                                        10
-                                    ),
-                                    image:
-                                        "/gamepictures/" + row["ID"] + ".png",
-                                    rating:
-                                        Math.round(
-                                            (Math.random() * 2 + 8) * 10
-                                        ) / 10, // Random rating 8.0-10.0
-                                })
-                            )
-                            .filter((game) => game.title && game.rank); // Filter out invalid entries
-
-                        parsedGames.sort((a, b) => a.rank - b.rank);
-                        setGamesFromCSV(parsedGames);
-                    },
-                });
-            })
-            .catch((error) => {
-                console.error("Error loading CSV:", error);
+        const loadGames = async () => {
+            const games = await loadGameData({
+                csvFileName: "salihgames2.csv",
+                useNewFormat: true,
             });
+            setGamesFromCSV(games);
+        };
+
+        loadGames();
     }, []);
 
     const games: Game[] = gamesFromCSV;
 
     return (
-        <div className="overflow-x-hidden bg-theme-primary min-h-screen">
+        <div className="overflow-x-hidden bg-theme-darker min-h-screen">
             <MobileNav
                 nav={nav}
                 closeNav={closeNav}
@@ -87,6 +54,7 @@ const Gaming = () => {
                             color: "white",
                             textAlign: "center",
                             marginBottom: "1rem",
+                            marginTop: "3rem",
                         }}
                     >
                         GAMING <span style={{ color: "#ef4444" }}>LIBRARY</span>

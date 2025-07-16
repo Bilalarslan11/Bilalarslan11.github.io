@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 import { Game } from "@/models/Game";
-import Papa from "papaparse";
+import { loadGameData } from "@/utils/gameDataParser";
 import MobileNav from "@/Components/MobileNav";
 import Nav from "@/Components/Nav";
 
@@ -16,14 +16,19 @@ const GameDetails = () => {
 
     // Form state
     const [formData, setFormData] = useState({
-        platforms: "",
-        genres: "",
-        developer: "",
-        publisher: "",
-        naReleaseDate: "",
-        euReleaseDate: "",
-        jpReleaseDate: "",
+        console: "",
+        producer: "",
+        rating: 0,
+        hours: 0,
         lastUpdated: "",
+        year: "",
+        originConsole: "",
+        originYear: "",
+        genre: "",
+        company: "",
+        credits: "",
+        hundredPercent: "",
+        dlc: "",
     });
 
     const openNav = () => setNav(true);
@@ -33,44 +38,16 @@ const GameDetails = () => {
         closeNav();
     };
 
-    const parseGameData = (csvData: string) => {
-        return new Promise<Game[]>((resolve) => {
-            Papa.parse(csvData, {
-                header: true,
-                skipEmptyLines: true,
-                complete: (
-                    results: Papa.ParseResult<Record<string, string>>
-                ) => {
-                    const parsedGames: Game[] = results.data
-                        .map((row: Record<string, string>, index: number) => ({
-                            id: index + 1,
-                            title: row["Game:"] || "",
-                            producer: row["Company"] || "",
-                            hours: parseInt(row["Jul/24"] || "0", 10),
-                            rank: parseInt(
-                                (row["Rank"] || "0").replace(/\D/g, ""),
-                                10
-                            ),
-                            image:
-                                "https://picsum.photos/400/400?random=" + index,
-                            rating:
-                                Math.round((Math.random() * 2 + 8) * 10) / 10,
-                        }))
-                        .filter((game) => game.title && game.rank);
-                    resolve(parsedGames);
-                },
-            });
-        });
-    };
-
     useEffect(() => {
         if (!id) return;
 
-        const loadGameData = async () => {
+        const loadGameDetails = async () => {
             try {
-                const response = await fetch("/salihgames.csv");
-                const csvData = await response.text();
-                const parsedGames = await parseGameData(csvData);
+                // Use the new format (salihgames2.csv) to match the main gaming page
+                const parsedGames = await loadGameData({
+                    csvFileName: "salihgames2.csv",
+                    useNewFormat: true,
+                });
 
                 const foundGame = parsedGames.find(
                     (g) => g.id === parseInt(id as string)
@@ -79,14 +56,19 @@ const GameDetails = () => {
 
                 if (foundGame) {
                     setFormData({
-                        platforms: "PC, PlayStation 5, Xbox Series X/S",
-                        genres: "Third-Person, Turn-Based, Action, Role-Playing",
-                        developer: "Sandfall Interactive",
-                        publisher: "Kepler Interactive",
-                        naReleaseDate: "April 24th, 2025",
-                        euReleaseDate: "April 24th, 2025",
-                        jpReleaseDate: "April 24th, 2025",
-                        lastUpdated: "25 Mins Ago",
+                        console: foundGame.console || "",
+                        producer: foundGame.producer || "",
+                        rating: foundGame.rating || 0,
+                        hours: foundGame.hours || 0,
+                        lastUpdated: "",
+                        year: foundGame.year || "",
+                        originConsole: foundGame.originConsole || "",
+                        originYear: foundGame.originYear || "",
+                        genre: foundGame.genre || "",
+                        company: foundGame.company || "",
+                        credits: foundGame.credits || "",
+                        hundredPercent: foundGame.hundredPercent || "",
+                        dlc: foundGame.dlc || "",
                     });
                 }
 
@@ -97,7 +79,7 @@ const GameDetails = () => {
             }
         };
 
-        loadGameData();
+        loadGameDetails();
     }, [id]);
 
     if (loading) {
@@ -129,7 +111,7 @@ const GameDetails = () => {
     }
 
     return (
-        <div className="overflow-x-hidden bg-theme-primary min-h-screen">
+        <div className="overflow-x-hidden bg-theme-darker min-h-screen">
             <MobileNav
                 nav={nav}
                 closeNav={closeNav}
@@ -163,10 +145,10 @@ const GameDetails = () => {
                         Back to Gaming Library
                     </Link>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+                    <div className="grid grid-cols-4 lg:grid-cols-5 gap-8">
                         {/* Left side - Game Image */}
-                        <div className="lg:col-span-2 flex justify-end">
-                            <div className="relative w-96 h-96 rounded-lg overflow-hidden shadow-2xl">
+                        <div className="lg:col-span-1 flex justify-end">
+                            <div className="relative w-56 h-56 rounded-lg overflow-hidden shadow-2xl">
                                 <Image
                                     src={game.image}
                                     alt={game.title}
@@ -184,90 +166,91 @@ const GameDetails = () => {
                                     {game.title}
                                 </h1>
                                 <p className="text-theme-text-secondary text-lg">
-                                    Rank #{game.rank} • Rating: {game.rating}/10
+                                    Rank #{game.rank} • Hours played:{" "}
+                                    {game.hours}
                                 </p>
                             </div>
 
                             {/* Game Details Display */}
                             <div className="space-y-6">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    {/* Platforms */}
                                     <div>
                                         <div className="block text-theme-text font-semibold mb-2">
-                                            Platforms:
+                                            Console:
                                         </div>
                                         <div className="w-full p-3 rounded bg-gray-800 text-theme-text border border-gray-600">
-                                            {formData.platforms}
+                                            {formData.console}
                                         </div>
                                     </div>
 
-                                    {/* Genres */}
                                     <div>
                                         <div className="block text-theme-text font-semibold mb-2">
-                                            Genres:
+                                            Year:
                                         </div>
                                         <div className="w-full p-3 rounded bg-gray-800 text-theme-text border border-gray-600">
-                                            {formData.genres}
+                                            {formData.year}
                                         </div>
                                     </div>
 
-                                    {/* Developer */}
                                     <div>
                                         <div className="block text-theme-text font-semibold mb-2">
-                                            Developer:
+                                            Origin Console:
                                         </div>
                                         <div className="w-full p-3 rounded bg-gray-800 text-theme-text border border-gray-600">
-                                            {formData.developer}
+                                            {formData.originConsole}
                                         </div>
                                     </div>
 
-                                    {/* Publisher */}
                                     <div>
                                         <div className="block text-theme-text font-semibold mb-2">
-                                            Publisher:
+                                            Origin Year:
                                         </div>
                                         <div className="w-full p-3 rounded bg-gray-800 text-theme-text border border-gray-600">
-                                            {formData.publisher}
+                                            {formData.originYear}
                                         </div>
                                     </div>
 
-                                    {/* NA Release Date */}
                                     <div>
                                         <div className="block text-theme-text font-semibold mb-2">
-                                            NA:
+                                            Genre:
                                         </div>
                                         <div className="w-full p-3 rounded bg-gray-800 text-theme-text border border-gray-600">
-                                            {formData.naReleaseDate}
+                                            {formData.genre}
                                         </div>
                                     </div>
 
-                                    {/* EU Release Date */}
                                     <div>
                                         <div className="block text-theme-text font-semibold mb-2">
-                                            EU:
+                                            Company:
                                         </div>
                                         <div className="w-full p-3 rounded bg-gray-800 text-theme-text border border-gray-600">
-                                            {formData.euReleaseDate}
+                                            {formData.company}
                                         </div>
                                     </div>
 
-                                    {/* JP Release Date */}
                                     <div>
                                         <div className="block text-theme-text font-semibold mb-2">
-                                            JP:
+                                            Credits:
                                         </div>
                                         <div className="w-full p-3 rounded bg-gray-800 text-theme-text border border-gray-600">
-                                            {formData.jpReleaseDate}
+                                            {formData.credits}
                                         </div>
                                     </div>
 
-                                    {/* Last Updated */}
                                     <div>
                                         <div className="block text-theme-text font-semibold mb-2">
-                                            Updated:
+                                            100%:
                                         </div>
                                         <div className="w-full p-3 rounded bg-gray-800 text-theme-text border border-gray-600">
-                                            {formData.lastUpdated}
+                                            {formData.hundredPercent}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="block text-theme-text font-semibold mb-2">
+                                            DLC:
+                                        </div>
+                                        <div className="w-full p-3 rounded bg-gray-800 text-theme-text border border-gray-600">
+                                            {formData.dlc}
                                         </div>
                                     </div>
                                 </div>

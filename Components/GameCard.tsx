@@ -37,15 +37,15 @@ const GameCard = ({ game }: Props) => {
 
         return (
             <div
-                style={{ position: "relative", width: "65px", height: "65px" }}
+                style={{ position: "relative", width: "45px", height: "45px" }}
             >
                 <Image
                     src={`/images/crown${
                         rank === 1 ? "gold" : rank === 2 ? "silver" : "bronze"
                     }.png`}
                     alt={`Crown rank ${rank}`}
-                    width={65}
-                    height={65}
+                    width={55}
+                    height={55}
                     style={{ position: "absolute", top: 0, left: 0 }}
                 />
                 <span
@@ -54,7 +54,7 @@ const GameCard = ({ game }: Props) => {
                         top: "50%",
                         left: "50%",
                         transform: "translate(-50%, -50%)",
-                        fontSize: "20px",
+                        fontSize: "16px",
                         fontWeight: "bold",
                         color: getNumberColor(rank),
                         textShadow: "1px 1px 2px rgba(255,255,255,0.9)",
