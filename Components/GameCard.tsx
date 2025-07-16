@@ -37,15 +37,15 @@ const GameCard = ({ game }: Props) => {
 
         return (
             <div
-                style={{ position: "relative", width: "70px", height: "70px" }}
+                style={{ position: "relative", width: "65px", height: "65px" }}
             >
                 <Image
                     src={`/images/crown${
                         rank === 1 ? "gold" : rank === 2 ? "silver" : "bronze"
                     }.png`}
                     alt={`Crown rank ${rank}`}
-                    width={70}
-                    height={70}
+                    width={65}
+                    height={65}
                     style={{ position: "absolute", top: 0, left: 0 }}
                 />
                 <span
