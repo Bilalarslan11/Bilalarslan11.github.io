@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "status": "Playing"
+  },
+  {
+    "id": 5,
+    "status": "Playing"
+  },
+  {
+    "id": 12,
+    "status": "Quit"
+  },
+  {
+    "id": 99,
+    "status": "Completed"
+  }
+]
