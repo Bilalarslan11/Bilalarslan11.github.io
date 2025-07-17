@@ -145,9 +145,9 @@ const GameDetails = () => {
                         Back to Gaming Library
                     </Link>
 
-                    <div className="grid grid-cols-4 lg:grid-cols-5 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
                         {/* Left side - Game Image */}
-                        <div className="lg:col-span-1 flex flex-col items-center">
+                        <div className="md:col-span-1 lg:col-span-1 xl:col-span-1 flex flex-col items-center">
                             <div className="relative w-56 h-56 rounded-lg overflow-hidden shadow-2xl">
                                 <Image
                                     src={game.image}
@@ -163,7 +163,7 @@ const GameDetails = () => {
                         </div>
 
                         {/* Right side - Game Title and Form */}
-                        <div className="lg:col-span-3 space-y-8">
+                        <div className="md:col-span-2 lg:col-span-3 xl:col-span-4 space-y-8">
                             {/* Game Title */}
                             <div>
                                 <h1 className="text-4xl font-bold text-theme-text mb-2">
