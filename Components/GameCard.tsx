@@ -122,7 +122,7 @@ const GameCard = ({ game, gameStatuses, onStatusUpdate }: Props) => {
                         {/* Plus Button */}
                         <button
                             onClick={handlePlusClick}
-                            className="absolute top-2 right-2 w-8 h-8 bg-green-500 hover:bg-green-600 text-white rounded-full flex items-center justify-center text-lg font-bold z-10 transition-colors"
+                            className="absolute top-2 right-2 w-8 h-8 bg-theme-secondary hover:bg-theme-accent text-theme-text rounded-full flex items-center justify-center text-lg font-bold z-10 transition-all duration-200 border-2 border-theme-secondary hover:border-theme-accent shadow-lg"
                             title="Set game status"
                         >
                             +
@@ -130,7 +130,7 @@ const GameCard = ({ game, gameStatuses, onStatusUpdate }: Props) => {
 
                         {/* Status indicator */}
                         {currentStatus && (
-                            <div className="absolute top-2 left-2 px-2 py-1 bg-black bg-opacity-70 text-white text-xs rounded">
+                            <div className="absolute top-2 left-2 px-2 py-1 bg-theme-darker border border-theme-secondary text-theme-text text-xs rounded font-medium">
                                 {currentStatus}
                             </div>
                         )}
@@ -166,10 +166,13 @@ const GameCard = ({ game, gameStatuses, onStatusUpdate }: Props) => {
 
             {/* Status Selection Modal */}
             {showStatusModal && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                    <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full mx-4">
-                        <h3 className="text-lg font-bold mb-4 text-gray-800">
-                            Set status for &quot;{game.title}&quot;
+                <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
+                    <div className="bg-theme-darker border-2 border-theme-secondary p-6 rounded-lg shadow-2xl max-w-sm w-full mx-4">
+                        <h3 className="text-lg font-bold mb-4 text-theme-text text-center">
+                            Set status for{" "}
+                            <span className="text-theme-secondary">
+                                &quot;{game.title}&quot;
+                            </span>
                         </h3>
 
                         <div className="space-y-3">
@@ -180,21 +183,21 @@ const GameCard = ({ game, gameStatuses, onStatusUpdate }: Props) => {
                                     key={status}
                                     onClick={() => handleStatusUpdate(status)}
                                     disabled={isLoading}
-                                    className={`w-full p-3 text-left rounded border-2 transition-colors ${
+                                    className={`w-full p-3 text-left rounded border-2 transition-all duration-200 font-medium ${
                                         currentStatus === status
-                                            ? "border-blue-500 bg-blue-50"
-                                            : "border-gray-200 hover:border-gray-300"
+                                            ? "border-theme-secondary bg-theme-secondary text-theme-text"
+                                            : "border-theme-text-muted bg-theme-primary text-theme-text hover:border-theme-secondary hover:bg-theme-darker"
                                     } ${
                                         isLoading
                                             ? "opacity-50 cursor-not-allowed"
                                             : "cursor-pointer"
                                     }`}
                                 >
-                                    <span className="font-medium text-gray-800">
+                                    <span className="text-theme-text">
                                         {status}
                                     </span>
                                     {currentStatus === status && (
-                                        <span className="text-blue-500 text-sm ml-2">
+                                        <span className="text-theme-text text-sm ml-2 font-bold">
                                             ✓ Current
                                         </span>
                                     )}
@@ -202,11 +205,11 @@ const GameCard = ({ game, gameStatuses, onStatusUpdate }: Props) => {
                             ))}
                         </div>
 
-                        <div className="mt-4 pt-4 border-t">
+                        <div className="mt-6 pt-4 border-t border-theme-text-muted">
                             <button
                                 onClick={() => setShowStatusModal(false)}
                                 disabled={isLoading}
-                                className="w-full p-2 bg-gray-200 hover:bg-gray-300 rounded text-gray-700 transition-colors"
+                                className="w-full p-3 bg-theme-primary hover:bg-theme-darker border-2 border-theme-text-muted hover:border-theme-secondary rounded text-theme-text transition-all duration-200 font-medium"
                             >
                                 Cancel
                             </button>
