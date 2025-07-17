@@ -147,7 +147,7 @@ const GameDetails = () => {
 
                     <div className="grid grid-cols-4 lg:grid-cols-5 gap-8">
                         {/* Left side - Game Image */}
-                        <div className="lg:col-span-1 flex justify-end">
+                        <div className="lg:col-span-1 flex flex-col items-center">
                             <div className="relative w-56 h-56 rounded-lg overflow-hidden shadow-2xl">
                                 <Image
                                     src={game.image}
@@ -155,6 +155,10 @@ const GameDetails = () => {
                                     fill
                                     className="object-cover"
                                 />
+                            </div>
+                            <div className="text-theme-text-secondary text-lg mt-4 text-center">
+                                <p className="mb-1">Rank #{game.rank}</p>
+                                <p>Hours: {game.hours}</p>
                             </div>
                         </div>
 
@@ -165,10 +169,6 @@ const GameDetails = () => {
                                 <h1 className="text-4xl font-bold text-theme-text mb-2">
                                     {game.title}
                                 </h1>
-                                <p className="text-theme-text-secondary text-lg">
-                                    Rank #{game.rank} • Hours played:{" "}
-                                    {game.hours}
-                                </p>
                             </div>
 
                             {/* Game Details Display */}
@@ -178,8 +178,8 @@ const GameDetails = () => {
                                         <div className="block text-theme-text font-semibold mb-2">
                                             Console:
                                         </div>
-                                        <div className="w-full p-3 rounded bg-gray-800 text-theme-text border border-gray-600">
-                                            {formData.console}
+                                        <div className="w-full p-3 rounded bg-gray-800 text-theme-text border border-gray-600 min-h-[3rem]">
+                                            {formData.console || "\u00A0"}
                                         </div>
                                     </div>
 
@@ -187,8 +187,8 @@ const GameDetails = () => {
                                         <div className="block text-theme-text font-semibold mb-2">
                                             Year:
                                         </div>
-                                        <div className="w-full p-3 rounded bg-gray-800 text-theme-text border border-gray-600">
-                                            {formData.year}
+                                        <div className="w-full p-3 rounded bg-gray-800 text-theme-text border border-gray-600 min-h-[3rem]">
+                                            {formData.year || "\u00A0"}
                                         </div>
                                     </div>
 
@@ -196,8 +196,8 @@ const GameDetails = () => {
                                         <div className="block text-theme-text font-semibold mb-2">
                                             Origin Console:
                                         </div>
-                                        <div className="w-full p-3 rounded bg-gray-800 text-theme-text border border-gray-600">
-                                            {formData.originConsole}
+                                        <div className="w-full p-3 rounded bg-gray-800 text-theme-text border border-gray-600 min-h-[3rem]">
+                                            {formData.originConsole || "\u00A0"}
                                         </div>
                                     </div>
 
@@ -205,8 +205,8 @@ const GameDetails = () => {
                                         <div className="block text-theme-text font-semibold mb-2">
                                             Origin Year:
                                         </div>
-                                        <div className="w-full p-3 rounded bg-gray-800 text-theme-text border border-gray-600">
-                                            {formData.originYear}
+                                        <div className="w-full p-3 rounded bg-gray-800 text-theme-text border border-gray-600 min-h-[3rem]">
+                                            {formData.originYear || "\u00A0"}
                                         </div>
                                     </div>
 
@@ -214,8 +214,8 @@ const GameDetails = () => {
                                         <div className="block text-theme-text font-semibold mb-2">
                                             Genre:
                                         </div>
-                                        <div className="w-full p-3 rounded bg-gray-800 text-theme-text border border-gray-600">
-                                            {formData.genre}
+                                        <div className="w-full p-3 rounded bg-gray-800 text-theme-text border border-gray-600 min-h-[3rem]">
+                                            {formData.genre || "\u00A0"}
                                         </div>
                                     </div>
 
@@ -223,8 +223,8 @@ const GameDetails = () => {
                                         <div className="block text-theme-text font-semibold mb-2">
                                             Company:
                                         </div>
-                                        <div className="w-full p-3 rounded bg-gray-800 text-theme-text border border-gray-600">
-                                            {formData.company}
+                                        <div className="w-full p-3 rounded bg-gray-800 text-theme-text border border-gray-600 min-h-[3rem]">
+                                            {formData.company || "\u00A0"}
                                         </div>
                                     </div>
 
@@ -232,8 +232,8 @@ const GameDetails = () => {
                                         <div className="block text-theme-text font-semibold mb-2">
                                             Credits:
                                         </div>
-                                        <div className="w-full p-3 rounded bg-gray-800 text-theme-text border border-gray-600">
-                                            {formData.credits}
+                                        <div className="w-full p-3 rounded bg-gray-800 text-theme-text border border-gray-600 min-h-[3rem]">
+                                            {formData.credits || "\u00A0"}
                                         </div>
                                     </div>
 
@@ -241,16 +241,17 @@ const GameDetails = () => {
                                         <div className="block text-theme-text font-semibold mb-2">
                                             100%:
                                         </div>
-                                        <div className="w-full p-3 rounded bg-gray-800 text-theme-text border border-gray-600">
-                                            {formData.hundredPercent}
+                                        <div className="w-full p-3 rounded bg-gray-800 text-theme-text border border-gray-600 min-h-[3rem]">
+                                            {formData.hundredPercent ||
+                                                "\u00A0"}
                                         </div>
                                     </div>
                                     <div>
                                         <div className="block text-theme-text font-semibold mb-2">
                                             DLC:
                                         </div>
-                                        <div className="w-full p-3 rounded bg-gray-800 text-theme-text border border-gray-600">
-                                            {formData.dlc}
+                                        <div className="w-full p-3 rounded bg-gray-800 text-theme-text border border-gray-600 min-h-[3rem]">
+                                            {formData.dlc || "\u00A0"}
                                         </div>
                                     </div>
                                 </div>
