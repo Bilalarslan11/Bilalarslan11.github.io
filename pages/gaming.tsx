@@ -28,9 +28,9 @@ const Gaming = () => {
             setGamesFromCSV(games);
         };
 
-        const loadStatuses = async () => {
+        const loadStatuses = () => {
             try {
-                const statuses = await loadGameStatuses();
+                const statuses = loadGameStatuses();
                 setGameStatuses(statuses);
             } catch (error) {
                 console.error("Error loading game statuses:", error);
@@ -41,9 +41,9 @@ const Gaming = () => {
         loadStatuses();
     }, []);
 
-    const refreshStatuses = async () => {
+    const refreshStatuses = () => {
         try {
-            const statuses = await loadGameStatuses();
+            const statuses = loadGameStatuses();
             setGameStatuses(statuses);
         } catch (error) {
             console.error("Error refreshing game statuses:", error);

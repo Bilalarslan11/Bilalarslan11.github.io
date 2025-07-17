@@ -11,7 +11,7 @@ import {
 interface Props {
     game: Game;
     gameStatuses: GameStatusEntry[];
-    onStatusUpdate: () => Promise<void>;
+    onStatusUpdate: () => void;
 }
 
 const GameCard = ({ game, gameStatuses, onStatusUpdate }: Props) => {
@@ -26,13 +26,13 @@ const GameCard = ({ game, gameStatuses, onStatusUpdate }: Props) => {
         setCurrentStatus(status);
     }, [game.id, gameStatuses]);
 
-    const handleStatusUpdate = async (newStatus: GameStatus) => {
+    const handleStatusUpdate = (newStatus: GameStatus) => {
         setIsLoading(true);
         try {
-            await updateGameStatus(game.id, newStatus);
+            updateGameStatus(game.id, newStatus);
             setCurrentStatus(newStatus);
             setShowStatusModal(false);
-            await onStatusUpdate(); // Refresh the parent's status list
+            onStatusUpdate(); // Refresh the parent's status list
         } catch (error) {
             console.error("Error updating game status:", error);
         } finally {

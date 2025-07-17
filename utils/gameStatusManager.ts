@@ -5,37 +5,39 @@ export interface GameStatusEntry {
     status: GameStatus;
 }
 
-// Client-side function to load game statuses via API
-export async function loadGameStatuses(): Promise<GameStatusEntry[]> {
+// Client-side function to load game statuses from localStorage
+export function loadGameStatuses(): GameStatusEntry[] {
     try {
-        const response = await fetch("/api/game-status");
-        if (!response.ok) {
-            throw new Error("Failed to load game statuses");
+        if (typeof window === "undefined") {
+            return []; // Return empty array during SSR
         }
-        return await response.json();
+        const stored = localStorage.getItem("gameStatuses");
+        return stored ? JSON.parse(stored) : [];
     } catch (error) {
         console.error("Error loading game statuses:", error);
         return [];
     }
 }
 
-// Client-side function to update game status via API
-export async function updateGameStatus(
-    gameId: number,
-    newStatus: GameStatus
-): Promise<void> {
+// Client-side function to update game status in localStorage
+export function updateGameStatus(gameId: number, newStatus: GameStatus): void {
     try {
-        const response = await fetch(`/api/game-status/${gameId}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ status: newStatus }),
-        });
-
-        if (!response.ok) {
-            throw new Error("Failed to update game status");
+        if (typeof window === "undefined") {
+            return; // Do nothing during SSR
         }
+
+        const statuses = loadGameStatuses();
+        const existingIndex = statuses.findIndex(
+            (entry) => entry.id === gameId
+        );
+
+        if (existingIndex >= 0) {
+            statuses[existingIndex].status = newStatus;
+        } else {
+            statuses.push({ id: gameId, status: newStatus });
+        }
+
+        localStorage.setItem("gameStatuses", JSON.stringify(statuses));
     } catch (error) {
         console.error("Error updating game status:", error);
         throw error;
