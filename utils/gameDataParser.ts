@@ -20,7 +20,7 @@ export const parseGameData = (csvData: string): Promise<Game[]> => {
                             title: row["Name"] || "",
                             producer: row["Company"] || "",
                             console: row["Console"] || "",
-                            hours: parseInt(row["Jul/24"] || "0", 10),
+                            hours: parseInt(row["Hours"] || "0", 10),
                             rank: parseInt(
                                 (row["Rank"] || "0").replace(/\D/g, ""),
                                 10
