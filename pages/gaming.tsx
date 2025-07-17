@@ -18,7 +18,9 @@ const Gaming = () => {
 
     const [gamesFromCSV, setGamesFromCSV] = useState<Game[]>([]);
     const [gameStatuses, setGameStatuses] = useState<GameStatusEntry[]>([]);
-    const [filterType, setFilterType] = useState<"Company" | "Year" | "Genre">("Company");
+    const [filterType, setFilterType] = useState<"Company" | "Year" | "Genre">(
+        "Company"
+    );
     const [selectedFilter, setSelectedFilter] = useState<string>("All");
 
     useEffect(() => {
@@ -181,7 +183,9 @@ const Gaming = () => {
                     <select
                         value={filterType}
                         onChange={(e) => {
-                            setFilterType(e.target.value as "Company" | "Year" | "Genre");
+                            setFilterType(
+                                e.target.value as "Company" | "Year" | "Genre"
+                            );
                             setSelectedFilter("All"); // Reset filter when type changes
                         }}
                         style={{
@@ -248,7 +252,8 @@ const Gaming = () => {
                         <option value="All">
                             All{" "}
                             {(() => {
-                                if (filterType === "Company") return "Companies";
+                                if (filterType === "Company")
+                                    return "Companies";
                                 if (filterType === "Year") return "Years";
                                 return "Genres";
                             })()}
