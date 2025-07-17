@@ -3,6 +3,7 @@ import MobileNav from "@/Components/MobileNav";
 import Nav from "@/Components/Nav";
 import { Game } from "@/models/Game";
 import { loadGameData } from "@/utils/gameDataParser";
+import { GameStatusEntry, loadGameStatuses } from "@/utils/gameStatusManager";
 import Box from "@mui/material/Box";
 import React, { useEffect, useState } from "react";
 
@@ -16,6 +17,7 @@ const Gaming = () => {
     };
 
     const [gamesFromCSV, setGamesFromCSV] = useState<Game[]>([]);
+    const [gameStatuses, setGameStatuses] = useState<GameStatusEntry[]>([]);
 
     useEffect(() => {
         const loadGames = async () => {
@@ -26,8 +28,27 @@ const Gaming = () => {
             setGamesFromCSV(games);
         };
 
+        const loadStatuses = async () => {
+            try {
+                const statuses = await loadGameStatuses();
+                setGameStatuses(statuses);
+            } catch (error) {
+                console.error("Error loading game statuses:", error);
+            }
+        };
+
         loadGames();
+        loadStatuses();
     }, []);
+
+    const refreshStatuses = async () => {
+        try {
+            const statuses = await loadGameStatuses();
+            setGameStatuses(statuses);
+        } catch (error) {
+            console.error("Error refreshing game statuses:", error);
+        }
+    };
 
     const games: Game[] = gamesFromCSV;
 
@@ -83,6 +104,8 @@ const Gaming = () => {
                         <GameCard
                             key={game.id}
                             game={game}
+                            gameStatuses={gameStatuses}
+                            onStatusUpdate={refreshStatuses}
                         />
                     ))}
                 </div>
