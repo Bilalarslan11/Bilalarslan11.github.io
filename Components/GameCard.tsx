@@ -86,6 +86,7 @@ const GameCard = ({ game, gameStatuses, onStatusUpdate }: Props) => {
                     style={{ position: "absolute", top: 0, left: 0 }}
                 />
                 <span
+                    className="rank-number-span"
                     style={{
                         position: "absolute",
                         top: "50%",
