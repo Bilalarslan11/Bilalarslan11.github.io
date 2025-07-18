@@ -133,7 +133,58 @@ const Gaming = () => {
     const games: Game[] = filteredGames;
 
     return (
-        <div className="overflow-x-hidden bg-theme-darker min-h-screen">
+        <div
+            className="overflow-x-hidden min-h-screen"
+            style={{
+                background: `
+                    radial-gradient(ellipse at 20% 50%, rgba(120, 119, 198, 0.15) 0%, transparent 70%),
+                    radial-gradient(ellipse at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 70%),
+                    radial-gradient(ellipse at 40% 80%, rgba(120, 219, 255, 0.15) 0%, transparent 70%),
+                    radial-gradient(circle at 12% 15%, rgba(255, 255, 255, 0.9) 0.5px, transparent 1px),
+                    radial-gradient(circle at 85% 25%, rgba(255, 255, 255, 0.7) 0.5px, transparent 1px),
+                    radial-gradient(circle at 35% 40%, rgba(255, 255, 255, 0.5) 0.5px, transparent 1px),
+                    radial-gradient(circle at 92% 12%, rgba(255, 255, 255, 0.8) 0.5px, transparent 1px),
+                    radial-gradient(circle at 68% 85%, rgba(255, 255, 255, 0.6) 0.5px, transparent 1px),
+                    radial-gradient(circle at 25% 88%, rgba(255, 255, 255, 0.7) 0.5px, transparent 1px),
+                    radial-gradient(circle at 58% 28%, rgba(255, 255, 255, 0.4) 0.5px, transparent 1px),
+                    radial-gradient(circle at 32% 75%, rgba(255, 255, 255, 0.8) 0.5px, transparent 1px),
+                    radial-gradient(circle at 78% 55%, rgba(255, 255, 255, 0.6) 0.5px, transparent 1px),
+                    radial-gradient(circle at 15% 65%, rgba(255, 255, 255, 0.5) 0.5px, transparent 1px),
+                    radial-gradient(circle at 95% 78%, rgba(255, 255, 255, 0.7) 0.5px, transparent 1px),
+                    radial-gradient(circle at 45% 18%, rgba(255, 255, 255, 0.6) 0.5px, transparent 1px),
+                    radial-gradient(circle at 8% 45%, rgba(255, 255, 255, 0.4) 0.5px, transparent 1px),
+                    radial-gradient(circle at 88% 92%, rgba(255, 255, 255, 0.8) 0.5px, transparent 1px),
+                    radial-gradient(circle at 22% 32%, rgba(255, 255, 255, 0.5) 0.5px, transparent 1px),
+                    radial-gradient(circle at 72% 8%, rgba(255, 255, 255, 0.7) 0.5px, transparent 1px),
+                    radial-gradient(circle at 52% 62%, rgba(255, 255, 255, 0.6) 0.5px, transparent 1px),
+                    radial-gradient(circle at 38% 95%, rgba(255, 255, 255, 0.4) 0.5px, transparent 1px),
+                    radial-gradient(circle at 85% 48%, rgba(255, 255, 255, 0.8) 0.5px, transparent 1px),
+                    radial-gradient(circle at 18% 82%, rgba(255, 255, 255, 0.5) 0.5px, transparent 1px),
+                    radial-gradient(circle at 98% 35%, rgba(255, 255, 255, 0.7) 0.5px, transparent 1px),
+                    linear-gradient(135deg, #0a0a0f 0%, #1a0f2e 25%, #16213e 50%, #0f2c4c 75%, #2d1b4e 100%)
+                `,
+                backgroundSize: "100% 100%",
+                backgroundRepeat: "no-repeat",
+                animation: "galaxyTwinkle 25s ease-in-out infinite",
+            }}
+        >
+            <style jsx>{`
+                @keyframes galaxyTwinkle {
+                    0%,
+                    100% {
+                        opacity: 1;
+                    }
+                    25% {
+                        opacity: 0.7;
+                    }
+                    50% {
+                        opacity: 0.9;
+                    }
+                    75% {
+                        opacity: 0.8;
+                    }
+                }
+            `}</style>
             <MobileNav
                 nav={nav}
                 closeNav={closeNav}
