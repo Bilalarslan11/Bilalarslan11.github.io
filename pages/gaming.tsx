@@ -5,7 +5,7 @@ import { Game } from "@/models/Game";
 import { loadGameData } from "@/utils/gameDataParser";
 import { GameStatusEntry, loadGameStatuses } from "@/utils/gameStatusManager";
 import Box from "@mui/material/Box";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 
 const Gaming = () => {
     const [nav, setNav] = useState(false);
@@ -18,10 +18,11 @@ const Gaming = () => {
 
     const [gamesFromCSV, setGamesFromCSV] = useState<Game[]>([]);
     const [gameStatuses, setGameStatuses] = useState<GameStatusEntry[]>([]);
-    const [filterType, setFilterType] = useState<"Company" | "Year" | "Genre">(
-        "Company"
-    );
-    const [selectedFilter, setSelectedFilter] = useState<string>("All");
+    const [filters, setFilters] = useState({
+        company: "All",
+        year: "All",
+        console: "All",
+    });
 
     useEffect(() => {
         const loadGames = async () => {
@@ -78,48 +79,56 @@ const Gaming = () => {
         return Array.from(years).sort((a, b) => b.localeCompare(a)); // Newest first
     };
 
-    // Get unique genres for filter dropdown
-    const getUniqueGenres = (games: Game[]): string[] => {
-        const genres = new Set<string>();
+    // Get unique consoles for filter dropdown
+    const getUniqueConsoles = (games: Game[]): string[] => {
+        const consoles = new Set<string>();
         games.forEach((game) => {
-            if (game.genre && game.genre.trim() !== "") {
-                genres.add(game.genre.trim());
+            if (game.console && game.console.trim() !== "") {
+                consoles.add(game.console.trim());
             }
         });
-        return Array.from(genres).sort((a, b) => a.localeCompare(b));
+        return Array.from(consoles).sort((a, b) => a.localeCompare(b));
     };
 
     // Get filter options based on filter type
-    const getFilterOptions = (): string[] => {
+    const getFilterOptions = (
+        filterType: "Company" | "Year" | "Console"
+    ): string[] => {
         if (filterType === "Company") {
             return getUniqueCompanies(gamesFromCSV);
         } else if (filterType === "Year") {
             return getUniqueYears(gamesFromCSV);
         } else {
-            return getUniqueGenres(gamesFromCSV);
+            return getUniqueConsoles(gamesFromCSV);
         }
     };
 
-    // Filter games based on selected filter type and value
-    const filteredGames =
-        selectedFilter === "All"
-            ? gamesFromCSV
-            : gamesFromCSV.filter((game) => {
-                  if (filterType === "Company") {
-                      if (!game.company) return false;
-                      const mainCompany = game.company.split("/")[0].trim();
-                      return mainCompany === selectedFilter;
-                  } else if (filterType === "Year") {
-                      if (!game.year) return false;
-                      return game.year.trim() === selectedFilter;
-                  } else {
-                      // Genre
-                      if (!game.genre) return false;
-                      return game.genre.trim() === selectedFilter;
-                  }
-              });
+    // Filter games based on multiple filters using useMemo for performance
+    const filteredGames = useMemo(() => {
+        return gamesFromCSV.filter((game) => {
+            // Filter by company
+            if (filters.company !== "All") {
+                if (!game.company) return false;
+                const mainCompany = game.company.split("/")[0].trim();
+                if (mainCompany !== filters.company) return false;
+            }
 
-    const filterOptions = getFilterOptions();
+            // Filter by year
+            if (filters.year !== "All") {
+                if (!game.year) return false;
+                if (game.year.trim() !== filters.year) return false;
+            }
+
+            // Filter by console
+            if (filters.console !== "All") {
+                if (!game.console) return false;
+                if (game.console.trim() !== filters.console) return false;
+            }
+
+            return true;
+        });
+    }, [gamesFromCSV, filters.company, filters.year, filters.console]);
+
     const games: Game[] = filteredGames;
 
     return (
@@ -162,7 +171,7 @@ const Gaming = () => {
                 </div>
             </div>
 
-            {/* Filter Section */}
+            {/* Multi-Filter Section */}
             <div
                 style={{
                     width: "90%",
@@ -174,107 +183,261 @@ const Gaming = () => {
                 <div
                     style={{
                         display: "flex",
-                        justifyContent: "flex-end",
+                        justifyContent: "space-between",
                         alignItems: "center",
-                        gap: "1rem",
+                        gap: "0.75rem",
+                        flexWrap: "wrap",
                     }}
                 >
-                    {/* Filter Type Selector */}
-                    <select
-                        value={filterType}
-                        onChange={(e) => {
-                            setFilterType(
-                                e.target.value as "Company" | "Year" | "Genre"
-                            );
-                            setSelectedFilter("All"); // Reset filter when type changes
-                        }}
-                        style={{
-                            padding: "0.5rem 1rem",
-                            paddingRight: "2.5rem",
-                            borderRadius: "0.375rem",
-                            border: "2px solid #ef4444",
-                            backgroundColor: "#7f1d1d",
-                            color: "#ffffff",
-                            fontSize: "1rem",
-                            fontWeight: "500",
-                            cursor: "pointer",
-                            outline: "none",
-                            minWidth: "120px",
-                            appearance: "none",
-                            backgroundImage:
-                                'url(\'data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23ffffff" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>\')',
-                            backgroundRepeat: "no-repeat",
-                            backgroundPosition: "right 0.75rem center",
-                            backgroundSize: "0.75rem",
-                        }}
-                        className="hover:bg-theme-dark focus:border-theme-accent transition-all duration-200"
-                    >
-                        <option value="Company">Company</option>
-                        <option value="Year">Year</option>
-                        <option value="Genre">Genre</option>
-                    </select>
-
-                    <label
-                        htmlFor="filter-dropdown"
-                        style={{
-                            color: "#ffffff",
-                            fontSize: "1rem",
-                            fontWeight: "500",
-                        }}
-                    >
-                        Filter by {filterType}:
-                    </label>
-                    <select
-                        id="filter-dropdown"
-                        value={selectedFilter}
-                        onChange={(e) => setSelectedFilter(e.target.value)}
-                        style={{
-                            padding: "0.5rem 1rem",
-                            paddingRight: "2.5rem",
-                            borderRadius: "0.375rem",
-                            border: "2px solid #ef4444",
-                            backgroundColor: "#7f1d1d",
-                            color: "#ffffff",
-                            fontSize: "1rem",
-                            fontWeight: "500",
-                            cursor: "pointer",
-                            outline: "none",
-                            minWidth: "150px",
-                            appearance: "none",
-                            backgroundImage:
-                                'url(\'data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23ffffff" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>\')',
-                            backgroundRepeat: "no-repeat",
-                            backgroundPosition: "right 0.75rem center",
-                            backgroundSize: "0.75rem",
-                        }}
-                        className="hover:bg-theme-dark focus:border-theme-accent transition-all duration-200"
-                    >
-                        <option value="All">
-                            All{" "}
-                            {(() => {
-                                if (filterType === "Company")
-                                    return "Companies";
-                                if (filterType === "Year") return "Years";
-                                return "Genres";
-                            })()}
-                        </option>
-                        {filterOptions.map((option) => (
-                            <option
-                                key={option}
-                                value={option}
+                    {/* Results Counter - Left Side */}
+                    <div style={{ minWidth: "fit-content" }}>
+                        {(filters.company !== "All" ||
+                            filters.year !== "All" ||
+                            filters.console !== "All") && (
+                            <span
+                                style={{
+                                    color: "#d1d5db",
+                                    fontSize: "0.875rem",
+                                    fontWeight: "500",
+                                    whiteSpace: "nowrap",
+                                }}
                             >
-                                {option}
-                            </option>
-                        ))}
-                    </select>
-                    {selectedFilter !== "All" && (
-                        <span
-                            style={{ color: "#d1d5db", fontSize: "0.875rem" }}
+                                ({filteredGames.length} game
+                                {filteredGames.length !== 1 ? "s" : ""})
+                            </span>
+                        )}
+                    </div>
+
+                    {/* Filters Container - Right Side */}
+                    <div
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.75rem",
+                            flexWrap: "wrap",
+                        }}
+                    >
+                        {/* Clear Filters Button */}
+                        {(filters.company !== "All" ||
+                            filters.year !== "All" ||
+                            filters.console !== "All") && (
+                            <button
+                                onClick={() =>
+                                    setFilters({
+                                        company: "All",
+                                        year: "All",
+                                        console: "All",
+                                    })
+                                }
+                                style={{
+                                    padding: "0.5rem 0.75rem",
+                                    borderRadius: "0.375rem",
+                                    border: "2px solid #ef4444",
+                                    backgroundColor: "#7f1d1d",
+                                    color: "#ffffff",
+                                    fontSize: "0.875rem",
+                                    fontWeight: "500",
+                                    cursor: "pointer",
+                                    outline: "none",
+                                    width: "60px",
+                                    transition: "all 0.2s",
+                                    whiteSpace: "nowrap",
+                                }}
+                                className="hover:bg-theme-dark focus:border-theme-accent"
+                            >
+                                Clear
+                            </button>
+                        )}
+
+                        {/* Company Filter */}
+                        <div
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "0.5rem",
+                                minWidth: "fit-content",
+                            }}
                         >
-                            ({filteredGames.length} game
-                            {filteredGames.length !== 1 ? "s" : ""})
-                        </span>
-                    )}
+                            <label
+                                htmlFor="company-filter"
+                                style={{
+                                    color: "#ffffff",
+                                    fontSize: "0.875rem",
+                                    fontWeight: "500",
+                                    minWidth: "fit-content",
+                                    whiteSpace: "nowrap",
+                                }}
+                            >
+                                Company:
+                            </label>
+                            <select
+                                id="company-filter"
+                                value={filters.company}
+                                onChange={(e) =>
+                                    setFilters((prev) => ({
+                                        ...prev,
+                                        company: e.target.value,
+                                    }))
+                                }
+                                style={{
+                                    padding: "0.5rem 0.75rem",
+                                    paddingRight: "2.25rem",
+                                    borderRadius: "0.375rem",
+                                    border: "2px solid #ef4444",
+                                    backgroundColor: "#7f1d1d",
+                                    color: "#ffffff",
+                                    fontSize: "0.875rem",
+                                    fontWeight: "500",
+                                    cursor: "pointer",
+                                    outline: "none",
+                                    width: "110px",
+                                    appearance: "none",
+                                    backgroundImage:
+                                        'url(\'data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23ffffff" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>\')',
+                                    backgroundRepeat: "no-repeat",
+                                    backgroundPosition: "right 0.75rem center",
+                                    backgroundSize: "0.75rem",
+                                }}
+                                className="hover:bg-theme-dark focus:border-theme-accent transition-all duration-200"
+                            >
+                                <option value="All">All</option>
+                                {getFilterOptions("Company").map((option) => (
+                                    <option
+                                        key={option}
+                                        value={option}
+                                    >
+                                        {option}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
+                        {/* Year Filter */}
+                        <div
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "0.5rem",
+                                minWidth: "fit-content",
+                            }}
+                        >
+                            <label
+                                htmlFor="year-filter"
+                                style={{
+                                    color: "#ffffff",
+                                    fontSize: "0.875rem",
+                                    fontWeight: "500",
+                                    minWidth: "fit-content",
+                                    whiteSpace: "nowrap",
+                                }}
+                            >
+                                Year:
+                            </label>
+                            <select
+                                id="year-filter"
+                                value={filters.year}
+                                onChange={(e) =>
+                                    setFilters((prev) => ({
+                                        ...prev,
+                                        year: e.target.value,
+                                    }))
+                                }
+                                style={{
+                                    padding: "0.5rem 0.75rem",
+                                    paddingRight: "2.25rem",
+                                    borderRadius: "0.375rem",
+                                    border: "2px solid #ef4444",
+                                    backgroundColor: "#7f1d1d",
+                                    color: "#ffffff",
+                                    fontSize: "0.875rem",
+                                    fontWeight: "500",
+                                    cursor: "pointer",
+                                    outline: "none",
+                                    width: "85px",
+                                    appearance: "none",
+                                    backgroundImage:
+                                        'url(\'data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23ffffff" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>\')',
+                                    backgroundRepeat: "no-repeat",
+                                    backgroundPosition: "right 0.75rem center",
+                                    backgroundSize: "0.75rem",
+                                }}
+                                className="hover:bg-theme-dark focus:border-theme-accent transition-all duration-200"
+                            >
+                                <option value="All">All</option>
+                                {getFilterOptions("Year").map((option) => (
+                                    <option
+                                        key={option}
+                                        value={option}
+                                    >
+                                        {option}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
+                        {/* Console Filter */}
+                        <div
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "0.5rem",
+                                minWidth: "fit-content",
+                            }}
+                        >
+                            <label
+                                htmlFor="console-filter"
+                                style={{
+                                    color: "#ffffff",
+                                    fontSize: "0.875rem",
+                                    fontWeight: "500",
+                                    minWidth: "fit-content",
+                                    whiteSpace: "nowrap",
+                                }}
+                            >
+                                Console:
+                            </label>
+                            <select
+                                id="console-filter"
+                                value={filters.console}
+                                onChange={(e) =>
+                                    setFilters((prev) => ({
+                                        ...prev,
+                                        console: e.target.value,
+                                    }))
+                                }
+                                style={{
+                                    padding: "0.5rem 0.75rem",
+                                    paddingRight: "2.25rem",
+                                    borderRadius: "0.375rem",
+                                    border: "2px solid #ef4444",
+                                    backgroundColor: "#7f1d1d",
+                                    color: "#ffffff",
+                                    fontSize: "0.875rem",
+                                    fontWeight: "500",
+                                    cursor: "pointer",
+                                    outline: "none",
+                                    width: "105px",
+                                    appearance: "none",
+                                    backgroundImage:
+                                        'url(\'data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23ffffff" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>\')',
+                                    backgroundRepeat: "no-repeat",
+                                    backgroundPosition: "right 0.75rem center",
+                                    backgroundSize: "0.75rem",
+                                }}
+                                className="hover:bg-theme-dark focus:border-theme-accent transition-all duration-200"
+                            >
+                                <option value="All">All</option>
+                                {getFilterOptions("Console").map((option) => (
+                                    <option
+                                        key={option}
+                                        value={option}
+                                    >
+                                        {option}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div
