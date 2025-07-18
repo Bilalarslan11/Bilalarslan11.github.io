@@ -290,6 +290,17 @@
     }
 }
 
+/* Crown number positioning */
+.rank-number-span {
+    top: 38%; /* Better positioning for mobile/small screens */
+}
+
+@media (min-width: 480px) {
+    .rank-number-span {
+        top: 50%; /* Centered for larger screens */
+    }
+}
+
 /* --------------------------------------
    Game Grid Layout
 -------------------------------------- */
