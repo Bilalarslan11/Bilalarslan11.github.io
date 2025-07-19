@@ -120,20 +120,20 @@ const GameCard = ({ game, gameStatuses, onStatusUpdate }: Props) => {
                         />
 
                         {/* Plus Button */}
-                        <button
+                        {/* <button
                             onClick={handlePlusClick}
                             className="absolute top-2 right-2 w-8 h-8 bg-theme-secondary hover:bg-theme-accent text-theme-text rounded-full flex items-center justify-center text-lg font-bold z-10 transition-all duration-200 border-2 border-theme-secondary hover:border-theme-accent shadow-lg"
                             title="Set game status"
                         >
                             +
-                        </button>
+                        </button> */}
 
                         {/* Status indicator */}
-                        {currentStatus && (
+                        {/* {currentStatus && (
                             <div className="absolute top-2 left-2 px-2 py-1 bg-theme-darker border border-theme-secondary text-theme-text text-xs rounded font-medium">
                                 {currentStatus}
                             </div>
-                        )}
+                        )} */}
 
                         {/* 100% and DLC indicators */}
                         <div className="absolute bottom-2 right-2 flex gap-1">
@@ -141,7 +141,7 @@ const GameCard = ({ game, gameStatuses, onStatusUpdate }: Props) => {
                                 game.hundredPercent.trim() !== "" &&
                                 game.hundredPercent.toLowerCase() !== "no" && (
                                     <div
-                                        className="px-2 py-1 bg-theme-gold text-black text-xs rounded font-bold shadow-lg border border-theme-gold"
+                                        className="game-indicator bg-theme-gold text-black rounded font-bold shadow-lg border border-theme-gold"
                                         title="100% Complete"
                                     >
                                         100%
@@ -151,7 +151,7 @@ const GameCard = ({ game, gameStatuses, onStatusUpdate }: Props) => {
                                 game.dlc.trim() !== "" &&
                                 game.dlc.toLowerCase() !== "no" && (
                                     <div
-                                        className="px-2 py-1 bg-theme-secondary text-theme-text text-xs rounded font-bold shadow-lg border border-theme-secondary"
+                                        className="game-indicator bg-theme-secondary text-theme-text rounded font-bold shadow-lg border border-theme-secondary"
                                         title="DLC Available"
                                     >
                                         DLC

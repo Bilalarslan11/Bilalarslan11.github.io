@@ -302,6 +302,21 @@
 }
 
 /* --------------------------------------
+   Game Indicators (100% and DLC labels)
+-------------------------------------- */
+.game-indicator {
+    font-size: 0.5rem;
+    padding: 0.125rem 0.25rem;
+}
+
+@media (min-width: 640px) {
+    .game-indicator {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+    }
+}
+
+/* --------------------------------------
    Game Grid Layout
 -------------------------------------- */
 .games-grid {
