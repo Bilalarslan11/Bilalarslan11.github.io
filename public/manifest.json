@@ -1,0 +1,20 @@
+{
+  "name": "Bilal Arslan - Senior Software Developer",
+  "short_name": "Bilal Arslan",
+  "description": "Senior Software Developer with 10+ years experience in .NET, C#, React, TypeScript, and Azure. Based in Copenhagen.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1a1a",
+  "theme_color": "#1a1a1a",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ],
+  "categories": ["productivity", "business"],
+  "lang": "en",
+  "dir": "ltr"
+}
