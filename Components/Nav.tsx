@@ -68,7 +68,7 @@ const Nav = ({ openNav, scrollToSection }: Props) => {
                 </div>
 
                 <div className="flex items-center space-x-4 group">
-                    {router.pathname !== "/gaming" && (
+                    {/* {router.pathname !== "/gaming" && (
                         <button
                             onClick={() => router.push("/gaming")}
                             className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -78,7 +78,7 @@ const Nav = ({ openNav, scrollToSection }: Props) => {
                                 style={{ fontSize: "2.5rem" }}
                             />
                         </button>
-                    )}
+                    )} */}
 
                     <button
                         onClick={openNav}
