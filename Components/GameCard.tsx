@@ -161,7 +161,7 @@ const GameCard = ({ game, gameStatuses, onStatusUpdate }: Props) => {
                     </div>
 
                     <div className="game-info-box">
-                        {game.rank <= 3 ? (
+                        {game.rank <= 0 ? (
                             <div className="rank-star-image">
                                 <CrownIcon rank={game.rank} />
                             </div>
