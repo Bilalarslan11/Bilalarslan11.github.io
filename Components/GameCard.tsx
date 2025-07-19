@@ -40,11 +40,6 @@ const GameCard = ({ game, gameStatuses, onStatusUpdate }: Props) => {
         }
     };
 
-    const handlePlusClick = (e: React.MouseEvent) => {
-        e.preventDefault(); // Prevent navigation
-        e.stopPropagation(); // Stop event bubbling
-        setShowStatusModal(true);
-    };
     const getRankColorClass = (rank: number) => {
         switch (rank) {
             case 1:

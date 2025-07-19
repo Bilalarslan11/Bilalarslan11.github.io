@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/legacy/image";
 import { Bars3Icon } from "@heroicons/react/16/solid";
-import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 import { useRouter } from "next/router";
 
 interface Props {
