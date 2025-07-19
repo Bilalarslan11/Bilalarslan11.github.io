@@ -98,7 +98,7 @@ const GameCard = ({ game, gameStatuses, onStatusUpdate }: Props) => {
                         zIndex: 10,
                     }}
                 >
-                    {rank}
+                    {rank > 3 ? rank : ""}
                 </span>
             </div>
         );

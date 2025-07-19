@@ -32,13 +32,11 @@ const GamingPageLayout: React.FC<GamingPageLayoutProps> = ({
             <div className="gaming-page-header">
                 <div className="gaming-page-header-content">
                     <h1 className="gaming-page-title">
-                        GAMING{" "}
-                        <span className="gaming-page-title-accent">
-                            LIBRARY
-                        </span>
+                        PLAY
+                        <span className="gaming-page-title-accent">TIME</span>
                     </h1>
                     <p className="gaming-page-subtitle">
-                        My favorite gaming experiences
+                        List of lifetime gaming experiences.
                     </p>
                 </div>
             </div>

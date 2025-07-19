@@ -28,6 +28,24 @@
     font-size: 1.125rem;
 }
 
+/* Hide subtitle on mobile devices */
+@media (max-width: 768px) {
+    .gaming-page-subtitle {
+        display: none;
+    }
+    .gaming-page-header-content {
+        margin-top: 0;
+        margin-bottom: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    .gaming-page-header {
+        padding-bottom: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+}
+
 /* Gaming Filter Styles */
 .gaming-filter-container {
     width: 90%;
