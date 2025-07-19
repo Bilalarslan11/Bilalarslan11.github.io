@@ -139,7 +139,8 @@ const GameCard = ({ game, gameStatuses, onStatusUpdate }: Props) => {
                         <div className="absolute bottom-2 right-2 flex gap-1">
                             {game.hundredPercent &&
                                 game.hundredPercent.trim() !== "" &&
-                                game.hundredPercent.toLowerCase() !== "no" && (
+                                game.hundredPercent.toLowerCase() !== "no" &&
+                                game.hundredPercent.toLowerCase() !== "yes" && (
                                     <div
                                         className="game-indicator bg-theme-gold text-black rounded font-bold shadow-lg border border-theme-gold"
                                         title="100% Complete"
