@@ -1,0 +1,61 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Bilal Arslan",
+  "jobTitle": "Senior Software Developer",
+  "description": "Experienced Software Engineer with over 10 years at the same company, specializing in .NET, C#, React, TypeScript, and Azure technologies. Former professional gamer with competitive edge and problem-solving mindset.",
+  "url": "https://bilalarslan11.github.io/civi/",
+  "image": "https://bilalarslan11.github.io/civi/images/u1.png",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Copenhagen",
+    "addressCountry": "Denmark"
+  },
+  "workLocation": "Copenhagen, Denmark",
+  "alumniOf": "DTU (Technical University of Denmark)",
+  "knowsAbout": [
+    ".NET Framework",
+    "C# Programming",
+    "React",
+    "TypeScript", 
+    "Angular",
+    "Azure Cloud Services",
+    "Kubernetes",
+    "Microsoft Dynamics 365",
+    "HTML5",
+    "CSS3",
+    "JavaScript",
+    "Unity Game Development",
+    "Software Architecture",
+    "Full Stack Development",
+    "MIM (Microsoft Identity Manager)",
+    "Tailwind CSS",
+    "Vite"
+  ],
+  "seeks": {
+    "@type": "JobPosting",
+    "title": "Senior Software Developer Position",
+    "description": "Seeking opportunities as a Senior Software Developer in Copenhagen",
+    "hiringOrganization": {
+      "@type": "Organization",
+      "name": "Companies in Copenhagen"
+    },
+    "jobLocation": {
+      "@type": "Place",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Copenhagen",
+        "addressCountry": "Denmark"
+      }
+    }
+  },
+  "hasOccupation": {
+    "@type": "Occupation",
+    "name": "Senior Software Developer",
+    "occupationLocation": {
+      "@type": "City",
+      "name": "Copenhagen"
+    },
+    "skills": ".NET, C#, React, TypeScript, Angular, Azure, Kubernetes"
+  }
+}
