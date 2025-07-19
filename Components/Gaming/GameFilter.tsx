@@ -25,9 +25,15 @@ const GameFilter: React.FC<GameFilterProps> = ({ games, onFilterChange }) => {
         const companies = new Set<string>();
         games.forEach((game) => {
             if (game.company && game.company.trim() !== "") {
-                // Handle companies that might have multiple names like "Nintendo / Game Freak"
-                const mainCompany = game.company.split("/")[0].trim();
-                companies.add(mainCompany);
+                // Split by '/' and add all companies, not just the first one
+                const allCompanies = game.company
+                    .split("/")
+                    .map((c) => c.trim());
+                allCompanies.forEach((company) => {
+                    if (company !== "") {
+                        companies.add(company);
+                    }
+                });
             }
         });
         return Array.from(companies).sort((a, b) => a.localeCompare(b));
@@ -74,8 +80,14 @@ const GameFilter: React.FC<GameFilterProps> = ({ games, onFilterChange }) => {
             // Filter by company (OR logic if multiple selected)
             if (filters.company.length > 0) {
                 if (!game.company) return false;
-                const mainCompany = game.company.split("/")[0].trim();
-                if (!filters.company.includes(mainCompany)) return false;
+                // Split the company field by '/' and check if any of the companies match the filter
+                const gameCompanies = game.company
+                    .split("/")
+                    .map((c) => c.trim());
+                const hasMatchingCompany = gameCompanies.some((company) =>
+                    filters.company.includes(company)
+                );
+                if (!hasMatchingCompany) return false;
             }
 
             // Filter by year (OR logic if multiple selected)
