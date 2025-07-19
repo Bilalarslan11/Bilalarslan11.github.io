@@ -1,0 +1,82 @@
+/* Space-themed background with stars, nebulae, and constellation lines */
+.space-background {
+    background: 
+        radial-gradient(ellipse at 15% 25%, rgba(120, 119, 198, 0.3) 0%, transparent 60%),
+        radial-gradient(ellipse at 85% 15%, rgba(255, 119, 198, 0.3) 0%, transparent 60%),
+        radial-gradient(ellipse at 35% 85%, rgba(120, 219, 255, 0.3) 0%, transparent 60%),
+        radial-gradient(ellipse at 70% 40%, rgba(139, 92, 246, 0.25) 0%, transparent 50%),
+        radial-gradient(ellipse at 25% 60%, rgba(59, 130, 246, 0.25) 0%, transparent 50%),
+        radial-gradient(ellipse at 90% 75%, rgba(236, 72, 153, 0.2) 0%, transparent 45%),
+        linear-gradient(27deg, transparent 0px, transparent 120px, rgba(255, 255, 255, 0.3) 121px, rgba(255, 255, 255, 0.3) 123px, transparent 124px, transparent 100%),
+        linear-gradient(63deg, transparent 0px, transparent 250px, rgba(255, 255, 255, 0.25) 251px, rgba(255, 255, 255, 0.25) 253px, transparent 254px, transparent 100%),
+        linear-gradient(135deg, transparent 0px, transparent 350px, rgba(255, 255, 255, 0.2) 351px, rgba(255, 255, 255, 0.2) 353px, transparent 354px, transparent 100%),
+        linear-gradient(45deg, transparent 0px, transparent 580px, rgba(255, 255, 255, 0.25) 581px, rgba(255, 255, 255, 0.25) 583px, transparent 584px, transparent 100%),
+        linear-gradient(110deg, transparent 0px, transparent 320px, rgba(255, 255, 255, 0.2) 321px, rgba(255, 255, 255, 0.2) 323px, transparent 324px, transparent 100%),
+        linear-gradient(80deg, transparent 0px, transparent 450px, rgba(255, 255, 255, 0.3) 451px, rgba(255, 255, 255, 0.3) 453px, transparent 454px, transparent 100%),
+        linear-gradient(160deg, transparent 0px, transparent 200px, rgba(255, 255, 255, 0.25) 201px, rgba(255, 255, 255, 0.25) 203px, transparent 204px, transparent 100%),
+        linear-gradient(15deg, transparent 0px, transparent 300px, rgba(255, 255, 255, 0.2) 301px, rgba(255, 255, 255, 0.2) 303px, transparent 304px, transparent 100%),
+        radial-gradient(circle at 120px 150px, rgba(255, 255, 255, 1) 1.5px, transparent 3px),
+        radial-gradient(circle at 850px 250px, rgba(255, 255, 255, 0.9) 1.5px, transparent 3px),
+        radial-gradient(circle at 350px 400px, rgba(255, 255, 255, 0.8) 1.2px, transparent 2.5px),
+        radial-gradient(circle at 920px 120px, rgba(255, 255, 255, 0.95) 1.5px, transparent 3px),
+        radial-gradient(circle at 680px 850px, rgba(255, 255, 255, 0.85) 1.2px, transparent 2.5px),
+        radial-gradient(circle at 250px 880px, rgba(255, 255, 255, 0.9) 1.5px, transparent 3px),
+        radial-gradient(circle at 580px 280px, rgba(255, 255, 255, 0.7) 1.2px, transparent 2.5px),
+        radial-gradient(circle at 320px 750px, rgba(255, 255, 255, 0.95) 1.5px, transparent 3px),
+        radial-gradient(circle at 780px 550px, rgba(255, 255, 255, 0.85) 1.2px, transparent 2.5px),
+        radial-gradient(circle at 150px 650px, rgba(255, 255, 255, 0.8) 1.2px, transparent 2.5px),
+        radial-gradient(circle at 950px 780px, rgba(255, 255, 255, 0.9) 1.5px, transparent 3px),
+        radial-gradient(circle at 450px 180px, rgba(255, 255, 255, 0.85) 1.2px, transparent 2.5px),
+        radial-gradient(circle at 80px 450px, rgba(255, 255, 255, 0.7) 1.2px, transparent 2.5px),
+        radial-gradient(circle at 880px 920px, rgba(255, 255, 255, 0.95) 1.5px, transparent 3px),
+        radial-gradient(circle at 220px 320px, rgba(255, 255, 255, 0.8) 1.2px, transparent 2.5px),
+        radial-gradient(circle at 720px 80px, rgba(255, 255, 255, 0.9) 1.5px, transparent 3px),
+        radial-gradient(circle at 520px 620px, rgba(255, 255, 255, 0.85) 1.2px, transparent 2.5px),
+        radial-gradient(circle at 380px 950px, rgba(255, 255, 255, 0.7) 1.2px, transparent 2.5px),
+        radial-gradient(circle at 850px 480px, rgba(255, 255, 255, 0.95) 1.5px, transparent 3px),
+        radial-gradient(circle at 180px 820px, rgba(255, 255, 255, 0.8) 1.2px, transparent 2.5px),
+        radial-gradient(circle at 980px 350px, rgba(255, 255, 255, 0.9) 1.5px, transparent 3px),
+        radial-gradient(circle at 420px 50px, rgba(255, 255, 255, 0.85) 1.2px, transparent 2.5px),
+        radial-gradient(circle at 50px 200px, rgba(255, 255, 255, 0.8) 1.2px, transparent 2.5px),
+        radial-gradient(circle at 650px 350px, rgba(255, 255, 255, 0.9) 1.5px, transparent 3px),
+        radial-gradient(circle at 300px 600px, rgba(255, 255, 255, 0.7) 1.2px, transparent 2.5px),
+        radial-gradient(circle at 800px 700px, rgba(255, 255, 255, 0.85) 1.2px, transparent 2.5px),
+        linear-gradient(135deg, #0a0a0f 0%, #1a0f2e 25%, #16213e 50%, #0f2c4c 75%, #2d1b4e 100%);
+    
+    background-size:
+        100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 
+        100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 
+        1000px 1000px, 1000px 1000px, 1000px 1000px, 1000px 1000px, 1000px 1000px, 1000px 1000px, 
+        1000px 1000px, 1000px 1000px, 1000px 1000px, 1000px 1000px, 1000px 1000px, 1000px 1000px, 
+        1000px 1000px, 1000px 1000px, 1000px 1000px, 1000px 1000px, 1000px 1000px, 1000px 1000px, 
+        1000px 1000px, 1000px 1000px, 1000px 1000px, 1000px 1000px, 1000px 1000px, 1000px 1000px, 
+        100% 100%;
+    
+    background-repeat:
+        no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, 
+        no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, 
+        repeat, repeat, repeat, repeat, repeat, repeat, repeat, repeat, repeat, repeat, 
+        repeat, repeat, repeat, repeat, repeat, repeat, repeat, repeat, repeat, repeat, 
+        repeat, repeat, repeat, repeat, repeat, no-repeat;
+    
+    background-attachment: fixed;
+    animation: galaxyTwinkle 20s ease-in-out infinite;
+}
+
+@keyframes galaxyTwinkle {
+    0%, 100% {
+        opacity: 1;
+    }
+    20% {
+        opacity: 0.8;
+    }
+    40% {
+        opacity: 0.9;
+    }
+    60% {
+        opacity: 0.7;
+    }
+    80% {
+        opacity: 0.85;
+    }
+}

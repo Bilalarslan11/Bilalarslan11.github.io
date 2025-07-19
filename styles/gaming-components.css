@@ -1,0 +1,191 @@
+/* Gaming Page Layout Styles */
+.gaming-page-header {
+    padding-top: 12vh;
+    padding-bottom: 2rem;
+}
+
+.gaming-page-header-content {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.gaming-page-title {
+    font-size: 3rem;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    margin-bottom: 1rem;
+    margin-top: 3rem;
+}
+
+.gaming-page-title-accent {
+    color: #ef4444;
+}
+
+.gaming-page-subtitle {
+    color: #d1d5db;
+    text-align: center;
+    font-size: 1.125rem;
+}
+
+/* Gaming Filter Styles */
+.gaming-filter-container {
+    width: 90%;
+    max-width: 112rem;
+    margin: 0 auto;
+    padding-bottom: 2rem;
+}
+
+.gaming-filter-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.gaming-filter-results {
+    min-width: fit-content;
+}
+
+.gaming-filter-results-text {
+    color: #d1d5db;
+    font-size: 0.875rem;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.gaming-filter-button-container {
+    position: relative;
+    display: inline-block;
+}
+
+.gaming-filter-button {
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+    border: 2px solid #ef4444;
+    background-color: #7f1d1d;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.gaming-filter-active-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #ef4444;
+    margin-left: 0.25rem;
+}
+
+.gaming-filter-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 40;
+    border: none;
+    cursor: pointer;
+}
+
+.gaming-filter-popover {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    min-width: 300px;
+    background-color: #1a1a1a;
+    border: 2px solid #ef4444;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    z-index: 50;
+    padding: 1rem;
+}
+
+.gaming-filter-popover-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.gaming-filter-popover-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.gaming-filter-popover-title {
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.gaming-filter-close-button {
+    background: none;
+    border: none;
+    color: #d1d5db;
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 0.25rem;
+}
+
+.gaming-filter-field-label {
+    display: block;
+    color: #ffffff;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.gaming-filter-select {
+    width: 100%;
+    padding: 0.5rem;
+    padding-right: 2.5rem;
+    border-radius: 0.375rem;
+    border: 2px solid #ef4444;
+    background-color: #7f1d1d;
+    color: #ffffff;
+    font-size: 0.875rem;
+    cursor: pointer;
+    outline: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23ffffff" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 0.75rem;
+}
+
+.gaming-filter-clear-section {
+    padding-top: 0.5rem;
+    border-top: 1px solid #374151;
+}
+
+.gaming-filter-clear-button {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+    border: 1px solid #6b7280;
+    background-color: #374151;
+    color: #ffffff;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s;
+}
+
+/* Gaming List Styles */
+.gaming-list-container {
+    width: 90%;
+    max-width: 112rem;
+    margin: 0 auto;
+    padding-bottom: 4rem;
+}
