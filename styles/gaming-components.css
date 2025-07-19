@@ -181,6 +181,38 @@
     background-size: 0.75rem;
 }
 
+.gaming-filter-select-multiple {
+    width: 100%;
+    padding: 0.375rem;
+    border-radius: 0.375rem;
+    border: 2px solid #ef4444;
+    background-color: #1f2937;
+    color: #ffffff;
+    font-size: 0.75rem;
+    cursor: pointer;
+    outline: none;
+    min-height: 90px;
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+.gaming-filter-select-multiple option {
+    padding: 0.25rem 0.375rem;
+    background-color: #1f2937;
+    color: #ffffff;
+    border: none;
+    font-size: 0.75rem;
+}
+
+.gaming-filter-select-multiple option:checked {
+    background-color: #ef4444;
+    color: #ffffff;
+}
+
+.gaming-filter-select-multiple option:hover {
+    background-color: #374151;
+}
+
 .gaming-filter-clear-section {
     padding-top: 0.5rem;
     border-top: 1px solid #374151;

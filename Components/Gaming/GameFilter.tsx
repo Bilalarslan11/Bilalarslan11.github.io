@@ -105,21 +105,6 @@ const GameFilter: React.FC<GameFilterProps> = ({ games, onFilterChange }) => {
         filters.year.length > 0 ||
         filters.console.length > 0;
 
-    // Helper function to toggle selection in array
-    const toggleFilter = (filterType: keyof Filters, value: string) => {
-        setFilters((prev) => {
-            const currentArray = prev[filterType];
-            const isSelected = currentArray.includes(value);
-
-            return {
-                ...prev,
-                [filterType]: isSelected
-                    ? currentArray.filter((item) => item !== value)
-                    : [...currentArray, value],
-            };
-        });
-    };
-
     return (
         <div className="gaming-filter-container">
             <div className="gaming-filter-flex">
@@ -174,7 +159,7 @@ const GameFilter: React.FC<GameFilterProps> = ({ games, onFilterChange }) => {
                             >
                                 {/* Popover Content */}
                                 <div
-                                    className="bg-[#1a1a1a] border-2 border-[#ef4444] p-6 rounded-lg shadow-2xl max-w-sm w-full mx-4"
+                                    className="bg-[#1a1a1a] border-2 border-[#ef4444] p-4 rounded-lg shadow-2xl max-w-xs w-full mx-2"
                                     onClick={(e) => e.stopPropagation()}
                                 >
                                     <div className="gaming-filter-popover-content">
@@ -201,33 +186,35 @@ const GameFilter: React.FC<GameFilterProps> = ({ games, onFilterChange }) => {
                                             >
                                                 Company:
                                             </label>
-                                            <div className="max-h-32 overflow-y-auto border border-gray-600 rounded p-2 bg-gray-800">
+                                            <select
+                                                id="popover-company-filter"
+                                                multiple
+                                                value={filters.company}
+                                                onChange={(e) => {
+                                                    const values = Array.from(
+                                                        e.target
+                                                            .selectedOptions,
+                                                        (option) => option.value
+                                                    );
+                                                    setFilters((prev) => ({
+                                                        ...prev,
+                                                        company: values,
+                                                    }));
+                                                }}
+                                                className="gaming-filter-select-multiple"
+                                                size={3}
+                                            >
                                                 {getFilterOptions(
                                                     "Company"
-                                                ).map((company) => (
-                                                    <label
-                                                        key={company}
-                                                        className="flex items-center space-x-2 py-1 cursor-pointer hover:bg-gray-700"
+                                                ).map((option) => (
+                                                    <option
+                                                        key={option}
+                                                        value={option}
                                                     >
-                                                        <input
-                                                            type="checkbox"
-                                                            checked={filters.company.includes(
-                                                                company
-                                                            )}
-                                                            onChange={() =>
-                                                                toggleFilter(
-                                                                    "company",
-                                                                    company
-                                                                )
-                                                            }
-                                                            className="w-4 h-4"
-                                                        />
-                                                        <span className="text-sm text-white">
-                                                            {company}
-                                                        </span>
-                                                    </label>
+                                                        {option}
+                                                    </option>
                                                 ))}
-                                            </div>
+                                            </select>
                                         </div>
 
                                         {/* Year Filter */}
@@ -238,33 +225,35 @@ const GameFilter: React.FC<GameFilterProps> = ({ games, onFilterChange }) => {
                                             >
                                                 Year:
                                             </label>
-                                            <div className="max-h-32 overflow-y-auto border border-gray-600 rounded p-2 bg-gray-800">
+                                            <select
+                                                id="popover-year-filter"
+                                                multiple
+                                                value={filters.year}
+                                                onChange={(e) => {
+                                                    const values = Array.from(
+                                                        e.target
+                                                            .selectedOptions,
+                                                        (option) => option.value
+                                                    );
+                                                    setFilters((prev) => ({
+                                                        ...prev,
+                                                        year: values,
+                                                    }));
+                                                }}
+                                                className="gaming-filter-select-multiple"
+                                                size={3}
+                                            >
                                                 {getFilterOptions("Year").map(
-                                                    (year) => (
-                                                        <label
-                                                            key={year}
-                                                            className="flex items-center space-x-2 py-1 cursor-pointer hover:bg-gray-700"
+                                                    (option) => (
+                                                        <option
+                                                            key={option}
+                                                            value={option}
                                                         >
-                                                            <input
-                                                                type="checkbox"
-                                                                checked={filters.year.includes(
-                                                                    year
-                                                                )}
-                                                                onChange={() =>
-                                                                    toggleFilter(
-                                                                        "year",
-                                                                        year
-                                                                    )
-                                                                }
-                                                                className="w-4 h-4"
-                                                            />
-                                                            <span className="text-sm text-white">
-                                                                {year}
-                                                            </span>
-                                                        </label>
+                                                            {option}
+                                                        </option>
                                                     )
                                                 )}
-                                            </div>
+                                            </select>
                                         </div>
 
                                         {/* Console Filter */}
@@ -275,33 +264,35 @@ const GameFilter: React.FC<GameFilterProps> = ({ games, onFilterChange }) => {
                                             >
                                                 Console:
                                             </label>
-                                            <div className="max-h-32 overflow-y-auto border border-gray-600 rounded p-2 bg-gray-800">
+                                            <select
+                                                id="popover-console-filter"
+                                                multiple
+                                                value={filters.console}
+                                                onChange={(e) => {
+                                                    const values = Array.from(
+                                                        e.target
+                                                            .selectedOptions,
+                                                        (option) => option.value
+                                                    );
+                                                    setFilters((prev) => ({
+                                                        ...prev,
+                                                        console: values,
+                                                    }));
+                                                }}
+                                                className="gaming-filter-select-multiple"
+                                                size={3}
+                                            >
                                                 {getFilterOptions(
                                                     "Console"
-                                                ).map((console) => (
-                                                    <label
-                                                        key={console}
-                                                        className="flex items-center space-x-2 py-1 cursor-pointer hover:bg-gray-700"
+                                                ).map((option) => (
+                                                    <option
+                                                        key={option}
+                                                        value={option}
                                                     >
-                                                        <input
-                                                            type="checkbox"
-                                                            checked={filters.console.includes(
-                                                                console
-                                                            )}
-                                                            onChange={() =>
-                                                                toggleFilter(
-                                                                    "console",
-                                                                    console
-                                                                )
-                                                            }
-                                                            className="w-4 h-4"
-                                                        />
-                                                        <span className="text-sm text-white">
-                                                            {console}
-                                                        </span>
-                                                    </label>
+                                                        {option}
+                                                    </option>
                                                 ))}
-                                            </div>
+                                            </select>
                                         </div>
 
                                         {/* Clear All Button */}
