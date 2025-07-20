@@ -11,8 +11,6 @@ const nextConfig: NextConfig = {
     poweredByHeader: false, // Remove X-Powered-By header for security
     generateEtags: false, // Disable ETags for static export
     compress: true, // Enable gzip compression
-    //assetPrefix: '/Bilalarslan11.github.io/', // Use the full GitHub Pages URL
-    //basePath: '/Bilalarslan11.github.io',
 };
 
 export default nextConfig;

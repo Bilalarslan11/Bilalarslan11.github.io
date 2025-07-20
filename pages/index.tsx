@@ -66,7 +66,7 @@ const HomePage = () => {
                 />
                 <link
                     rel="canonical"
-                    href="https://bilalarslan11.github.io/civi/"
+                    href="https://zehai.dk/"
                 />
 
                 {/* Open Graph Meta Tags for Social Media */}
@@ -84,7 +84,7 @@ const HomePage = () => {
                 />
                 <meta
                     property="og:url"
-                    content="https://bilalarslan11.github.io/civi/"
+                    content="https://zehai.dk/"
                 />
                 <meta
                     property="og:site_name"
@@ -92,7 +92,7 @@ const HomePage = () => {
                 />
                 <meta
                     property="og:image"
-                    content="https://bilalarslan11.github.io/civi/images/u1.png"
+                    content="https://zehai.dk/images/u1.png"
                 />
                 <meta
                     property="og:image:width"
@@ -126,7 +126,7 @@ const HomePage = () => {
                 />
                 <meta
                     name="twitter:image"
-                    content="https://bilalarslan11.github.io/civi/images/u1.png"
+                    content="https://zehai.dk/images/u1.png"
                 />
                 <meta
                     name="twitter:image:alt"
@@ -158,8 +158,8 @@ const HomePage = () => {
                             jobTitle: "Senior Software Developer",
                             description:
                                 "Experienced Software Engineer with over 10 years at the same company, specializing in .NET, C#, React, TypeScript, and Azure technologies.",
-                            url: "https://bilalarslan11.github.io/civi/",
-                            image: "https://bilalarslan11.github.io/civi/images/u1.png",
+                            url: "https://zehai.dk/",
+                            image: "https://zehai.dk/images/u1.png",
                             address: {
                                 "@type": "PostalAddress",
                                 addressLocality: "Copenhagen",
