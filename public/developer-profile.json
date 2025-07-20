@@ -32,23 +32,6 @@
     "Tailwind CSS",
     "Vite"
   ],
-  "seeks": {
-    "@type": "JobPosting",
-    "title": "Senior Software Developer Position",
-    "description": "Seeking opportunities as a Senior Software Developer in Copenhagen",
-    "hiringOrganization": {
-      "@type": "Organization",
-      "name": "Companies in Copenhagen"
-    },
-    "jobLocation": {
-      "@type": "Place",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Copenhagen",
-        "addressCountry": "Denmark"
-      }
-    }
-  },
   "hasOccupation": {
     "@type": "Occupation",
     "name": "Senior Software Developer",

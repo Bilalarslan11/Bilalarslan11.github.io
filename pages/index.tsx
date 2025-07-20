@@ -183,12 +183,6 @@ const HomePage = () => {
                             ],
                             alumniOf: "DTU (Technical University of Denmark)",
                             workLocation: "Copenhagen, Denmark",
-                            seeks: {
-                                "@type": "JobPosting",
-                                title: "Senior Software Developer Position",
-                                description:
-                                    "Seeking opportunities as a Senior Software Developer in Copenhagen",
-                            },
                         }),
                     }}
                 />
