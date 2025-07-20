@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://bilalarslan11.github.io/civi/sitemap.xml
+Sitemap: https://zehai.dk/sitemap.xml
 
 # Block gaming section as requested
 Disallow: /gaming/
