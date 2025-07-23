@@ -1,38 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://zehai.dk/</loc>
-    <lastmod>2025-07-20</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2025-07-23</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://zehai.dk/images/u1.png</image:loc>
+      <image:title>Bilal Arslan - Senior Software Developer</image:title>
+      <image:caption>Professional profile photo of Bilal Arslan, Senior Software Developer</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://zehai.dk/#home</loc>
-    <lastmod>2025-07-20</lastmod>
+    <lastmod>2025-07-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://zehai.dk/#about</loc>
-    <lastmod>2025-07-20</lastmod>
+    <lastmod>2025-07-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://zehai.dk/#focus</loc>
-    <lastmod>2025-07-20</lastmod>
+    <lastmod>2025-07-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://zehai.dk/#xp</loc>
-    <lastmod>2025-07-20</lastmod>
+    <lastmod>2025-07-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://zehai.dk/#contact</loc>
-    <lastmod>2025-07-20</lastmod>
+    <lastmod>2025-07-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
