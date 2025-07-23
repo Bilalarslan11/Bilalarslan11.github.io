@@ -64,6 +64,22 @@ const HomePage = () => {
                     name="viewport"
                     content="width=device-width, initial-scale=1.0"
                 />
+                <meta
+                    name="revisit-after"
+                    content="7 days"
+                />
+                <meta
+                    name="language"
+                    content="en"
+                />
+                <meta
+                    name="distribution"
+                    content="global"
+                />
+                <meta
+                    name="rating"
+                    content="general"
+                />
                 <link
                     rel="canonical"
                     href="https://zehai.dk/"
@@ -146,6 +162,22 @@ const HomePage = () => {
                     name="format-detection"
                     content="telephone=no"
                 />
+                <meta
+                    name="geo.region"
+                    content="DK-84"
+                />
+                <meta
+                    name="geo.placename"
+                    content="Copenhagen"
+                />
+                <meta
+                    name="geo.position"
+                    content="55.6761;12.5683"
+                />
+                <meta
+                    name="ICBM"
+                    content="55.6761, 12.5683"
+                />
 
                 {/* Structured Data (JSON-LD) */}
                 <script
@@ -183,6 +215,12 @@ const HomePage = () => {
                             ],
                             alumniOf: "DTU (Technical University of Denmark)",
                             workLocation: "Copenhagen, Denmark",
+                            sameAs: ["https://zehai.dk/"],
+                            contactPoint: {
+                                "@type": "ContactPoint",
+                                contactType: "professional",
+                                areaServed: "Copenhagen",
+                            },
                         }),
                     }}
                 />
