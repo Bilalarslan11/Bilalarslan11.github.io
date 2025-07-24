@@ -46,7 +46,7 @@ const MobileNav = ({ nav, closeNav, scrollToSection }: Props) => {
                 after:transition after:duration-300 after:origin-center"
                     onClick={() => scrollToSection("xp")}
                 >
-                    XP
+                    SKILLS
                 </div>
                 <div
                     className="relative mb-[2rem] font-semibold text-theme-text cursor-pointer text-[27px] w-fit block after:block after:content-[''] 
