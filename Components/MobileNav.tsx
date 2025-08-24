@@ -52,6 +52,14 @@ const MobileNav = ({ nav, closeNav, scrollToSection }: Props) => {
                     className="relative mb-[2rem] font-semibold text-theme-text cursor-pointer text-[27px] w-fit block after:block after:content-[''] 
                 after:absolute after:h-[3px] after:bg-theme-secondary after:w-full after:scale-x-0 after:hover:scale-x-100 
                 after:transition after:duration-300 after:origin-center"
+                    onClick={() => scrollToSection("certifications")}
+                >
+                    CERTS
+                </div>
+                <div
+                    className="relative mb-[2rem] font-semibold text-theme-text cursor-pointer text-[27px] w-fit block after:block after:content-[''] 
+                after:absolute after:h-[3px] after:bg-theme-secondary after:w-full after:scale-x-0 after:hover:scale-x-100 
+                after:transition after:duration-300 after:origin-center"
                     onClick={() => scrollToSection("contact")}
                 >
                     CONTACT

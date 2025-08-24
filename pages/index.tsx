@@ -3,7 +3,7 @@ import Contact from "@/Components/Contact";
 import Hero from "@/Components/Hero";
 import MobileNav from "@/Components/MobileNav";
 import Nav from "@/Components/Nav";
-import Certifications from "@/Components/Projects";
+import Certifications from "@/Components/Certifications";
 import Services from "@/Components/Services";
 import Skills from "@/Components/Skills";
 import Head from "next/head";

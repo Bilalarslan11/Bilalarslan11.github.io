@@ -58,6 +58,14 @@ const Nav = ({ openNav, scrollToSection }: Props) => {
                             </button>
                             <button
                                 className="nav-link"
+                                onClick={() =>
+                                    scrollToSection("certifications")
+                                }
+                            >
+                                CERTS
+                            </button>
+                            <button
+                                className="nav-link"
                                 onClick={() => scrollToSection("contact")}
                             >
                                 CONTACT
