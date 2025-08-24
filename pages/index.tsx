@@ -3,6 +3,7 @@ import Contact from "@/Components/Contact";
 import Hero from "@/Components/Hero";
 import MobileNav from "@/Components/MobileNav";
 import Nav from "@/Components/Nav";
+import Certifications from "@/Components/Projects";
 import Services from "@/Components/Services";
 import Skills from "@/Components/Skills";
 import Head from "next/head";
@@ -261,6 +262,12 @@ const HomePage = () => {
                                 aria-label="Experience and Skills"
                             >
                                 <Skills />
+                            </section>
+                            <section
+                                id="certifications"
+                                aria-label="Certifications"
+                            >
+                                <Certifications />
                             </section>
                             <section
                                 id="contact"
