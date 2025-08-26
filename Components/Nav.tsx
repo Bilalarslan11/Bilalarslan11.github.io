@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/legacy/image";
+import Image from "next/image";
 import { Bars3Icon } from "@heroicons/react/16/solid";
 import { useRouter } from "next/router";
 

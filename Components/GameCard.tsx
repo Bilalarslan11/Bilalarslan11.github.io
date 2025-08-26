@@ -152,16 +152,16 @@ const GameCard = ({ game, gameStatuses, onStatusUpdate }: Props) => {
                         </div>
                     </div>
 
-                    <div className="relative bg-[#111111] rounded-lg p-2 sm:p-4 flex justify-between items-start">
+                    <div className="relative bg-[#111111] rounded-lg p-2 pt-6 sm:p-4 sm:pt-4 flex justify-between items-start">
                         {game.rank <= 0 ? (
                             <div className="absolute -top-4 -left-1 sm:-top-5 sm:-left-1 w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center z-20">
                                 <CrownIcon rank={game.rank} />
                             </div>
                         ) : (
                             <div
-                                className={`absolute -top-4 -left-1 sm:-top-10 sm:-left-2 flex items-center justify-center text-white font-bold border-4 bg-black ${getRankColorClass(
+                                className={`absolute -top-4 -left-1 sm:-top-10 sm:-left-2 flex items-center justify-center text-white font-bold bg-black ${getRankColorClass(
                                     game.rank
-                                )} w-3 h-3 text-[10px] sm:w-12 sm:h-12 sm:text-base rounded-full border-black`}
+                                )} w-8 h-8 sm:w-12 sm:h-12 text-[12px] sm:text-base rounded-full border-2 sm:border-4 border-black`}
                             >
                                 {game.rank}
                             </div>
