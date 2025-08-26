@@ -25,7 +25,7 @@ const Hero = () => {
                         <a
                             href="/Profile.pdf"
                             download="Profile.pdf"
-                            className="btn-primary flex items-center space-x-2"
+                            className="inline-flex items-center space-x-2 px-8 py-4 text-[18px] font-extrabold uppercase transition-all duration-200 bg-theme-secondary text-theme-text hover:bg-theme-accent"
                         >
                             <p>Download CV</p>
                             <ArrowDownTrayIcon className="w-[1.6rem] h-[1.7rem] text-theme-text" />

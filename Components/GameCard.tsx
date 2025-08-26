@@ -14,6 +14,53 @@ interface Props {
     onStatusUpdate: () => void;
 }
 
+const CrownIcon: React.FC<{ rank: number }> = ({ rank }) => {
+    const getNumberColor = (r: number) => {
+        switch (r) {
+            case 1:
+                return "#B8860B"; // Dark gold
+            case 2:
+                return "#696969"; // Dark gray/silver
+            case 3:
+                return "#8B4513"; // Dark bronze/brown
+            default:
+                return "#000";
+        }
+    };
+
+    let type: string;
+    if (rank === 1) type = "gold";
+    else if (rank === 2) type = "silver";
+    else type = "bronze";
+
+    return (
+        <div style={{ position: "relative", width: "45px", height: "45px" }}>
+            <Image
+                src={`/images/crown${type}.png`}
+                alt={`Crown rank ${rank}`}
+                width={55}
+                height={55}
+                style={{ position: "absolute", top: 0, left: 0 }}
+            />
+            <span
+                style={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    fontSize: "16px",
+                    fontWeight: "bold",
+                    color: getNumberColor(rank),
+                    textShadow: "1px 1px 2px rgba(255,255,255,0.9)",
+                    zIndex: 10,
+                }}
+            >
+                {rank > 3 ? rank : ""}
+            </span>
+        </div>
+    );
+};
+
 const GameCard = ({ game, gameStatuses, onStatusUpdate }: Props) => {
     const [currentStatus, setCurrentStatus] = useState<GameStatus | null>(null);
     const [showStatusModal, setShowStatusModal] = useState(false);
@@ -53,65 +100,19 @@ const GameCard = ({ game, gameStatuses, onStatusUpdate }: Props) => {
         }
     };
 
-    const CrownIcon = ({ rank }: { rank: number }) => {
-        const getNumberColor = (rank: number) => {
-            switch (rank) {
-                case 1:
-                    return "#B8860B"; // Dark gold
-                case 2:
-                    return "#696969"; // Dark gray/silver
-                case 3:
-                    return "#8B4513"; // Dark bronze/brown
-                default:
-                    return "#000";
-            }
-        };
-
-        return (
-            <div
-                style={{ position: "relative", width: "45px", height: "45px" }}
-            >
-                <Image
-                    src={`/images/crown${
-                        rank === 1 ? "gold" : rank === 2 ? "silver" : "bronze"
-                    }.png`}
-                    alt={`Crown rank ${rank}`}
-                    width={55}
-                    height={55}
-                    style={{ position: "absolute", top: 0, left: 0 }}
-                />
-                <span
-                    className="rank-number-span"
-                    style={{
-                        position: "absolute",
-                        left: "50%",
-                        transform: "translate(-50%, -50%)",
-                        fontSize: "16px",
-                        fontWeight: "bold",
-                        color: getNumberColor(rank),
-                        textShadow: "1px 1px 2px rgba(255,255,255,0.9)",
-                        zIndex: 10,
-                    }}
-                >
-                    {rank > 3 ? rank : ""}
-                </span>
-            </div>
-        );
-    };
-
     return (
         <>
             <Link
                 href={`/gaming/${game.id}`}
                 className="block"
             >
-                <div className="game-card cursor-pointer">
-                    <div className="game-image">
+                <div className="relative bg-transparent transition-transform duration-300 min-w-0 w-full hover:scale-105 cursor-pointer">
+                    <div className="relative aspect-square bg-gray-700 overflow-hidden rounded-lg mb-2">
                         <Image
                             src={game.image}
                             alt={game.title}
                             fill
-                            className="image"
+                            className="object-cover transition-transform duration-300 rounded-lg hover:scale-110"
                         />
 
                         {/* Plus Button */}
@@ -123,12 +124,7 @@ const GameCard = ({ game, gameStatuses, onStatusUpdate }: Props) => {
                             +
                         </button> */}
 
-                        {/* Status indicator */}
-                        {/* {currentStatus && (
-                            <div className="absolute top-2 left-2 px-2 py-1 bg-theme-darker border border-theme-secondary text-theme-text text-xs rounded font-medium">
-                                {currentStatus}
-                            </div>
-                        )} */}
+                        {/* Status indicator intentionally removed in Tailwind refactor */}
 
                         {/* 100% and DLC indicators */}
                         <div className="absolute bottom-2 right-2 flex gap-1">
@@ -137,7 +133,7 @@ const GameCard = ({ game, gameStatuses, onStatusUpdate }: Props) => {
                                 game.hundredPercent.toLowerCase() !== "no" &&
                                 game.hundredPercent.toLowerCase() !== "yes" && (
                                     <div
-                                        className="game-indicator bg-theme-gold text-black rounded font-bold shadow-lg border border-theme-gold"
+                                        className="text-[10px] sm:text-xs px-1 py-0.5 sm:px-2 sm:py-1 bg-theme-gold text-black rounded font-bold shadow-lg border border-theme-gold"
                                         title="100% Complete"
                                     >
                                         100%
@@ -147,7 +143,7 @@ const GameCard = ({ game, gameStatuses, onStatusUpdate }: Props) => {
                                 game.dlc.trim() !== "" &&
                                 game.dlc.toLowerCase() !== "no" && (
                                     <div
-                                        className="game-indicator bg-theme-secondary text-theme-text rounded font-bold shadow-lg border border-theme-secondary"
+                                        className="text-[10px] sm:text-xs px-1 py-0.5 sm:px-2 sm:py-1 bg-theme-secondary text-theme-text rounded font-bold shadow-lg border border-theme-secondary"
                                         title="DLC Available"
                                     >
                                         DLC
@@ -156,29 +152,34 @@ const GameCard = ({ game, gameStatuses, onStatusUpdate }: Props) => {
                         </div>
                     </div>
 
-                    <div className="game-info-box">
+                    <div className="relative bg-[#111111] rounded-lg p-2 sm:p-4 flex justify-between items-start">
                         {game.rank <= 0 ? (
-                            <div className="rank-star-image">
+                            <div className="absolute -top-4 -left-1 sm:-top-5 sm:-left-1 w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center z-20">
                                 <CrownIcon rank={game.rank} />
                             </div>
                         ) : (
                             <div
-                                className={`rank-circle ${getRankColorClass(
+                                className={`absolute -top-4 -left-1 sm:-top-10 sm:-left-2 flex items-center justify-center text-white font-bold border-4 bg-black ${getRankColorClass(
                                     game.rank
-                                )}`}
+                                )} w-3 h-3 text-[10px] sm:w-12 sm:h-12 sm:text-base rounded-full border-black`}
                             >
                                 {game.rank}
                             </div>
                         )}
-
-                        <div className="game-info">
-                            <h3>{game.title}</h3>
-                            <p>{game.producer}</p>
+                        <div className="min-w-0">
+                            <h3 className="text-white font-bold text-[10px] xs:text-xs sm:text-sm mb-1 leading-tight break-words">
+                                {game.title}
+                            </h3>
+                            <p className="text-gray-300 text-[8px] xs:text-[10px] sm:text-xs m-0">
+                                {game.producer}
+                            </p>
                         </div>
 
-                        <div className="game-rating">
-                            <span className="score">{game.hours}</span>
-                            <span className="total">hours</span>
+                        <div className="flex flex-col items-center gap-1 text-yellow-400 font-bold text-sm leading-none">
+                            <span>{game.hours}</span>
+                            <span className="text-[10px] text-yellow-100">
+                                hours
+                            </span>
                         </div>
                     </div>
                 </div>

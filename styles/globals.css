@@ -1,50 +1,14 @@
-/* --------------------------------------
-   Imports
--------------------------------------- */
-@import url('https://fonts.googleapis.com/css?family=Poppins:wght@400;700&family=Roboto:wght@400;700&display=swap');
-
-/* --------------------------------------
-   Tailwind Base, Components, Utilities
--------------------------------------- */
+/* Tailwind base layers */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* --------------------------------------
-   Tailwind-based Styles (require @tailwind)
--------------------------------------- */
+/* Minimal base styles relying on Tailwind utilities */
 @layer base {
-    html, body {
-        @apply bg-theme-primary;
+    html {
+        @apply bg-theme-primary scroll-smooth;
     }
-}
-
-@layer components {
-    .nav-link {
-        @apply text-theme-text;
-    }
-    
-    .nav-link::after {
-        @apply bg-theme-secondary;
-    }
-    
-    .nav-link-mobile {
-        @apply text-theme-text;
-    }
-    
-    .nav-link-mobile::after {
-        @apply bg-theme-secondary;
-    }
-    
-    .heading {
-        @apply text-theme-text;
-    }
-    
-    .btn-primary {
-        @apply bg-theme-secondary text-theme-text;
-    }
-    
-    .btn-primary:hover {
-        @apply bg-theme-accent;
+    body {
+        @apply bg-theme-primary text-theme-text;
     }
 }

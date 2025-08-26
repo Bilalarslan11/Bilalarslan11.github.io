@@ -17,49 +17,37 @@ const MobileNav = ({ nav, closeNav, scrollToSection }: Props) => {
         >
             <div className="w-[100vw] h-[100vh] flex flex-col items-center justify-center">
                 <div
-                    className="relative mb-[2rem] font-semibold text-theme-text cursor-pointer text-[27px] w-fit block after:block after:content-[''] 
-                after:absolute after:h-[3px] after:bg-theme-secondary after:w-full after:scale-x-0 after:hover:scale-x-100 
-                after:transition after:duration-300 after:origin-center"
+                    className="mb-8 font-semibold text-theme-text cursor-pointer text-[27px] w-fit border-b-2 border-transparent hover:border-theme-secondary transition"
                     onClick={() => scrollToSection("home")}
                 >
                     HOME
                 </div>
                 <div
-                    className="relative mb-[2rem] font-semibold text-theme-text cursor-pointer text-[27px] w-fit block after:block after:content-[''] 
-                after:absolute after:h-[3px] after:bg-theme-secondary after:w-full after:scale-x-0 after:hover:scale-x-100 
-                after:transition after:duration-300 after:origin-center"
+                    className="mb-8 font-semibold text-theme-text cursor-pointer text-[27px] w-fit border-b-2 border-transparent hover:border-theme-secondary transition"
                     onClick={() => scrollToSection("about")}
                 >
                     ABOUT
                 </div>
                 <div
-                    className="relative mb-[2rem] font-semibold text-theme-text cursor-pointer text-[27px] w-fit block after:block after:content-[''] 
-                after:absolute after:h-[3px] after:bg-theme-secondary after:w-full after:scale-x-0 after:hover:scale-x-100 
-                after:transition after:duration-300 after:origin-center"
+                    className="mb-8 font-semibold text-theme-text cursor-pointer text-[27px] w-fit border-b-2 border-transparent hover:border-theme-secondary transition"
                     onClick={() => scrollToSection("focus")}
                 >
                     FOCUS
                 </div>
                 <div
-                    className="relative mb-[2rem] font-semibold text-theme-text cursor-pointer text-[27px] w-fit block after:block after:content-[''] 
-                after:absolute after:h-[3px] after:bg-theme-secondary after:w-full after:scale-x-0 after:hover:scale-x-100 
-                after:transition after:duration-300 after:origin-center"
+                    className="mb-8 font-semibold text-theme-text cursor-pointer text-[27px] w-fit border-b-2 border-transparent hover:border-theme-secondary transition"
                     onClick={() => scrollToSection("xp")}
                 >
                     SKILLS
                 </div>
                 <div
-                    className="relative mb-[2rem] font-semibold text-theme-text cursor-pointer text-[27px] w-fit block after:block after:content-[''] 
-                after:absolute after:h-[3px] after:bg-theme-secondary after:w-full after:scale-x-0 after:hover:scale-x-100 
-                after:transition after:duration-300 after:origin-center"
+                    className="mb-8 font-semibold text-theme-text cursor-pointer text-[27px] w-fit border-b-2 border-transparent hover:border-theme-secondary transition"
                     onClick={() => scrollToSection("certifications")}
                 >
                     CERTS
                 </div>
                 <div
-                    className="relative mb-[2rem] font-semibold text-theme-text cursor-pointer text-[27px] w-fit block after:block after:content-[''] 
-                after:absolute after:h-[3px] after:bg-theme-secondary after:w-full after:scale-x-0 after:hover:scale-x-100 
-                after:transition after:duration-300 after:origin-center"
+                    className="mb-8 font-semibold text-theme-text cursor-pointer text-[27px] w-fit border-b-2 border-transparent hover:border-theme-secondary transition"
                     onClick={() => scrollToSection("contact")}
                 >
                     CONTACT

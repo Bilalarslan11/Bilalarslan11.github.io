@@ -33,31 +33,31 @@ const Nav = ({ openNav, scrollToSection }: Props) => {
                     {router.pathname !== "/gaming" && (
                         <>
                             <button
-                                className="nav-link"
+                                className="hidden md:inline-block relative font-semibold cursor-pointer text-[17px] text-theme-text border-b-2 border-transparent hover:border-theme-secondary transition"
                                 onClick={() => scrollToSection("home")}
                             >
                                 HOME
                             </button>
                             <button
-                                className="nav-link"
+                                className="hidden md:inline-block relative font-semibold cursor-pointer text-[17px] text-theme-text border-b-2 border-transparent hover:border-theme-secondary transition"
                                 onClick={() => scrollToSection("about")}
                             >
                                 ABOUT
                             </button>
                             <button
-                                className="nav-link"
+                                className="hidden md:inline-block relative font-semibold cursor-pointer text-[17px] text-theme-text border-b-2 border-transparent hover:border-theme-secondary transition"
                                 onClick={() => scrollToSection("focus")}
                             >
                                 FOCUS
                             </button>
                             <button
-                                className="nav-link"
+                                className="hidden md:inline-block relative font-semibold cursor-pointer text-[17px] text-theme-text border-b-2 border-transparent hover:border-theme-secondary transition"
                                 onClick={() => scrollToSection("xp")}
                             >
                                 SKILLS
                             </button>
                             <button
-                                className="nav-link"
+                                className="hidden md:inline-block relative font-semibold cursor-pointer text-[17px] text-theme-text border-b-2 border-transparent hover:border-theme-secondary transition"
                                 onClick={() =>
                                     scrollToSection("certifications")
                                 }
@@ -65,7 +65,7 @@ const Nav = ({ openNav, scrollToSection }: Props) => {
                                 CERTS
                             </button>
                             <button
-                                className="nav-link"
+                                className="hidden md:inline-block relative font-semibold cursor-pointer text-[17px] text-theme-text border-b-2 border-transparent hover:border-theme-secondary transition"
                                 onClick={() => scrollToSection("contact")}
                             >
                                 CONTACT
@@ -75,18 +75,6 @@ const Nav = ({ openNav, scrollToSection }: Props) => {
                 </div>
 
                 <div className="flex items-center space-x-4 group">
-                    {/* {router.pathname !== "/gaming" && (
-                        <button
-                            onClick={() => router.push("/gaming")}
-                            className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                        >
-                            <SportsEsportsIcon
-                                className="cursor-pointer text-theme-secondary"
-                                style={{ fontSize: "2.5rem" }}
-                            />
-                        </button>
-                    )} */}
-
                     <button
                         onClick={openNav}
                         className="md:hidden"

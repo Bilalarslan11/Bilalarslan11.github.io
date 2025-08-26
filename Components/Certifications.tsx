@@ -4,7 +4,7 @@ import Image from "next/legacy/image";
 const Certifications = () => {
     return (
         <div className="bg-theme-primary pt-[4rem] md:pt-[8rem] pb-[1rem]">
-            <h1 className="heading">
+            <h1 className="text-center font-bold uppercase text-[20px] sm:text-[33px] md:text-[45px] text-theme-text">
                 Certi<span className="text-theme-secondary">fications</span>
             </h1>
             <div className="w-[80%] pt-[2rem] mx-auto grid grid-cols-1 md:grid-cols-2 gap-[2rem]">

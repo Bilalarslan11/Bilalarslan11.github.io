@@ -241,6 +241,7 @@ const HomePage = () => {
                         <section
                             id="home"
                             aria-label="Hero Section"
+                            className="scroll-mt-[12vh]"
                         >
                             <Hero />
                         </section>
@@ -248,30 +249,35 @@ const HomePage = () => {
                             <section
                                 id="about"
                                 aria-label="About Me"
+                                className="scroll-mt-[12vh]"
                             >
                                 <About />
                             </section>
                             <section
                                 id="focus"
                                 aria-label="Focus Areas"
+                                className="scroll-mt-[12vh]"
                             >
                                 <Services />
                             </section>
                             <section
                                 id="xp"
                                 aria-label="Experience and Skills"
+                                className="scroll-mt-[12vh]"
                             >
                                 <Skills />
                             </section>
                             <section
                                 id="certifications"
                                 aria-label="Certifications"
+                                className="scroll-mt-[12vh]"
                             >
                                 <Certifications />
                             </section>
                             <section
                                 id="contact"
                                 aria-label="Contact Information"
+                                className="scroll-mt-[12vh]"
                             >
                                 <Contact />
                             </section>

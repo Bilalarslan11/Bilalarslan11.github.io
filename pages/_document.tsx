@@ -2,7 +2,10 @@ import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
     return (
-        <Html lang="en">
+        <Html
+            lang="en"
+            className="scroll-smooth bg-theme-primary"
+        >
             <Head>
                 {/* Preconnect to external domains for performance */}
                 <link
@@ -42,7 +45,7 @@ export default function Document() {
                     href="//fonts.googleapis.com"
                 />
             </Head>
-            <body className="font-primary">
+            <body className="bg-theme-primary">
                 <Main />
                 <NextScript />
             </body>

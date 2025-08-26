@@ -118,12 +118,12 @@ const GameFilter: React.FC<GameFilterProps> = ({ games, onFilterChange }) => {
         filters.console.length > 0;
 
     return (
-        <div className="gaming-filter-container">
-            <div className="gaming-filter-flex">
+        <div className="w-[90%] max-w-[112rem] mx-auto pb-8">
+            <div className="flex justify-between items-center gap-3 flex-wrap">
                 {/* Results Counter - Left Side */}
-                <div className="gaming-filter-results">
+                <div className="min-w-fit">
                     {hasActiveFilters && (
-                        <span className="gaming-filter-results-text">
+                        <span className="text-gray-300 text-sm font-medium whitespace-nowrap">
                             ({filteredGames.length} game
                             {filteredGames.length !== 1 ? "s" : ""})
                         </span>
@@ -131,10 +131,10 @@ const GameFilter: React.FC<GameFilterProps> = ({ games, onFilterChange }) => {
                 </div>
 
                 {/* Filter Icon and Popover */}
-                <div className="gaming-filter-button-container">
+                <div className="relative inline-block">
                     <button
                         onClick={() => setShowFilterPopover(!showFilterPopover)}
-                        className="gaming-filter-button hover:bg-theme-dark focus:border-theme-accent"
+                        className="p-2 rounded-md border-2 border-theme-secondary bg-theme-darker text-white text-base font-medium cursor-pointer outline-none transition-all flex items-center gap-2 hover:bg-theme-dark focus:border-theme-accent"
                     >
                         {/* Filter Icon */}
                         <svg
@@ -152,7 +152,7 @@ const GameFilter: React.FC<GameFilterProps> = ({ games, onFilterChange }) => {
                         Filter
                         {/* Active filter indicator */}
                         {hasActiveFilters && (
-                            <span className="gaming-filter-active-indicator" />
+                            <span className="w-2 h-2 rounded-full bg-theme-secondary ml-1" />
                         )}
                     </button>
 
@@ -160,175 +160,177 @@ const GameFilter: React.FC<GameFilterProps> = ({ games, onFilterChange }) => {
                     {showFilterPopover && (
                         <>
                             {/* Backdrop */}
-                            <div
-                                className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
-                                onClick={() => setShowFilterPopover(false)}
-                                onKeyDown={(e) => {
-                                    if (e.key === "Escape") {
-                                        setShowFilterPopover(false);
-                                    }
-                                }}
-                            >
+                            <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
                                 {/* Popover Content */}
-                                <div
-                                    className="bg-[#1a1a1a] border-2 border-[#ef4444] p-4 rounded-lg shadow-2xl max-w-xs w-full mx-2"
-                                    onClick={(e) => e.stopPropagation()}
+                                <dialog
+                                    open
+                                    className="bg-transparent p-0 border-0 m-0"
                                 >
-                                    <div className="gaming-filter-popover-content">
-                                        {/* Popover Header */}
-                                        <div className="gaming-filter-popover-header">
-                                            <h3 className="gaming-filter-popover-title">
-                                                Filter Games
-                                            </h3>
-                                            <button
-                                                onClick={() =>
-                                                    setShowFilterPopover(false)
-                                                }
-                                                className="gaming-filter-close-button"
-                                            >
-                                                ×
-                                            </button>
-                                        </div>
+                                    <div className="bg-[#1a1a1a] border-2 border-[#ef4444] p-4 rounded-lg shadow-2xl max-w-xs w-full mx-2">
+                                        <div className="flex flex-col gap-4">
+                                            {/* Popover Header */}
+                                            <div className="flex justify-between items-center">
+                                                <h3 className="text-white text-base font-semibold m-0">
+                                                    Filter Games
+                                                </h3>
+                                                <button
+                                                    onClick={() =>
+                                                        setShowFilterPopover(
+                                                            false
+                                                        )
+                                                    }
+                                                    className="bg-transparent border-none text-gray-300 text-xl cursor-pointer p-1"
+                                                >
+                                                    ×
+                                                </button>
+                                            </div>
 
-                                        {/* Company Filter */}
-                                        <div>
-                                            <label
-                                                htmlFor="popover-company-filter"
-                                                className="gaming-filter-field-label"
-                                            >
-                                                Company:
-                                            </label>
-                                            <select
-                                                id="popover-company-filter"
-                                                multiple
-                                                value={filters.company}
-                                                onChange={(e) => {
-                                                    const values = Array.from(
-                                                        e.target
-                                                            .selectedOptions,
-                                                        (option) => option.value
-                                                    );
-                                                    setFilters((prev) => ({
-                                                        ...prev,
-                                                        company: values,
-                                                    }));
-                                                }}
-                                                className="gaming-filter-select-multiple"
-                                                size={3}
-                                            >
-                                                {getFilterOptions(
-                                                    "Company"
-                                                ).map((option) => (
-                                                    <option
-                                                        key={option}
-                                                        value={option}
-                                                    >
-                                                        {option}
-                                                    </option>
-                                                ))}
-                                            </select>
-                                        </div>
-
-                                        {/* Year Filter */}
-                                        <div>
-                                            <label
-                                                htmlFor="popover-year-filter"
-                                                className="gaming-filter-field-label"
-                                            >
-                                                Year:
-                                            </label>
-                                            <select
-                                                id="popover-year-filter"
-                                                multiple
-                                                value={filters.year}
-                                                onChange={(e) => {
-                                                    const values = Array.from(
-                                                        e.target
-                                                            .selectedOptions,
-                                                        (option) => option.value
-                                                    );
-                                                    setFilters((prev) => ({
-                                                        ...prev,
-                                                        year: values,
-                                                    }));
-                                                }}
-                                                className="gaming-filter-select-multiple"
-                                                size={3}
-                                            >
-                                                {getFilterOptions("Year").map(
-                                                    (option) => (
+                                            {/* Company Filter */}
+                                            <div>
+                                                <label
+                                                    htmlFor="popover-company-filter"
+                                                    className="block text-white text-sm font-medium mb-2"
+                                                >
+                                                    Company:
+                                                </label>
+                                                <select
+                                                    id="popover-company-filter"
+                                                    multiple
+                                                    value={filters.company}
+                                                    onChange={(e) => {
+                                                        const values =
+                                                            Array.from(
+                                                                e.target
+                                                                    .selectedOptions,
+                                                                (option) =>
+                                                                    option.value
+                                                            );
+                                                        setFilters((prev) => ({
+                                                            ...prev,
+                                                            company: values,
+                                                        }));
+                                                    }}
+                                                    className="w-full p-1.5 rounded-md border-2 border-theme-secondary bg-gray-800 text-white text-xs cursor-pointer outline-none min-h-[90px] max-h-[100px] overflow-y-auto"
+                                                    size={3}
+                                                >
+                                                    {getFilterOptions(
+                                                        "Company"
+                                                    ).map((option) => (
                                                         <option
                                                             key={option}
                                                             value={option}
                                                         >
                                                             {option}
                                                         </option>
-                                                    )
-                                                )}
-                                            </select>
-                                        </div>
-
-                                        {/* Console Filter */}
-                                        <div>
-                                            <label
-                                                htmlFor="popover-console-filter"
-                                                className="gaming-filter-field-label"
-                                            >
-                                                Console:
-                                            </label>
-                                            <select
-                                                id="popover-console-filter"
-                                                multiple
-                                                value={filters.console}
-                                                onChange={(e) => {
-                                                    const values = Array.from(
-                                                        e.target
-                                                            .selectedOptions,
-                                                        (option) => option.value
-                                                    );
-                                                    setFilters((prev) => ({
-                                                        ...prev,
-                                                        console: values,
-                                                    }));
-                                                }}
-                                                className="gaming-filter-select-multiple"
-                                                size={3}
-                                            >
-                                                {getFilterOptions(
-                                                    "Console"
-                                                ).map((option) => (
-                                                    <option
-                                                        key={option}
-                                                        value={option}
-                                                    >
-                                                        {option}
-                                                    </option>
-                                                ))}
-                                            </select>
-                                        </div>
-
-                                        {/* Clear All Button */}
-                                        {hasActiveFilters && (
-                                            <div className="gaming-filter-clear-section">
-                                                <button
-                                                    onClick={() => {
-                                                        setFilters({
-                                                            company: [],
-                                                            year: [],
-                                                            console: [],
-                                                        });
-                                                        setShowFilterPopover(
-                                                            false
-                                                        );
-                                                    }}
-                                                    className="gaming-filter-clear-button hover:bg-gray-600"
-                                                >
-                                                    Clear All Filters
-                                                </button>
+                                                    ))}
+                                                </select>
                                             </div>
-                                        )}
+
+                                            {/* Year Filter */}
+                                            <div>
+                                                <label
+                                                    htmlFor="popover-year-filter"
+                                                    className="block text-white text-sm font-medium mb-2"
+                                                >
+                                                    Year:
+                                                </label>
+                                                <select
+                                                    id="popover-year-filter"
+                                                    multiple
+                                                    value={filters.year}
+                                                    onChange={(e) => {
+                                                        const values =
+                                                            Array.from(
+                                                                e.target
+                                                                    .selectedOptions,
+                                                                (option) =>
+                                                                    option.value
+                                                            );
+                                                        setFilters((prev) => ({
+                                                            ...prev,
+                                                            year: values,
+                                                        }));
+                                                    }}
+                                                    className="w-full p-1.5 rounded-md border-2 border-theme-secondary bg-gray-800 text-white text-xs cursor-pointer outline-none min-h-[90px] max-h-[100px] overflow-y-auto"
+                                                    size={3}
+                                                >
+                                                    {getFilterOptions(
+                                                        "Year"
+                                                    ).map((option) => (
+                                                        <option
+                                                            key={option}
+                                                            value={option}
+                                                        >
+                                                            {option}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </div>
+
+                                            {/* Console Filter */}
+                                            <div>
+                                                <label
+                                                    htmlFor="popover-console-filter"
+                                                    className="block text-white text-sm font-medium mb-2"
+                                                >
+                                                    Console:
+                                                </label>
+                                                <select
+                                                    id="popover-console-filter"
+                                                    multiple
+                                                    value={filters.console}
+                                                    onChange={(e) => {
+                                                        const values =
+                                                            Array.from(
+                                                                e.target
+                                                                    .selectedOptions,
+                                                                (option) =>
+                                                                    option.value
+                                                            );
+                                                        setFilters((prev) => ({
+                                                            ...prev,
+                                                            console: values,
+                                                        }));
+                                                    }}
+                                                    className="w-full p-1.5 rounded-md border-2 border-theme-secondary bg-gray-800 text-white text-xs cursor-pointer outline-none min-h-[90px] max-h-[100px] overflow-y-auto"
+                                                    size={3}
+                                                >
+                                                    {getFilterOptions(
+                                                        "Console"
+                                                    ).map((option) => (
+                                                        <option
+                                                            key={option}
+                                                            value={option}
+                                                        >
+                                                            {option}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </div>
+
+                                            {/* Clear All Button */}
+                                            {hasActiveFilters && (
+                                                <div className="pt-2 border-t border-gray-700">
+                                                    <button
+                                                        onClick={() => {
+                                                            setFilters({
+                                                                company: [],
+                                                                year: [],
+                                                                console: [],
+                                                            });
+                                                            setShowFilterPopover(
+                                                                false
+                                                            );
+                                                        }}
+                                                        className="w-full p-2 rounded-md border border-gray-500 bg-gray-700 text-white text-sm font-medium cursor-pointer outline-none transition-all hover:bg-gray-600"
+                                                    >
+                                                        Clear All Filters
+                                                    </button>
+                                                </div>
+                                            )}
+                                        </div>
                                     </div>
-                                </div>
+                                </dialog>
                             </div>
                         </>
                     )}

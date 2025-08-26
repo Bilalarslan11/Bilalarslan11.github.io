@@ -3,7 +3,7 @@ import Image from "next/legacy/image";
 const About = () => {
     return (
         <div className="bg-theme-primary pt-[4rem] md:pt-[8rem] pb-[4rem]">
-            <h1 className="heading">
+            <h1 className="text-center font-bold uppercase text-[20px] sm:text-[33px] md:text-[45px] text-theme-text">
                 About <span className="text-theme-secondary">Me</span>
             </h1>
             <div className="grid grid-cols-1 md:grid-cols-2 w-[80%] mx-auto gap-[3rem] items-center mt-[4rem]">

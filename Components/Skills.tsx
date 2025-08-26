@@ -5,7 +5,7 @@ import SkillsLanguage from "./SkillsLanguage";
 const Skills = () => {
     return (
         <div className="pt-[4rem] md:pt-[8rem] pb-[5rem] bg-theme-primary">
-            <h1 className="heading">
+            <h1 className="text-center font-bold uppercase text-[20px] sm:text-[33px] md:text-[45px] text-theme-text">
                 Education & <span className="text-theme-secondary">Skill</span>
             </h1>
             <div className="w-[80%] mx-auto pt-[4rem] md:pt-[8rem] grid grid-cols-1 md:grid-cols-2 gap-[2rem] items-center">

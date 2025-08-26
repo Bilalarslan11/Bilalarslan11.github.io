@@ -4,7 +4,7 @@ import React from "react";
 const Contact = () => {
     return (
         <div className="pt-[8rem] pb-[4rem] text-theme-accent">
-            <h1 className="heading">
+            <h1 className="text-center font-bold uppercase text-[20px] sm:text-[33px] md:text-[45px] text-theme-text">
                 Contact <span className="text-theme-secondary">Me</span>
             </h1>
             <br />
