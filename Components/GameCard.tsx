@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from "react";
-import Image from "next/image";
-import Link from "next/link";
 import { Game } from "@/models/Game";
 import {
     GameStatus,
     GameStatusEntry,
     updateGameStatus,
 } from "@/utils/gameStatusManager";
+import Image from "next/image";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
 
 interface Props {
     game: Game;
     gameStatuses: GameStatusEntry[];
     onStatusUpdate: () => void;
+    valueLabel: string; // label under the numeric value (e.g., 'hours' or '/ 100')
 }
 
 const CrownIcon: React.FC<{ rank: number }> = ({ rank }) => {
@@ -61,7 +62,12 @@ const CrownIcon: React.FC<{ rank: number }> = ({ rank }) => {
     );
 };
 
-const GameCard = ({ game, gameStatuses, onStatusUpdate }: Props) => {
+const GameCard = ({
+    game,
+    gameStatuses,
+    onStatusUpdate,
+    valueLabel,
+}: Props) => {
     const [currentStatus, setCurrentStatus] = useState<GameStatus | null>(null);
     const [showStatusModal, setShowStatusModal] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -178,7 +184,7 @@ const GameCard = ({ game, gameStatuses, onStatusUpdate }: Props) => {
                         <div className="flex flex-col items-center gap-1 text-yellow-400 font-bold text-sm leading-none">
                             <span>{game.hours}</span>
                             <span className="text-[10px] text-yellow-100">
-                                hours
+                                {valueLabel}
                             </span>
                         </div>
                     </div>

@@ -1,10 +1,10 @@
 import GameFilter from "@/Components/Gaming/GameFilter";
-import GamingPageLayout from "@/Components/Gaming/GamingPageLayout";
 import GamesList from "@/Components/Gaming/GamesList";
+import GamingPageLayout from "@/Components/Gaming/GamingPageLayout";
 import { Game } from "@/models/Game";
 import { loadGameData } from "@/utils/gameDataParser";
 import { GameStatusEntry, loadGameStatuses } from "@/utils/gameStatusManager";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const Gaming = () => {
     const [nav, setNav] = useState(false);
@@ -69,6 +69,7 @@ const Gaming = () => {
                 games={filteredGames}
                 gameStatuses={gameStatuses}
                 onStatusUpdate={refreshStatuses}
+                valueLabel="hours"
             />
         </GamingPageLayout>
     );
