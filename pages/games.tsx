@@ -110,6 +110,7 @@ const Gaming = ({ initialGames, initialError, builtAt }: GamesPageProps) => {
                     };
                 });
                 if (!aborted) {
+                    setBaseGames(liveGames);
                     setFilteredGames(liveGames);
                 }
             } catch (e) {
