@@ -37,7 +37,7 @@ const Gaming = ({ initialGames, initialError, builtAt }: GamesPageProps) => {
             try {
                 setIsLiveUpdating(true);
                 const res = await fetch(
-                    "https://api.zehai.dk/api/games/top-rated",
+                    "/api/games/top-rated",
                     { cache: "no-store" }
                 );
                 if (!res.ok) throw new Error(`live fetch ${res.status}`);
