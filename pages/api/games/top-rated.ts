@@ -11,7 +11,7 @@ export default async function handler(
     try {
         const apiUrl =
             process.env.API_BASE_URL || "https://api.zehai.dk";
-        const endpoint = "/api/games/top-rated";
+        const endpoint = "/games/top-rated";
         
         const response = await fetch(`${apiUrl}${endpoint}`, {
             headers: {

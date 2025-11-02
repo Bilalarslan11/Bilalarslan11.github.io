@@ -37,8 +37,12 @@ const Gaming = ({ initialGames, initialError, builtAt }: GamesPageProps) => {
             try {
                 setIsLiveUpdating(true);
                 const res = await fetch(
-                    "/api/games/top-rated",
-                    { cache: "no-store" }
+                    "https://api.zehai.dk/games/top-rated",
+                    { 
+                        cache: "no-store",
+                        mode: "cors",
+                        credentials: "omit"
+                    }
                 );
                 if (!res.ok) throw new Error(`live fetch ${res.status}`);
                 const json = await res.json();
@@ -173,7 +177,7 @@ export default Gaming;
 
 export const getStaticProps: GetStaticProps<GamesPageProps> = async () => {
     try {
-        const res = await fetch("https://api.zehai.dk/api/games/top-rated");
+        const res = await fetch("https://api.zehai.dk/games/top-rated");
         if (!res.ok) throw new Error(`API responded ${res.status}`);
         const json = await res.json();
         let raw: unknown = json;
