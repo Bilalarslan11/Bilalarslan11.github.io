@@ -3,6 +3,7 @@ import GamesList from "@/Components/Gaming/GamesList";
 import GamingPageLayout from "@/Components/Gaming/GamingPageLayout";
 import { Game } from "@/models/Game";
 import { GameStatusEntry, loadGameStatuses } from "@/utils/gameStatusManager";
+import { upgradeImageUrl } from "@/utils/imageUtils";
 import type { GetStaticProps } from "next";
 import { useEffect, useState } from "react";
 
@@ -59,9 +60,7 @@ const Gaming = ({ initialGames, initialError, builtAt }: GamesPageProps) => {
                 const liveGames: Game[] = (raw as RawGame[]).map((g, idx) => {
                     let coverUrl = "/gamepictures/placeholder.png";
                     if (g.cover?.url) {
-                        coverUrl = g.cover.url.startsWith("//")
-                            ? `https:${g.cover.url}`
-                            : g.cover.url;
+                        coverUrl = upgradeImageUrl(g.cover.url);
                     }
                     return {
                         id: g.id ?? idx + 1,
@@ -195,9 +194,7 @@ export const getStaticProps: GetStaticProps<GamesPageProps> = async () => {
         const normalized: Game[] = (raw as RawGame[]).map((g, idx) => {
             let coverUrl = "/gamepictures/placeholder.png";
             if (g.cover?.url) {
-                coverUrl = g.cover.url.startsWith("//")
-                    ? `https:${g.cover.url}`
-                    : g.cover.url;
+                coverUrl = upgradeImageUrl(g.cover.url);
             }
             return {
                 id: g.id ?? idx + 1,
