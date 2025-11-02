@@ -114,12 +114,23 @@ const GameCard = ({
             >
                 <div className="relative bg-transparent transition-transform duration-300 min-w-0 w-full hover:scale-105 cursor-pointer">
                     <div className="relative aspect-square bg-gray-700 overflow-hidden rounded-lg mb-2">
-                        <Image
-                            src={game.image}
-                            alt={game.title}
-                            fill
-                            className="object-cover transition-transform duration-300 rounded-lg hover:scale-110"
-                        />
+                        {game.image.startsWith('http') ? (
+                            // Use regular img tag for external URLs to avoid CORS issues
+                            <img
+                                src={game.image}
+                                alt={game.title}
+                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 rounded-lg hover:scale-110"
+                                loading="lazy"
+                                referrerPolicy="no-referrer"
+                            />
+                        ) : (
+                            <Image
+                                src={game.image}
+                                alt={game.title}
+                                fill
+                                className="object-cover transition-transform duration-300 rounded-lg hover:scale-110"
+                            />
+                        )}
 
                         {/* Plus Button */}
                         {/* <button

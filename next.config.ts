@@ -6,6 +6,13 @@ const nextConfig: NextConfig = {
     trailingSlash: true,
     images: {
         unoptimized: true, // Disables the Image Optimization API for static export
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'images.igdb.com',
+                pathname: '/igdb/image/upload/**',
+            },
+        ],
     },
     // SEO and Performance optimizations
     poweredByHeader: false, // Remove X-Powered-By header for security

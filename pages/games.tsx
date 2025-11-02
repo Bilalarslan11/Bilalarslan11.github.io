@@ -59,12 +59,38 @@ const Gaming = ({ initialGames, initialError, builtAt }: GamesPageProps) => {
                     name?: string;
                     rating?: number;
                     weightedRating?: number;
-                    cover?: { url?: string };
+                    cover?: { url?: string } | string; // Support both object and string
                 };
                 const liveGames: Game[] = (raw as RawGame[]).map((g, idx) => {
                     let coverUrl = "/gamepictures/placeholder.png";
-                    if (g.cover?.url) {
-                        coverUrl = upgradeImageUrl(g.cover.url);
+                    // Debug: log what we're getting from the API
+                    if (idx === 0) {
+                        console.log("First game from API:", g);
+                        console.log("Cover object:", g.cover);
+                        console.log("Cover type:", typeof g.cover);
+                    }
+                    
+                    // Handle cover as either object with url or direct string
+                    let coverUrlValue: string | undefined;
+                    if (typeof g.cover === 'string') {
+                        coverUrlValue = g.cover;
+                    } else if (g.cover && typeof g.cover === 'object' && 'url' in g.cover) {
+                        coverUrlValue = g.cover.url;
+                    }
+                    
+                    if (idx === 0) {
+                        console.log("Cover URL value:", coverUrlValue);
+                    }
+                    
+                    if (coverUrlValue && coverUrlValue.trim() !== "") {
+                        const upgraded = upgradeImageUrl(coverUrlValue);
+                        if (upgraded && upgraded.trim() !== "") {
+                            coverUrl = upgraded;
+                        } else if (idx === 0) {
+                            console.warn("upgradeImageUrl returned invalid URL:", upgraded);
+                        }
+                    } else if (idx === 0) {
+                        console.warn("Game missing cover URL:", g);
                     }
                     return {
                         id: g.id ?? idx + 1,
@@ -193,12 +219,24 @@ export const getStaticProps: GetStaticProps<GamesPageProps> = async () => {
             name?: string;
             rating?: number;
             weightedRating?: number;
-            cover?: { url?: string };
+            cover?: { url?: string } | string; // Support both object and string
         };
         const normalized: Game[] = (raw as RawGame[]).map((g, idx) => {
             let coverUrl = "/gamepictures/placeholder.png";
-            if (g.cover?.url) {
-                coverUrl = upgradeImageUrl(g.cover.url);
+            
+            // Handle cover as either object with url or direct string
+            let coverUrlValue: string | undefined;
+            if (typeof g.cover === 'string') {
+                coverUrlValue = g.cover;
+            } else if (g.cover && typeof g.cover === 'object' && 'url' in g.cover) {
+                coverUrlValue = g.cover.url;
+            }
+            
+            if (coverUrlValue && coverUrlValue.trim() !== "") {
+                const upgraded = upgradeImageUrl(coverUrlValue);
+                if (upgraded && upgraded.trim() !== "") {
+                    coverUrl = upgraded;
+                }
             }
             return {
                 id: g.id ?? idx + 1,

@@ -149,12 +149,23 @@ const GameDetails = () => {
                         {/* Left side - Game Image */}
                         <div className="md:col-span-1 lg:col-span-1 xl:col-span-1 flex flex-col items-center">
                             <div className="relative w-56 h-56 rounded-lg overflow-hidden shadow-2xl">
-                                <Image
-                                    src={game.image}
-                                    alt={game.title}
-                                    fill
-                                    className="object-cover"
-                                />
+                                {game.image.startsWith('http') ? (
+                                    // Use regular img tag for external URLs to avoid CORS issues
+                                    <img
+                                        src={game.image}
+                                        alt={game.title}
+                                        className="absolute inset-0 w-full h-full object-cover"
+                                        loading="lazy"
+                                        referrerPolicy="no-referrer"
+                                    />
+                                ) : (
+                                    <Image
+                                        src={game.image}
+                                        alt={game.title}
+                                        fill
+                                        className="object-cover"
+                                    />
+                                )}
                             </div>
                             <div className="text-theme-text-secondary text-lg mt-4 text-center">
                                 <p className="mb-1">Rank #{game.rank}</p>
