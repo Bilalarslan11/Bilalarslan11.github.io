@@ -38,11 +38,7 @@ const Gaming = () =>
                 const res = await fetch("https://api.zehai.dk/games/top-rated", {
                     cache: "no-store",
                     mode: "cors",
-                    credentials: "omit",
-                    headers: {
-                        "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
-                        Pragma: "no-cache"
-                    }
+                    credentials: "omit"
                 });
                 if (!res.ok)
                 {
