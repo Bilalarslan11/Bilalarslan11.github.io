@@ -4,50 +4,54 @@ import GamingPageLayout from "@/Components/Gaming/GamingPageLayout";
 import { Game } from "@/models/Game";
 import { GameStatusEntry, loadGameStatuses } from "@/utils/gameStatusManager";
 import { upgradeImageUrl } from "@/utils/imageUtils";
-import type { GetStaticProps } from "next";
 import { useEffect, useState } from "react";
 
-interface GamesPageProps {
-    initialGames: Game[];
-    initialError?: string;
-    builtAt: string; // ISO timestamp for transparency
-}
-
-const Gaming = ({ initialGames, initialError, builtAt }: GamesPageProps) => {
-    // Navigation state preserved from original layout usage
+const Gaming = () =>
+{
     const [nav, setNav] = useState(false);
     const openNav = () => setNav(true);
     const closeNav = () => setNav(false);
     const scrollToSection = () => closeNav();
 
-    // Game data & statuses
-    const [gamesFromCSV] = useState<Game[]>(initialGames); // Static for this page lifecycle
+    const [games, setGames] = useState<Game[]>([]);
+    const [filteredGames, setFilteredGames] = useState<Game[]>([]);
     const [gameStatuses, setGameStatuses] = useState<GameStatusEntry[]>([]);
-    const [filteredGames, setFilteredGames] = useState<Game[]>(initialGames);
-    const [error] = useState<string | null>(initialError ?? null);
-    const [isLiveUpdating, setIsLiveUpdating] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const [fetchedAt, setFetchedAt] = useState<string>("");
 
-    // After mount, do a client-side refresh to get the absolute latest ordering
-    // (static export can't revalidate automatically). This will replace the
-    // static snapshot if the API order changed since build.
     useEffect(() => {
-        if (error) return; // don't attempt if initial build failed
-        let aborted = false;
-        (async () => {
-            try {
-                setIsLiveUpdating(true);
-                const res = await fetch(
-                    "https://api.zehai.dk/games/top-rated",
-                    { 
-                        cache: "no-store",
-                        mode: "cors",
-                        credentials: "omit"
+        try {
+            const statuses = loadGameStatuses();
+            setGameStatuses(statuses);
+        } catch (err) {
+            console.error("Error loading game statuses:", err);
+        }
+    }, []);
+
+    useEffect(() =>
+    {
+        let cancelled = false;
+        (async () =>
+        {
+            try
+            {
+                const res = await fetch("https://api.zehai.dk/games/top-rated", {
+                    cache: "no-store",
+                    mode: "cors",
+                    credentials: "omit",
+                    headers: {
+                        "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
+                        Pragma: "no-cache"
                     }
-                );
-                if (!res.ok) throw new Error(`live fetch ${res.status}`);
+                });
+                if (!res.ok)
+                {
+                    throw new Error(`API responded ${res.status}`);
+                }
                 const json = await res.json();
                 let raw: unknown = json;
-                if (!Array.isArray(raw)) {
+                if (!Array.isArray(raw))
+                {
                     const maybeObj =
                         typeof json === "object" && json !== null
                             ? (json as { games?: unknown[] })
@@ -59,38 +63,27 @@ const Gaming = ({ initialGames, initialError, builtAt }: GamesPageProps) => {
                     name?: string;
                     rating?: number;
                     weightedRating?: number;
-                    cover?: { url?: string } | string; // Support both object and string
+                    cover?: { url?: string } | string;
                 };
-                const liveGames: Game[] = (raw as RawGame[]).map((g, idx) => {
+                const normalized: Game[] = (raw as RawGame[]).map((g, idx) =>
+                {
                     let coverUrl = "/gamepictures/placeholder.png";
-                    // Debug: log what we're getting from the API
-                    if (idx === 0) {
-                        console.log("First game from API:", g);
-                        console.log("Cover object:", g.cover);
-                        console.log("Cover type:", typeof g.cover);
-                    }
-                    
-                    // Handle cover as either object with url or direct string
                     let coverUrlValue: string | undefined;
-                    if (typeof g.cover === 'string') {
+                    if (typeof g.cover === "string")
+                    {
                         coverUrlValue = g.cover;
-                    } else if (g.cover && typeof g.cover === 'object' && 'url' in g.cover) {
-                        coverUrlValue = g.cover.url;
                     }
-                    
-                    if (idx === 0) {
-                        console.log("Cover URL value:", coverUrlValue);
+                    else if (g.cover && typeof g.cover === "object" && "url" in g.cover)
+                    {
+                        coverUrlValue = (g.cover as { url?: string }).url;
                     }
-                    
-                    if (coverUrlValue && coverUrlValue.trim() !== "") {
+                    if (coverUrlValue && coverUrlValue.trim() !== "")
+                    {
                         const upgraded = upgradeImageUrl(coverUrlValue);
-                        if (upgraded && upgraded.trim() !== "") {
+                        if (upgraded && upgraded.trim() !== "")
+                        {
                             coverUrl = upgraded;
-                        } else if (idx === 0) {
-                            console.warn("upgradeImageUrl returned invalid URL:", upgraded);
                         }
-                    } else if (idx === 0) {
-                        console.warn("Game missing cover URL:", g);
                     }
                     return {
                         id: g.id ?? idx + 1,
@@ -109,31 +102,30 @@ const Gaming = ({ initialGames, initialError, builtAt }: GamesPageProps) => {
                         dlc: "",
                     };
                 });
-                if (!aborted) {
-                    setBaseGames(liveGames);
-                    setFilteredGames(liveGames);
+                if (!cancelled)
+                {
+                    setGames(normalized);
+                    setFilteredGames(normalized);
+                    setFetchedAt(new Date().toISOString());
+                    setError(null);
                 }
-            } catch (e) {
-                if (!aborted) {
-                    console.warn("Live update failed", e);
+            }
+            catch (e)
+            {
+                if (!cancelled)
+                {
+                    const msg = e instanceof Error ? e.message : String(e);
+                    setError(msg);
+                    setGames([]);
+                    setFilteredGames([]);
+                    setFetchedAt(new Date().toISOString());
                 }
-            } finally {
-                if (!aborted) setIsLiveUpdating(false);
             }
         })();
-        return () => {
-            aborted = true;
+        return () =>
+        {
+            cancelled = true;
         };
-    }, [error]);
-
-    useEffect(() => {
-        // Load statuses from localStorage
-        try {
-            const statuses = loadGameStatuses();
-            setGameStatuses(statuses);
-        } catch (err) {
-            console.error("Error loading game statuses:", err);
-        }
     }, []);
 
     const refreshStatuses = () => {
@@ -174,9 +166,9 @@ const Gaming = ({ initialGames, initialError, builtAt }: GamesPageProps) => {
                     </div>
                 </div>
             )}
-            {!error && gamesFromCSV.length > 0 && (
+            {!error && games.length > 0 && (
                 <GameFilter
-                    games={gamesFromCSV}
+                    games={games}
                     onFilterChange={handleFilterChange}
                 />
             )}
@@ -191,8 +183,7 @@ const Gaming = ({ initialGames, initialError, builtAt }: GamesPageProps) => {
             {!error && (
                 <div className="w-[90%] max-w-[112rem] mx-auto mt-4 text-right text-[10px] text-gray-400">
                     <span>
-                        Built at {new Date(builtAt).toLocaleString()} ·{" "}
-                        {isLiveUpdating ? "Refreshing…" : "Live order loaded"}
+                        Fetched at {new Date(fetchedAt).toLocaleString()}
                     </span>
                 </div>
             )}
@@ -201,75 +192,3 @@ const Gaming = ({ initialGames, initialError, builtAt }: GamesPageProps) => {
 };
 
 export default Gaming;
-
-export const getStaticProps: GetStaticProps<GamesPageProps> = async () => {
-    try {
-        const res = await fetch("https://api.zehai.dk/games/top-rated");
-        if (!res.ok) throw new Error(`API responded ${res.status}`);
-        const json = await res.json();
-        let raw: unknown = json;
-        if (!Array.isArray(raw)) {
-            const maybeObj =
-                typeof json === "object" && json !== null
-                    ? (json as { games?: unknown[] })
-                    : null;
-            raw = Array.isArray(maybeObj?.games) ? maybeObj.games : [];
-        }
-        type RawGame = {
-            id?: number;
-            name?: string;
-            rating?: number;
-            weightedRating?: number;
-            cover?: { url?: string } | string; // Support both object and string
-        };
-        const normalized: Game[] = (raw as RawGame[]).map((g, idx) => {
-            let coverUrl = "/gamepictures/placeholder.png";
-            
-            // Handle cover as either object with url or direct string
-            let coverUrlValue: string | undefined;
-            if (typeof g.cover === 'string') {
-                coverUrlValue = g.cover;
-            } else if (g.cover && typeof g.cover === 'object' && 'url' in g.cover) {
-                coverUrlValue = g.cover.url;
-            }
-            
-            if (coverUrlValue && coverUrlValue.trim() !== "") {
-                const upgraded = upgradeImageUrl(coverUrlValue);
-                if (upgraded && upgraded.trim() !== "") {
-                    coverUrl = upgraded;
-                }
-            }
-            return {
-                id: g.id ?? idx + 1,
-                rank: idx + 1,
-                title: g.name ?? "Untitled",
-                producer: "",
-                hours: Math.round(g.rating ?? 0),
-                image: coverUrl,
-                rating: Number(g.weightedRating ?? g.rating ?? 0),
-                console: "",
-                year: "",
-                genre: "",
-                company: "",
-                credits: "",
-                hundredPercent: "",
-                dlc: "",
-            };
-        });
-        return {
-            props: {
-                initialGames: normalized,
-                builtAt: new Date().toISOString(),
-            },
-        };
-    } catch (e) {
-        const msg = e instanceof Error ? e.message : String(e);
-        return {
-            props: {
-                initialGames: [],
-                initialError: msg,
-                builtAt: new Date().toISOString(),
-            },
-        };
-    }
-};
