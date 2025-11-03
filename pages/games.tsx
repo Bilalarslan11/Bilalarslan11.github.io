@@ -110,11 +110,78 @@ const Gaming = () =>
             {
                 if (!cancelled)
                 {
-                    const msg = e instanceof Error ? e.message : String(e);
-                    setError(msg);
-                    setGames([]);
-                    setFilteredGames([]);
-                    setFetchedAt(new Date().toISOString());
+                    try
+                    {
+                        const backupRes = await fetch("/backupList.json", {
+                            cache: "no-store"
+                        });
+                        if (!backupRes.ok)
+                        {
+                            throw new Error(`Backup responded ${backupRes.status}`);
+                        }
+                        const backupJson = await backupRes.json();
+                        const raw = Array.isArray(backupJson)
+                            ? backupJson
+                            : Array.isArray(backupJson?.games)
+                                ? (backupJson.games as unknown[])
+                                : [];
+                        type RawGame = {
+                            id?: number;
+                            name?: string;
+                            rating?: number;
+                            weightedRating?: number;
+                            cover?: { url?: string } | string;
+                        };
+                        const normalized: Game[] = (raw as RawGame[]).map((g, idx) =>
+                        {
+                            let coverUrl = "/gamepictures/placeholder.png";
+                            let coverUrlValue: string | undefined;
+                            if (typeof g.cover === "string")
+                            {
+                                coverUrlValue = g.cover;
+                            }
+                            else if (g.cover && typeof g.cover === "object" && "url" in g.cover)
+                            {
+                                coverUrlValue = (g.cover as { url?: string }).url;
+                            }
+                            if (coverUrlValue && coverUrlValue.trim() !== "")
+                            {
+                                const upgraded = upgradeImageUrl(coverUrlValue);
+                                if (upgraded && upgraded.trim() !== "")
+                                {
+                                    coverUrl = upgraded;
+                                }
+                            }
+                            return {
+                                id: g.id ?? idx + 1,
+                                rank: idx + 1,
+                                title: g.name ?? "Untitled",
+                                producer: "",
+                                hours: Math.round(g.rating ?? 0),
+                                image: coverUrl,
+                                rating: Number(g.weightedRating ?? g.rating ?? 0),
+                                console: "",
+                                year: "",
+                                genre: "",
+                                company: "",
+                                credits: "",
+                                hundredPercent: "",
+                                dlc: "",
+                            };
+                        });
+                        setGames(normalized);
+                        setFilteredGames(normalized);
+                        setFetchedAt(new Date().toISOString());
+                        setError(null);
+                    }
+                    catch
+                    {
+                        const msg = e instanceof Error ? e.message : String(e);
+                        setError(msg);
+                        setGames([]);
+                        setFilteredGames([]);
+                        setFetchedAt(new Date().toISOString());
+                    }
                 }
             }
         })();
@@ -174,6 +241,7 @@ const Gaming = () =>
                     gameStatuses={gameStatuses}
                     onStatusUpdate={refreshStatuses}
                     valueLabel="/ 100"
+                    showStatusButton
                 />
             )}
             {!error && (

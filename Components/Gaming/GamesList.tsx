@@ -8,6 +8,7 @@ interface GamesListProps {
     gameStatuses: GameStatusEntry[];
     onStatusUpdate: () => void;
     valueLabel: string;
+    showStatusButton?: boolean;
 }
 
 const GamesList: React.FC<GamesListProps> = ({
@@ -15,6 +16,7 @@ const GamesList: React.FC<GamesListProps> = ({
     gameStatuses,
     onStatusUpdate,
     valueLabel,
+    showStatusButton,
 }) => {
     return (
         <div className="w-[90%] max-w-[112rem] mx-auto pb-16">
@@ -26,6 +28,7 @@ const GamesList: React.FC<GamesListProps> = ({
                         gameStatuses={gameStatuses}
                         onStatusUpdate={onStatusUpdate}
                         valueLabel={valueLabel}
+                        showStatusButton={showStatusButton}
                     />
                 ))}
             </div>

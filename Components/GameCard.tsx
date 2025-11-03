@@ -13,6 +13,7 @@ interface Props {
     gameStatuses: GameStatusEntry[];
     onStatusUpdate: () => void;
     valueLabel: string; // label under the numeric value (e.g., 'hours' or '/ 100')
+    showStatusButton?: boolean;
 }
 
 const CrownIcon: React.FC<{ rank: number }> = ({ rank }) => {
@@ -67,6 +68,7 @@ const GameCard = ({
     gameStatuses,
     onStatusUpdate,
     valueLabel,
+    showStatusButton,
 }: Props) => {
     const [currentStatus, setCurrentStatus] = useState<GameStatus | null>(null);
     const [showStatusModal, setShowStatusModal] = useState(false);
@@ -106,6 +108,12 @@ const GameCard = ({
         }
     };
 
+    const handlePlusClick = (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setShowStatusModal(true);
+    };
+
     return (
         <>
             <Link
@@ -132,14 +140,15 @@ const GameCard = ({
                             />
                         )}
 
-                        {/* Plus Button */}
-                        {/* <button
-                            onClick={handlePlusClick}
-                            className="absolute top-2 right-2 w-8 h-8 bg-theme-secondary hover:bg-theme-accent text-theme-text rounded-full flex items-center justify-center text-lg font-bold z-10 transition-all duration-200 border-2 border-theme-secondary hover:border-theme-accent shadow-lg"
-                            title="Set game status"
-                        >
-                            +
-                        </button> */}
+                        {showStatusButton && (
+                            <button
+                                onClick={handlePlusClick}
+                                className="absolute top-2 right-2 w-8 h-8 bg-theme-secondary hover:bg-theme-accent text-theme-text rounded-full flex items-center justify-center text-lg font-bold z-10 transition-all duration-200 border-2 border-theme-secondary hover:border-theme-accent shadow-lg"
+                                title="Set game status"
+                            >
+                                +
+                            </button>
+                        )}
 
                         {/* Status indicator intentionally removed in Tailwind refactor */}
 
