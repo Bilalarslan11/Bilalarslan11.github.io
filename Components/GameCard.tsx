@@ -84,7 +84,7 @@ const GameCard = ({
     const handleStatusUpdate = (newStatus: GameStatus) => {
         setIsLoading(true);
         try {
-            updateGameStatus(game.id, newStatus);
+            updateGameStatus(game.id, newStatus, game.title);
             setCurrentStatus(newStatus);
             setShowStatusModal(false);
             onStatusUpdate(); // Refresh the parent's status list
@@ -112,6 +112,28 @@ const GameCard = ({
         e.preventDefault();
         e.stopPropagation();
         setShowStatusModal(true);
+    };
+
+    const StatusIcon: React.FC<{ status: GameStatus }> = ({ status }) => {
+        if (status === "Completed") {
+            return (
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-3 h-3 sm:w-4 sm:h-4">
+                    <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-7.5 9.5a.75.75 0 0 1-1.115.05l-4-4.25a.75.75 0 1 1 1.086-1.034l3.41 3.624 6.973-8.833a.75.75 0 0 1 1.003-.109z" clipRule="evenodd" />
+                </svg>
+            );
+        }
+        if (status === "Quit") {
+            return (
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-3 h-3 sm:w-4 sm:h-4">
+                    <path fillRule="evenodd" d="M4.293 4.293a1 1 0 0 1 1.414 0L10 8.586l4.293-4.293a1 1 0 1 1 1.414 1.414L11.414 10l4.293 4.293a1 1 0 0 1-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L8.586 10 4.293 5.707a1 1 0 0 1 0-1.414z" clipRule="evenodd" />
+                </svg>
+            );
+        }
+        return (
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3 sm:w-4 sm:h-4">
+                <path d="M6 8a3 3 0 1 1 0-6 3 3 0 0 1 0 6Zm12 0a3 3 0 1 1 0-6 3 3 0 0 1 0 6ZM3 14.5A2.5 2.5 0 0 1 5.5 12h13A2.5 2.5 0 0 1 21 14.5v3A2.5 2.5 0 0 1 18.5 20h-13A2.5 2.5 0 0 1 3 17.5v-3Z"/>
+            </svg>
+        );
     };
 
     return (
@@ -152,8 +174,24 @@ const GameCard = ({
 
                         {/* Status indicator intentionally removed in Tailwind refactor */}
 
-                        {/* 100% and DLC indicators */}
+                        {/* Status + 100% and DLC indicators */}
                         <div className="absolute bottom-2 right-2 flex gap-1">
+                            {currentStatus && (
+                                <div
+                                    className={
+                                        `flex items-center gap-1 text-[10px] sm:text-xs px-1 py-0.5 sm:px-2 sm:py-1 rounded font-bold shadow-lg border ` +
+                                        (currentStatus === "Completed"
+                                            ? "bg-green-600 text-white border-green-500"
+                                            : currentStatus === "Quit"
+                                                ? "bg-red-600 text-white border-red-500"
+                                                : "bg-blue-600 text-white border-blue-500")
+                                    }
+                                    title={currentStatus}
+                                >
+                                    <StatusIcon status={currentStatus} />
+                                    <span className="hidden xs:inline">{currentStatus}</span>
+                                </div>
+                            )}
                             {game.hundredPercent &&
                                 game.hundredPercent.trim() !== "" &&
                                 game.hundredPercent.toLowerCase() !== "no" &&

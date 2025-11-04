@@ -244,13 +244,6 @@ const Gaming = () =>
                     showStatusButton
                 />
             )}
-            {!error && (
-                <div className="w-[90%] max-w-[112rem] mx-auto mt-4 text-right text-[10px] text-gray-400">
-                    <span>
-                        Fetched at {new Date(fetchedAt).toLocaleString()}
-                    </span>
-                </div>
-            )}
         </GamingPageLayout>
     );
 };
