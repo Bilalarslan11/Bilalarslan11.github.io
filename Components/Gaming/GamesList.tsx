@@ -9,6 +9,7 @@ interface GamesListProps {
     onStatusUpdate: () => void;
     valueLabel: string;
     showStatusButton?: boolean;
+    disableLink?: boolean;
 }
 
 const GamesList: React.FC<GamesListProps> = ({
@@ -17,6 +18,7 @@ const GamesList: React.FC<GamesListProps> = ({
     onStatusUpdate,
     valueLabel,
     showStatusButton,
+    disableLink,
 }) => {
     return (
         <div className="w-[90%] max-w-[112rem] mx-auto pb-16">
@@ -29,6 +31,7 @@ const GamesList: React.FC<GamesListProps> = ({
                         onStatusUpdate={onStatusUpdate}
                         valueLabel={valueLabel}
                         showStatusButton={showStatusButton}
+                        disableLink={disableLink}
                     />
                 ))}
             </div>

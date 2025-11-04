@@ -3,10 +3,12 @@ import {
     GameStatus,
     GameStatusEntry,
     updateGameStatus,
+    clearGameStatus,
 } from "@/utils/gameStatusManager";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { CheckCircle, Close, SportsEsports } from "@mui/icons-material";
 
 interface Props {
     game: Game;
@@ -14,6 +16,7 @@ interface Props {
     onStatusUpdate: () => void;
     valueLabel: string; // label under the numeric value (e.g., 'hours' or '/ 100')
     showStatusButton?: boolean;
+    disableLink?: boolean;
 }
 
 const CrownIcon: React.FC<{ rank: number }> = ({ rank }) => {
@@ -69,6 +72,7 @@ const GameCard = ({
     onStatusUpdate,
     valueLabel,
     showStatusButton,
+    disableLink,
 }: Props) => {
     const [currentStatus, setCurrentStatus] = useState<GameStatus | null>(null);
     const [showStatusModal, setShowStatusModal] = useState(false);
@@ -84,8 +88,13 @@ const GameCard = ({
     const handleStatusUpdate = (newStatus: GameStatus) => {
         setIsLoading(true);
         try {
-            updateGameStatus(game.id, newStatus, game.title);
-            setCurrentStatus(newStatus);
+            if (currentStatus === newStatus) {
+                clearGameStatus(game.id);
+                setCurrentStatus(null);
+            } else {
+                updateGameStatus(game.id, newStatus, game.title);
+                setCurrentStatus(newStatus);
+            }
             setShowStatusModal(false);
             onStatusUpdate(); // Refresh the parent's status list
         } catch (error) {
@@ -115,29 +124,124 @@ const GameCard = ({
     };
 
     const StatusIcon: React.FC<{ status: GameStatus }> = ({ status }) => {
+        const size = 18; // pops more than tiny inline SVGs
         if (status === "Completed") {
-            return (
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-3 h-3 sm:w-4 sm:h-4">
-                    <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-7.5 9.5a.75.75 0 0 1-1.115.05l-4-4.25a.75.75 0 1 1 1.086-1.034l3.41 3.624 6.973-8.833a.75.75 0 0 1 1.003-.109z" clipRule="evenodd" />
-                </svg>
-            );
+            return <CheckCircle sx={{ fontSize: size }} />;
         }
         if (status === "Quit") {
-            return (
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-3 h-3 sm:w-4 sm:h-4">
-                    <path fillRule="evenodd" d="M4.293 4.293a1 1 0 0 1 1.414 0L10 8.586l4.293-4.293a1 1 0 1 1 1.414 1.414L11.414 10l4.293 4.293a1 1 0 0 1-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L8.586 10 4.293 5.707a1 1 0 0 1 0-1.414z" clipRule="evenodd" />
-                </svg>
-            );
+            return <Close sx={{ fontSize: size }} />;
         }
-        return (
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3 sm:w-4 sm:h-4">
-                <path d="M6 8a3 3 0 1 1 0-6 3 3 0 0 1 0 6Zm12 0a3 3 0 1 1 0-6 3 3 0 0 1 0 6ZM3 14.5A2.5 2.5 0 0 1 5.5 12h13A2.5 2.5 0 0 1 21 14.5v3A2.5 2.5 0 0 1 18.5 20h-13A2.5 2.5 0 0 1 3 17.5v-3Z"/>
-            </svg>
-        );
+        return <SportsEsports sx={{ fontSize: size }} />;
     };
 
     return (
         <>
+            {disableLink ? (
+                <div className="block">
+                    <div className="relative bg-transparent transition-transform duration-300 min-w-0 w-full hover:scale-105 cursor-pointer">
+                        <div className="relative aspect-square bg-gray-700 overflow-hidden rounded-lg mb-2">
+                            {game.image.startsWith('http') ? (
+                                <img
+                                    src={game.image}
+                                    alt={game.title}
+                                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 rounded-lg hover:scale-110"
+                                    loading="lazy"
+                                    referrerPolicy="no-referrer"
+                                />
+                            ) : (
+                                <Image
+                                    src={game.image}
+                                    alt={game.title}
+                                    fill
+                                    className="object-cover transition-transform duration-300 rounded-lg hover:scale-110"
+                                />
+                            )}
+                            {showStatusButton && (
+                                <button
+                                    onClick={handlePlusClick}
+                                    className="absolute top-2 right-2 w-8 h-8 bg-theme-secondary hover:bg-theme-accent text-theme-text rounded-full flex items-center justify-center text-lg font-bold z-10 transition-all duration-200 border-2 border-theme-secondary hover:border-theme-accent shadow-lg"
+                                    title="Set game status"
+                                >
+                                    +
+                                </button>
+                            )}
+                            {/* Status + 100% and DLC indicators */}
+                            <div className="absolute bottom-2 right-2 flex gap-1">
+                                {currentStatus && (
+                                    <div
+                                        className={
+                                            `flex items-center gap-1 text-[10px] sm:text-xs px-2 py-1 sm:px-3 sm:py-1 rounded-full font-bold shadow-xl border-2 ring-2 ring-offset-1 backdrop-blur-sm ` +
+                                            (currentStatus === "Completed"
+                                                ? "bg-green-600 text-white border-green-400 ring-green-300/40"
+                                                : currentStatus === "Quit"
+                                                    ? "bg-red-600 text-white border-red-400 ring-red-300/40"
+                                                    : "bg-blue-600 text-white border-blue-400 ring-blue-300/40")
+                                        }
+                                        title={currentStatus}
+                                    >
+                                        <span className="opacity-95 drop-shadow-md flex items-center">
+                                            <StatusIcon status={currentStatus} />
+                                        </span>
+                                        <span className="hidden xs:inline opacity-95 drop-shadow-md">
+                                            {currentStatus}
+                                        </span>
+                                    </div>
+                                )}
+                                {game.hundredPercent &&
+                                    game.hundredPercent.trim() !== "" &&
+                                    game.hundredPercent.toLowerCase() !== "no" &&
+                                    game.hundredPercent.toLowerCase() !== "yes" && (
+                                        <div
+                                            className="text-[10px] sm:text-xs px-1 py-0.5 sm:px-2 sm:py-1 bg-theme-gold text-black rounded font-bold shadow-lg border border-theme-gold"
+                                            title="100% Complete"
+                                        >
+                                            100%
+                                        </div>
+                                    )}
+                                {game.dlc &&
+                                    game.dlc.trim() !== "" &&
+                                    game.dlc.toLowerCase() !== "no" && (
+                                        <div
+                                            className="text-[10px] sm:text-xs px-1 py-0.5 sm:px-2 sm:py-1 bg-theme-secondary text-theme-text rounded font-bold shadow-lg border border-theme-secondary"
+                                            title="DLC Available"
+                                        >
+                                            DLC
+                                        </div>
+                                    )}
+                            </div>
+                        </div>
+                        <div className="relative bg-[#111111] rounded-lg p-2 pt-6 sm:p-4 sm:pt-4 flex justify-between items-start">
+                            {game.rank <= 0 ? (
+                                <div className="absolute -top-4 -left-1 sm:-top-5 sm:-left-1 w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center z-20">
+                                    <CrownIcon rank={game.rank} />
+                                </div>
+                            ) : (
+                                <div
+                                    className={`absolute -top-4 -left-1 sm:-top-10 sm:-left-2 flex items-center justify-center text-white font-bold bg-black ${getRankColorClass(
+                                        game.rank
+                                    )} w-8 h-8 sm:w-12 sm:h-12 text-[12px] sm:text-base rounded-full border-2 sm:border-4 border-black`}
+                                >
+                                    {game.rank}
+                                </div>
+                            )}
+                            <div className="min-w-0">
+                                <h3 className="text-white font-bold text-[10px] xs:text-xs sm:text-sm mb-1 leading-tight break-words">
+                                    {game.title}
+                                </h3>
+                                <p className="text-gray-300 text-[8px] xs:text-[10px] sm:text-xs m-0">
+                                    {game.producer}
+                                </p>
+                            </div>
+                            <div className="flex flex-col items-center gap-1 text-yellow-400 font-bold text-sm leading-none">
+                                <span>{game.hours}</span>
+                                <span className="text-[10px] text-yellow-100">
+                                    {valueLabel}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            ) : (
             <Link
                 href={`/gaming/${game.id}`}
                 className="block"
@@ -179,17 +283,21 @@ const GameCard = ({
                             {currentStatus && (
                                 <div
                                     className={
-                                        `flex items-center gap-1 text-[10px] sm:text-xs px-1 py-0.5 sm:px-2 sm:py-1 rounded font-bold shadow-lg border ` +
+                                        `flex items-center gap-1 text-[10px] sm:text-xs px-2 py-1 sm:px-3 sm:py-1 rounded-full font-bold shadow-xl border-2 ring-2 ring-offset-1 backdrop-blur-sm ` +
                                         (currentStatus === "Completed"
-                                            ? "bg-green-600 text-white border-green-500"
+                                            ? "bg-green-600 text-white border-green-400 ring-green-300/40"
                                             : currentStatus === "Quit"
-                                                ? "bg-red-600 text-white border-red-500"
-                                                : "bg-blue-600 text-white border-blue-500")
+                                                ? "bg-red-600 text-white border-red-400 ring-red-300/40"
+                                                : "bg-blue-600 text-white border-blue-400 ring-blue-300/40")
                                     }
                                     title={currentStatus}
                                 >
-                                    <StatusIcon status={currentStatus} />
-                                    <span className="hidden xs:inline">{currentStatus}</span>
+                                    <span className="opacity-95 drop-shadow-md flex items-center">
+                                        <StatusIcon status={currentStatus} />
+                                    </span>
+                                    <span className="hidden xs:inline opacity-95 drop-shadow-md">
+                                        {currentStatus}
+                                    </span>
                                 </div>
                             )}
                             {game.hundredPercent &&
@@ -248,6 +356,7 @@ const GameCard = ({
                     </div>
                 </div>
             </Link>
+            )}
 
             {/* Status Selection Modal */}
             {showStatusModal && (

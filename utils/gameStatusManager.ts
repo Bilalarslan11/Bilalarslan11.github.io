@@ -61,6 +61,19 @@ export function updateGameStatus(
   }
 }
 
+export function clearGameStatus(gameId: number): void {
+  try {
+    if (typeof window === "undefined") {
+      return;
+    }
+    const statuses = loadGameStatuses().filter((entry) => entry.id !== gameId);
+    localStorage.setItem("gameStatuses", JSON.stringify(statuses));
+  } catch (error) {
+    console.error("Error clearing game status:", error);
+    throw error;
+  }
+}
+
 // Helper function to find a specific game's status
 export function getGameStatus(
   gameId: number,

@@ -242,6 +242,7 @@ const Gaming = () =>
                     onStatusUpdate={refreshStatuses}
                     valueLabel="/ 100"
                     showStatusButton
+                    disableLink
                 />
             )}
         </GamingPageLayout>
