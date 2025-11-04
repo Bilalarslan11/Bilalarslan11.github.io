@@ -64,6 +64,7 @@ const Gaming = () => {
             <GameFilter
                 games={gamesFromCSV}
                 onFilterChange={handleFilterChange}
+                gameStatuses={gameStatuses}
             />
             <GamesList
                 games={filteredGames}

@@ -1,9 +1,10 @@
 import { Game } from "@/models/Game";
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 interface GameFilterProps {
     games: Game[];
     onFilterChange: (filteredGames: Game[]) => void;
+    gameStatuses?: { id: number; status: string }[]; // optional to avoid breaking callers
 }
 
 interface Filters {
@@ -12,7 +13,11 @@ interface Filters {
     console: string[];
 }
 
-const GameFilter: React.FC<GameFilterProps> = ({ games, onFilterChange }) => {
+const GameFilter: React.FC<GameFilterProps> = ({
+    games,
+    onFilterChange,
+    gameStatuses,
+}) => {
     const [showFilterPopover, setShowFilterPopover] = useState(false);
     const [filters, setFilters] = useState<Filters>({
         company: [],
@@ -130,8 +135,8 @@ const GameFilter: React.FC<GameFilterProps> = ({ games, onFilterChange }) => {
                     )}
                 </div>
 
-                {/* Filter Icon and Popover */}
-                <div className="relative inline-block">
+                {/* Filter & Save Buttons */}
+                <div className="relative inline-flex items-center gap-3">
                     <button
                         onClick={() => setShowFilterPopover(!showFilterPopover)}
                         className="p-2 rounded-md border-2 border-theme-secondary bg-theme-darker text-white text-base font-medium cursor-pointer outline-none transition-all flex items-center gap-2 hover:bg-theme-dark focus:border-theme-accent"
@@ -154,6 +159,59 @@ const GameFilter: React.FC<GameFilterProps> = ({ games, onFilterChange }) => {
                         {hasActiveFilters && (
                             <span className="w-2 h-2 rounded-full bg-theme-secondary ml-1" />
                         )}
+                    </button>
+
+                    {/* Save (Export) Button */}
+                    <button
+                        onClick={() => {
+                            try {
+                                const payload = Array.isArray(gameStatuses)
+                                    ? gameStatuses
+                                    : [];
+                                const blob = new Blob(
+                                    [JSON.stringify(payload, null, 2)],
+                                    { type: "application/json" }
+                                );
+                                const url = URL.createObjectURL(blob);
+                                const a = document.createElement("a");
+                                a.href = url;
+                                a.download = `game-statuses-${
+                                    new Date().toISOString().split("T")[0]
+                                }.json`;
+                                document.body.appendChild(a);
+                                a.click();
+                                a.remove();
+                                URL.revokeObjectURL(url);
+                            } catch (e) {
+                                console.error(
+                                    "Failed to export game statuses",
+                                    e
+                                );
+                            }
+                        }}
+                        className="p-2 rounded-md border-2 border-theme-secondary bg-theme-darker text-white text-base font-medium cursor-pointer outline-none transition-all flex items-center gap-2 hover:bg-theme-dark focus:border-theme-accent disabled:opacity-50"
+                        disabled={!gameStatuses || gameStatuses.length === 0}
+                        title={
+                            !gameStatuses || gameStatuses.length === 0
+                                ? "No statuses to export"
+                                : "Download game status JSON"
+                        }
+                    >
+                        {/* Save Icon (simple floppy) */}
+                        <svg
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        >
+                            <path d="M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" />
+                            <path d="M10 2v6h4V2" />
+                        </svg>
+                        Save
                     </button>
 
                     {/* Filter Popover */}

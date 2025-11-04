@@ -6,8 +6,7 @@ import { GameStatusEntry, loadGameStatuses } from "@/utils/gameStatusManager";
 import { upgradeImageUrl } from "@/utils/imageUtils";
 import { useEffect, useState } from "react";
 
-const Gaming = () =>
-{
+const Gaming = () => {
     const [nav, setNav] = useState(false);
     const openNav = () => setNav(true);
     const closeNav = () => setNav(false);
@@ -17,7 +16,7 @@ const Gaming = () =>
     const [filteredGames, setFilteredGames] = useState<Game[]>([]);
     const [gameStatuses, setGameStatuses] = useState<GameStatusEntry[]>([]);
     const [error, setError] = useState<string | null>(null);
-    const [fetchedAt, setFetchedAt] = useState<string>("");
+    // removed fetchedAt (unused)
 
     useEffect(() => {
         try {
@@ -28,26 +27,24 @@ const Gaming = () =>
         }
     }, []);
 
-    useEffect(() =>
-    {
+    useEffect(() => {
         let cancelled = false;
-        (async () =>
-        {
-            try
-            {
-                const res = await fetch("https://api.zehai.dk/games/top-rated", {
-                    cache: "no-store",
-                    mode: "cors",
-                    credentials: "omit"
-                });
-                if (!res.ok)
-                {
+        (async () => {
+            try {
+                const res = await fetch(
+                    "https://api.zehai.dk/games/top-rated",
+                    {
+                        cache: "no-store",
+                        mode: "cors",
+                        credentials: "omit",
+                    }
+                );
+                if (!res.ok) {
                     throw new Error(`API responded ${res.status}`);
                 }
                 const json = await res.json();
                 let raw: unknown = json;
-                if (!Array.isArray(raw))
-                {
+                if (!Array.isArray(raw)) {
                     const maybeObj =
                         typeof json === "object" && json !== null
                             ? (json as { games?: unknown[] })
@@ -61,23 +58,21 @@ const Gaming = () =>
                     weightedRating?: number;
                     cover?: { url?: string } | string;
                 };
-                const normalized: Game[] = (raw as RawGame[]).map((g, idx) =>
-                {
+                const normalized: Game[] = (raw as RawGame[]).map((g, idx) => {
                     let coverUrl = "/gamepictures/placeholder.png";
                     let coverUrlValue: string | undefined;
-                    if (typeof g.cover === "string")
-                    {
+                    if (typeof g.cover === "string") {
                         coverUrlValue = g.cover;
-                    }
-                    else if (g.cover && typeof g.cover === "object" && "url" in g.cover)
-                    {
+                    } else if (
+                        g.cover &&
+                        typeof g.cover === "object" &&
+                        "url" in g.cover
+                    ) {
                         coverUrlValue = (g.cover as { url?: string }).url;
                     }
-                    if (coverUrlValue && coverUrlValue.trim() !== "")
-                    {
+                    if (coverUrlValue && coverUrlValue.trim() !== "") {
                         const upgraded = upgradeImageUrl(coverUrlValue);
-                        if (upgraded && upgraded.trim() !== "")
-                        {
+                        if (upgraded && upgraded.trim() !== "") {
                             coverUrl = upgraded;
                         }
                     }
@@ -98,33 +93,29 @@ const Gaming = () =>
                         dlc: "",
                     };
                 });
-                if (!cancelled)
-                {
+                if (!cancelled) {
                     setGames(normalized);
                     setFilteredGames(normalized);
-                    setFetchedAt(new Date().toISOString());
+                    // snapshot time removed (unused)
                     setError(null);
                 }
-            }
-            catch (e)
-            {
-                if (!cancelled)
-                {
-                    try
-                    {
+            } catch (e) {
+                if (!cancelled) {
+                    try {
                         const backupRes = await fetch("/backupList.json", {
-                            cache: "no-store"
+                            cache: "no-store",
                         });
-                        if (!backupRes.ok)
-                        {
-                            throw new Error(`Backup responded ${backupRes.status}`);
+                        if (!backupRes.ok) {
+                            throw new Error(
+                                `Backup responded ${backupRes.status}`
+                            );
                         }
                         const backupJson = await backupRes.json();
                         const raw = Array.isArray(backupJson)
                             ? backupJson
                             : Array.isArray(backupJson?.games)
-                                ? (backupJson.games as unknown[])
-                                : [];
+                            ? (backupJson.games as unknown[])
+                            : [];
                         type RawGame = {
                             id?: number;
                             name?: string;
@@ -132,61 +123,66 @@ const Gaming = () =>
                             weightedRating?: number;
                             cover?: { url?: string } | string;
                         };
-                        const normalized: Game[] = (raw as RawGame[]).map((g, idx) =>
-                        {
-                            let coverUrl = "/gamepictures/placeholder.png";
-                            let coverUrlValue: string | undefined;
-                            if (typeof g.cover === "string")
-                            {
-                                coverUrlValue = g.cover;
-                            }
-                            else if (g.cover && typeof g.cover === "object" && "url" in g.cover)
-                            {
-                                coverUrlValue = (g.cover as { url?: string }).url;
-                            }
-                            if (coverUrlValue && coverUrlValue.trim() !== "")
-                            {
-                                const upgraded = upgradeImageUrl(coverUrlValue);
-                                if (upgraded && upgraded.trim() !== "")
-                                {
-                                    coverUrl = upgraded;
+                        const normalized: Game[] = (raw as RawGame[]).map(
+                            (g, idx) => {
+                                let coverUrl = "/gamepictures/placeholder.png";
+                                let coverUrlValue: string | undefined;
+                                if (typeof g.cover === "string") {
+                                    coverUrlValue = g.cover;
+                                } else if (
+                                    g.cover &&
+                                    typeof g.cover === "object" &&
+                                    "url" in g.cover
+                                ) {
+                                    coverUrlValue = (
+                                        g.cover as { url?: string }
+                                    ).url;
                                 }
+                                if (
+                                    coverUrlValue &&
+                                    coverUrlValue.trim() !== ""
+                                ) {
+                                    const upgraded =
+                                        upgradeImageUrl(coverUrlValue);
+                                    if (upgraded && upgraded.trim() !== "") {
+                                        coverUrl = upgraded;
+                                    }
+                                }
+                                return {
+                                    id: g.id ?? idx + 1,
+                                    rank: idx + 1,
+                                    title: g.name ?? "Untitled",
+                                    producer: "",
+                                    hours: Math.round(g.rating ?? 0),
+                                    image: coverUrl,
+                                    rating: Number(
+                                        g.weightedRating ?? g.rating ?? 0
+                                    ),
+                                    console: "",
+                                    year: "",
+                                    genre: "",
+                                    company: "",
+                                    credits: "",
+                                    hundredPercent: "",
+                                    dlc: "",
+                                };
                             }
-                            return {
-                                id: g.id ?? idx + 1,
-                                rank: idx + 1,
-                                title: g.name ?? "Untitled",
-                                producer: "",
-                                hours: Math.round(g.rating ?? 0),
-                                image: coverUrl,
-                                rating: Number(g.weightedRating ?? g.rating ?? 0),
-                                console: "",
-                                year: "",
-                                genre: "",
-                                company: "",
-                                credits: "",
-                                hundredPercent: "",
-                                dlc: "",
-                            };
-                        });
+                        );
                         setGames(normalized);
                         setFilteredGames(normalized);
-                        setFetchedAt(new Date().toISOString());
+                        // snapshot time removed (unused)
                         setError(null);
-                    }
-                    catch
-                    {
+                    } catch {
                         const msg = e instanceof Error ? e.message : String(e);
                         setError(msg);
                         setGames([]);
                         setFilteredGames([]);
-                        setFetchedAt(new Date().toISOString());
+                        // snapshot time removed (unused)
                     }
                 }
             }
         })();
-        return () =>
-        {
+        return () => {
             cancelled = true;
         };
     }, []);
@@ -233,6 +229,7 @@ const Gaming = () =>
                 <GameFilter
                     games={games}
                     onFilterChange={handleFilterChange}
+                    gameStatuses={gameStatuses}
                 />
             )}
             {!error && (
