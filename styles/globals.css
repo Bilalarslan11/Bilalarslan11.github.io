@@ -1,3 +1,17 @@
+@theme {
+    --color-theme-primary: #000000;
+    --color-theme-secondary: #ef4444;
+    --color-theme-accent: #dc2626;
+    --color-theme-dark: #991b1b;
+    --color-theme-darker: #7f1d1d;
+    --color-theme-text: #ffffff;
+    --color-theme-text-secondary: #ffffff92;
+    --color-theme-text-muted: #d1d5db;
+    --color-theme-gold: #ffd700;
+    --color-theme-silver: #c0c0c0;
+    --color-theme-bronze: #cd7f32;
+}
+
 /* Tailwind base layers */
 @tailwind base;
 @tailwind components;
