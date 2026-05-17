@@ -1,42 +1,43 @@
 {
-  "name": "civi",
-  "version": "0.1.0",
-  "private": true,
-  "homepage": "https://zehai.dk",
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "predeploy": "npm run build",
-    "deploy": "touch ./out/.nojekyll && gh-pages -d out -t true"
-  },
-  "dependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.1",
-    "@heroicons/react": "^2.2.0",
-    "@mui/icons-material": "^7.3.6",
-    "next": "^16.2.6",
-    "papaparse": "^5.5.3",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
-    "react-tsparticles": "^2.12.2",
-    "react-type-animation": "^3.2.0",
-    "tsparticles-engine": "^2.12.0",
-    "tsparticles-slim": "^2.12.0"
-  },
-  "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.18",
-    "@types/node": "^25",
-    "@types/papaparse": "^5.5.2",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "autoprefixer": "^10.4.22",
-    "eslint": "^9",
-    "eslint-config-next": "16.0.10",
-    "gh-pages": "^6.3.0",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.18",
-    "typescript": "^5"
-  }
+    "name": "civi",
+    "version": "0.1.0",
+    "private": true,
+    "homepage": "https://zehai.dk",
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint",
+        "predeploy": "npm run build",
+        "deploy": "touch ./out/.nojekyll && gh-pages -d out -t true"
+    },
+    "dependencies": {
+        "@emotion/react": "^11.14.0",
+        "@emotion/styled": "^11.14.1",
+        "@heroicons/react": "^2.2.0",
+        "@mui/icons-material": "^7.3.6",
+        "@mui/material": "^9.0.1",
+        "next": "^16.3.0-canary.21",
+        "papaparse": "^5.5.3",
+        "react": "^19.2.3",
+        "react-dom": "^19.2.3",
+        "react-tsparticles": "^2.12.2",
+        "react-type-animation": "^3.2.0",
+        "tsparticles-engine": "^2.12.0",
+        "tsparticles-slim": "^2.12.0"
+    },
+    "devDependencies": {
+        "@tailwindcss/postcss": "^4.1.18",
+        "@types/node": "^25",
+        "@types/papaparse": "^5.5.2",
+        "@types/react": "^19",
+        "@types/react-dom": "^19",
+        "autoprefixer": "^10.4.22",
+        "eslint": "^9",
+        "eslint-config-next": "^16.3.0-canary.21",
+        "gh-pages": "^6.3.0",
+        "postcss": "^8.5.6",
+        "tailwindcss": "^4.1.18",
+        "typescript": "^5"
+    }
 }
