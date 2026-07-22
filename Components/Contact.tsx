@@ -23,8 +23,8 @@ const Contact = () => {
                             LinkedIn
                         </h1>
                         <p className="text-[17px] w-[90%] text-white opacity-60">
-                            <a href="https://linkedin.com/in/bilal-arslan-23199057">
-                                bilal-arslan-23199057
+                            <a href="https://linkedin.com/in/bilalarslan11">
+                                bilalarslan11
                             </a>
                         </p>
                     </div>
