@@ -77,6 +77,11 @@ const GameCard = ({
     const [currentStatus, setCurrentStatus] = useState<GameStatus | null>(null);
     const [showStatusModal, setShowStatusModal] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [saveError, setSaveError] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (!showStatusButton) setShowStatusModal(false);
+    }, [showStatusButton]);
 
     // Load game status from props
     useEffect(() => {
@@ -86,6 +91,8 @@ const GameCard = ({
     }, [game.id, gameStatuses]);
 
     const handleStatusUpdate = async (newStatus: GameStatus) => {
+        if (!showStatusButton || isLoading) return;
+        setSaveError(null);
         setIsLoading(true);
         try {
             if (currentStatus === newStatus) {
@@ -98,7 +105,7 @@ const GameCard = ({
             setShowStatusModal(false);
             onStatusUpdate(); // Refresh the parent's status list
         } catch (error) {
-            console.error("Error updating game status:", error);
+            setSaveError(error instanceof Error ? error.message : "Unable to save the game status.");
         } finally {
             setIsLoading(false);
         }
@@ -120,6 +127,8 @@ const GameCard = ({
     const handlePlusClick = (e: React.MouseEvent) => {
         e.preventDefault();
         e.stopPropagation();
+        if (!showStatusButton || isLoading) return;
+        setSaveError(null);
         setShowStatusModal(true);
     };
 
@@ -359,7 +368,7 @@ const GameCard = ({
             )}
 
             {/* Status Selection Modal */}
-            {showStatusModal && (
+            {showStatusModal && showStatusButton && (
                 <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
                     <div className="bg-theme-darker border-2 border-theme-secondary p-6 rounded-lg shadow-2xl max-w-sm w-full mx-4">
                         <h3 className="text-lg font-bold mb-4 text-theme-text text-center">
@@ -369,6 +378,7 @@ const GameCard = ({
                             </span>
                         </h3>
 
+                        {saveError && <p role="alert" className="mb-4 text-red-400">{saveError}</p>}
                         <div className="space-y-3">
                             {(
                                 ["Playing", "Completed", "Quit"] as GameStatus[]
