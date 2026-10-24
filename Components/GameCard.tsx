@@ -1,14 +1,14 @@
 import { Game } from "@/models/Game";
 import {
+    clearGameStatus,
     GameStatus,
     GameStatusEntry,
     updateGameStatus,
-    clearGameStatus,
 } from "@/utils/gameStatusManager";
+import { CheckCircle, Close, SportsEsports } from "@mui/icons-material";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { CheckCircle, Close, SportsEsports } from "@mui/icons-material";
 
 interface Props {
     game: Game;
@@ -85,14 +85,14 @@ const GameCard = ({
         setCurrentStatus(status);
     }, [game.id, gameStatuses]);
 
-    const handleStatusUpdate = (newStatus: GameStatus) => {
+    const handleStatusUpdate = async (newStatus: GameStatus) => {
         setIsLoading(true);
         try {
             if (currentStatus === newStatus) {
-                clearGameStatus(game.id);
+                await clearGameStatus(game.id);
                 setCurrentStatus(null);
             } else {
-                updateGameStatus(game.id, newStatus, game.title);
+                await updateGameStatus(game.id, newStatus, game.title);
                 setCurrentStatus(newStatus);
             }
             setShowStatusModal(false);

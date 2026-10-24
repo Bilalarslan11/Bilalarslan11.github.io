@@ -2,7 +2,10 @@ import GameFilter from "@/Components/Gaming/GameFilter";
 import GamesList from "@/Components/Gaming/GamesList";
 import GamingPageLayout from "@/Components/Gaming/GamingPageLayout";
 import { Game } from "@/models/Game";
-import { GameStatusEntry, loadGameStatuses } from "@/utils/gameStatusManager";
+import {
+    GameStatusEntry,
+    syncGameStatuses,
+} from "@/utils/gameStatusManager";
 import { upgradeImageUrl } from "@/utils/imageUtils";
 import { useEffect, useState } from "react";
 
@@ -19,12 +22,15 @@ const Gaming = () => {
     // removed fetchedAt (unused)
 
     useEffect(() => {
-        try {
-            const statuses = loadGameStatuses();
-            setGameStatuses(statuses);
-        } catch (err) {
-            console.error("Error loading game statuses:", err);
-        }
+        const loadStatuses = async () => {
+            try {
+                const statuses = await syncGameStatuses();
+                setGameStatuses(statuses);
+            } catch (err) {
+                console.error("Error loading game statuses:", err);
+            }
+        };
+        void loadStatuses();
     }, []);
 
     useEffect(() => {
@@ -187,9 +193,9 @@ const Gaming = () => {
         };
     }, []);
 
-    const refreshStatuses = () => {
+    const refreshStatuses = async () => {
         try {
-            const statuses = loadGameStatuses();
+            const statuses = await syncGameStatuses();
             setGameStatuses(statuses);
         } catch (err) {
             console.error("Error refreshing game statuses:", err);

@@ -6,6 +6,12 @@ export interface GameStatusEntry {
   name: string;
 }
 
+const STATUS_API_URL = "https://api.zehai.dk/statuses";
+
+function saveCachedStatuses(statuses: GameStatusEntry[]): void {
+  localStorage.setItem("gameStatuses", JSON.stringify(statuses));
+}
+
 // Client-side function to load game statuses from localStorage
 export function loadGameStatuses(): GameStatusEntry[] {
   try {
@@ -28,15 +34,32 @@ export function loadGameStatuses(): GameStatusEntry[] {
   }
 }
 
+export async function syncGameStatuses(): Promise<GameStatusEntry[]> {
+  if (typeof window === "undefined") return [];
+  try {
+    const response = await fetch(STATUS_API_URL, {
+      credentials: "include",
+      cache: "no-store",
+    });
+    if (!response.ok) return loadGameStatuses();
+    const statuses = (await response.json()) as GameStatusEntry[];
+    saveCachedStatuses(statuses);
+    return statuses;
+  } catch (error) {
+    console.error("Error syncing game statuses:", error);
+    return loadGameStatuses();
+  }
+}
+
 // Client-side function to update game status in localStorage
-export function updateGameStatus(
+export async function updateGameStatus(
   gameId: number,
   newStatus: GameStatus,
   gameName: string
-): void {
+): Promise<void> {
   try {
     if (typeof window === "undefined") {
-      return; // Do nothing during SSR
+      return;
     }
 
     const statuses = loadGameStatuses();
@@ -54,20 +77,36 @@ export function updateGameStatus(
       statuses.push(entry);
     }
 
-    localStorage.setItem("gameStatuses", JSON.stringify(statuses));
+    saveCachedStatuses(statuses);
+    const response = await fetch(STATUS_API_URL, {
+      method: "PUT",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: gameId, status: newStatus, name: gameName }),
+    });
+    if (!response.ok && response.status !== 401) {
+      throw new Error(`Status API responded ${response.status}`);
+    }
   } catch (error) {
     console.error("Error updating game status:", error);
     throw error;
   }
 }
 
-export function clearGameStatus(gameId: number): void {
+export async function clearGameStatus(gameId: number): Promise<void> {
   try {
     if (typeof window === "undefined") {
       return;
     }
     const statuses = loadGameStatuses().filter((entry) => entry.id !== gameId);
-    localStorage.setItem("gameStatuses", JSON.stringify(statuses));
+    saveCachedStatuses(statuses);
+    const response = await fetch(`${STATUS_API_URL}?id=${gameId}`, {
+      method: "DELETE",
+      credentials: "include",
+    });
+    if (!response.ok && response.status !== 401) {
+      throw new Error(`Status API responded ${response.status}`);
+    }
   } catch (error) {
     console.error("Error clearing game status:", error);
     throw error;

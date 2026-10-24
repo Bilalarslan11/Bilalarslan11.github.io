@@ -3,7 +3,10 @@ import GamesList from "@/Components/Gaming/GamesList";
 import GamingPageLayout from "@/Components/Gaming/GamingPageLayout";
 import { Game } from "@/models/Game";
 import { loadGameData } from "@/utils/gameDataParser";
-import { GameStatusEntry, loadGameStatuses } from "@/utils/gameStatusManager";
+import {
+    GameStatusEntry,
+    syncGameStatuses,
+} from "@/utils/gameStatusManager";
 import { useEffect, useState } from "react";
 
 const Gaming = () => {
@@ -28,9 +31,9 @@ const Gaming = () => {
             setGamesFromCSV(games);
         };
 
-        const loadStatuses = () => {
+        const loadStatuses = async () => {
             try {
-                const statuses = loadGameStatuses();
+            const statuses = await syncGameStatuses();
                 setGameStatuses(statuses);
             } catch (error) {
                 console.error("Error loading game statuses:", error);
@@ -38,12 +41,12 @@ const Gaming = () => {
         };
 
         loadGames();
-        loadStatuses();
+        void loadStatuses();
     }, []);
 
-    const refreshStatuses = () => {
+    const refreshStatuses = async () => {
         try {
-            const statuses = loadGameStatuses();
+            const statuses = await syncGameStatuses();
             setGameStatuses(statuses);
         } catch (error) {
             console.error("Error refreshing game statuses:", error);
