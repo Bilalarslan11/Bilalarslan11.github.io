@@ -28,7 +28,17 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
+      - name: Validate owner configuration
+        env:
+          NEXT_PUBLIC_GAMES_OWNER_ID: ${{ vars.NEXT_PUBLIC_GAMES_OWNER_ID }}
+        run: |
+          if [ -z "$NEXT_PUBLIC_GAMES_OWNER_ID" ]; then
+            echo '::error::Set NEXT_PUBLIC_GAMES_OWNER_ID in repository Settings > Secrets and variables > Actions > Variables.'
+            exit 1
+          fi
       - name: Build static website
+        env:
+          NEXT_PUBLIC_GAMES_OWNER_ID: ${{ vars.NEXT_PUBLIC_GAMES_OWNER_ID }}
         run: npm run build
       - name: Publish to gh-pages
         uses: peaceiris/actions-gh-pages@v4
